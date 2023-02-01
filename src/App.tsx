@@ -2,4 +2,6 @@ import React from 'react';
 
 import './App.css';
 
-export const App: React.FC = () => <div className="App">sgfhdfgh</div>;
+export const App: React.FC = () => {
+  return <div className="App"></div>;
+};

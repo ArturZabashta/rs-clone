@@ -8,9 +8,11 @@
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:react-hooks/recommended",
+        "plugin:import/recommended",
+        "plugin:react/jsx-runtime",
         "plugin:prettier/recommended",
-        "prettier",
-        "plugin:react/jsx-runtime"
+        "prettier"
+        
     ],
     "overrides": [
       {
