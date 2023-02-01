@@ -46,6 +46,7 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "src/app.tsx",
   "devDependencies": {
+    "@reduxjs/toolkit": "^1.9.2",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@types/react-router-dom": "^5.3.3",
@@ -58,7 +59,8 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "prettier": "^2.8.3"
+    "prettier": "^2.8.3",
+    "react-redux": "^8.0.5"
   },
   "repository": {
     "type": "git",
