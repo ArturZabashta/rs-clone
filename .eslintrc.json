@@ -52,6 +52,11 @@
     ],
     "rules": {
       "@typescript-eslint/no-explicit-any": "error",
-      "@typescript-eslint/no-var-reqiures": "off"
+      "@typescript-eslint/no-var-reqiures": "off",
+      "prettier/prettier": 
+      [ "error",
+        {
+          "endOfLine": "auto"}
+      ]
     }
 }
