@@ -8,6 +8,7 @@ const GameMenu: React.FC = () => {
     <section className="settings">
       <Link to="/single-player">SinglePlayer</Link>
       <Link to="/multi-player">MultiPlayer</Link>
+      <Link to="/score">Score</Link>
       <button>Close</button>
     </section>
   );

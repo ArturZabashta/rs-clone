@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <section className="home-page">
+    <section className="signup-page">
       <h2 className="page-title">SIGN UP</h2>
       <h3>Create an account</h3>
       <button onClick={() => navigate('/home')}>sign up</button>

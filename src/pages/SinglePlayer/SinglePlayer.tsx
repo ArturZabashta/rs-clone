@@ -4,7 +4,7 @@ import React from 'react';
 
 const SinglePlayer: React.FC = () => {
   return (
-    <section className="home-page">
+    <section className="single-player">
       <h2 className="page-title">SinglePlayer Page</h2>
     </section>
   );

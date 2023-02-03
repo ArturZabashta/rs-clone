@@ -12,6 +12,7 @@ const HomePage: React.FC = () => {
       <nav>
         <Link to="/single-player">SinglePlayer</Link>
         <Link to="/multi-player">MultiPlayer</Link>
+        <Link to="/score">Lider Board</Link>
       </nav>
       <Settings />
     </section>

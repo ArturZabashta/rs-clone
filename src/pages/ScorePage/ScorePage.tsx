@@ -4,7 +4,7 @@ import React from 'react';
 
 const ScorePage: React.FC = () => {
   return (
-    <section className="home-page">
+    <section className="score-page">
       <h2 className="page-title">Score Page </h2>
     </section>
   );

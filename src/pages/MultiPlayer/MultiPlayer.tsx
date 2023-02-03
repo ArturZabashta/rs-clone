@@ -4,7 +4,7 @@ import React from 'react';
 
 const MultiPlayer: React.FC = () => {
   return (
-    <section className="home-page">
+    <section className="multi-player">
       <h2 className="page-title">MultiPlayer Page</h2>
     </section>
   );
