@@ -9,7 +9,7 @@ import SignUpPage from './pages/SignUpPage/SignUpPage';
 import SinglePlayer from './pages/SinglePlayer/SinglePlayer';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 
-import './App.css';
+import './styles/App.scss';
 
 export const App: React.FC = () => {
   return (
