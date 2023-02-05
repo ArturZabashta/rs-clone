@@ -1,17 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import './LogInPage.css'
+
+import '../../styles/LoginPage.scss';
 
 const LogInPage: React.FC = () => {
   const navigate = useNavigate();
   return (
     <section className="login-page">
       <h2 className="page-title">LOG IN</h2>
-      <span>Email</span>
-      <input></input>
-      <span>Password</span>
-      <input></input>
-      <button onClick={() => navigate('/home')}>log in</button>
+      <form>
+        <span>Email</span>
+        <input type={'email'}></input>
+        <span>Password</span>
+        <input type={'password'}></input>
+        <button onClick={() => navigate('/home')} className="btn_blue">
+          log in
+        </button>
+      </form>
     </section>
   );
 };
