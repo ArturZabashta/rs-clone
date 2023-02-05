@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Julee&display=swap');
 
 *,
 *::before,
@@ -180,6 +181,7 @@ a:hover {
 }
 
 .text-on-video {
+  font-family: 'Julee', sans-serif;
   font-weight: 700;
   font-size: 24px;
   text-shadow: #000000 1px 0 10px;
