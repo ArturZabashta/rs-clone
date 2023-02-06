@@ -16,7 +16,6 @@ export const uiSlice = createSlice({
   reducers: {
     setCurrentPage: (state, action: PayloadAction<string>) => {
       state.currentPage = action.payload;
-      console.log('state.currentPage', state.currentPage);
     },
     setIsLogin: (state, action: PayloadAction<boolean>) => {
       state.isLogin = action.payload;

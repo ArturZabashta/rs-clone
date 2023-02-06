@@ -82,7 +82,7 @@ const Header: React.FC = () => {
       <h2 className="current-page">{pageName}</h2>
       <nav className="header_nav">
         {location === '/' ? (
-          <MyButton className="login_btn" route="/login">
+          <MyButton className="login_btn f-bold" route="/login">
             ALREADY HAVE AN ACCOUNT?
           </MyButton>
         ) : (
