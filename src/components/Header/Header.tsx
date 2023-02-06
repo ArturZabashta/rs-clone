@@ -21,7 +21,9 @@ const Header: React.FC = () => {
         <button onClick={() => navigate('/home')}>Back</button>
       </nav>
       <GameMenu />
-      <Link to="/login">ALREADY HAVE AN ACCOUNT?</Link>
+      <Link to="/login" className="f-bold">
+        ALREADY HAVE AN ACCOUNT?
+      </Link>
     </header>
   );
 };
