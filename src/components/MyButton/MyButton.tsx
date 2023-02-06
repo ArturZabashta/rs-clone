@@ -8,10 +8,11 @@ interface MyButtonProps {
   children: string;
   className: string;
   route?: string;
+  isDisabled?: boolean;
   onClickButton?: () => void;
 }
 
-const MyButton: React.FC<MyButtonProps> = ({ children, className, route, onClickButton }) => {
+const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisabled, onClickButton }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -23,7 +24,7 @@ const MyButton: React.FC<MyButtonProps> = ({ children, className, route, onClick
   };
 
   return (
-    <button className={className} onClick={() => handleClick()}>
+    <button className={className} disabled={isDisabled ? true : false} onClick={() => handleClick()}>
       {children}
     </button>
   );
