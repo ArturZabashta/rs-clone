@@ -73,10 +73,13 @@ const SignUpPage: React.FC = () => {
             {errors.password.message || 'Input your Password. You can use latin characters and digitals'}
           </span>
         )}
-        <MyButton className="sign up btn_blue" onClickButton={onSubmit} isDisabled={isDisabled}>
+        <MyButton className="signup_btn btn_blue" onClickButton={onSubmit} isDisabled={isDisabled}>
           sign up
         </MyButton>
       </form>
+      <MyButton className="change_authorize f-bold" route={'/login'}>
+        Already have an account?
+      </MyButton>
     </section>
   );
 };
