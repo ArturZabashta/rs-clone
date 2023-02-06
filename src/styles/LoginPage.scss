@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin: 0 auto;
+
+  input {
+    margin-bottom: 30PX;
+    padding: 5px 25px;
+    outline: 0;
+    border-radius: 10px;
+    border: 1px solid #278d9f;
+    color: #ffffff;
+    font-size: 18px;
+    background-color: rgba(31, 112, 127, 0.3);
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center left;
+    backdrop-filter: blur(6px);
+  }
+}
