@@ -1,14 +1,16 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-// import './SignUpPage.css'
+
+import MyButton from '../../components/MyButton/MyButton';
 
 const SignUpPage: React.FC = () => {
-  const navigate = useNavigate();
   return (
     <section className="signup-page">
-      <h2 className="page-title">SIGN UP</h2>
       <h3>Create an account</h3>
-      <button onClick={() => navigate('/home')}>sign up</button>
+      <span>Email</span>
+      <input></input>
+      <MyButton className="signup_btn" route="/home">
+        sign up
+      </MyButton>
     </section>
   );
 };

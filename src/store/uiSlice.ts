@@ -6,6 +6,7 @@ const initialState: UiType = {
   user: '',
   currentPage: '',
   isLogin: false,
+  isMenuOn: false,
   score: 0,
 };
 
@@ -19,9 +20,12 @@ export const uiSlice = createSlice({
     setIsLogin: (state, action: PayloadAction<boolean>) => {
       state.isLogin = action.payload;
     },
+    setIsMenuOn: (state, action: PayloadAction<boolean>) => {
+      state.isMenuOn = action.payload;
+    },
   },
 });
 
-export const { setCurrentPage, setIsLogin } = uiSlice.actions;
+export const { setCurrentPage, setIsLogin, setIsMenuOn } = uiSlice.actions;
 
 export default uiSlice.reducer;

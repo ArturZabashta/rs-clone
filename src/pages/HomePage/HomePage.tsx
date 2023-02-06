@@ -1,18 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
+import MyButton from '../../components/MyButton/MyButton';
 import Settings from '../../components/Settings/Settings';
-
 // import './HomePage.css'
 
 const HomePage: React.FC = () => {
   return (
     <section className="home-page">
-      <h2 className="page-title">Home Page</h2>
       <nav>
-        <Link to="/single-player">SinglePlayer</Link>
-        <Link to="/multi-player">MultiPlayer</Link>
-        <Link to="/score">Lider Board</Link>
+        <MyButton className="single-player_btn" route="/single-player">
+          SinglePlayer
+        </MyButton>
+        <MyButton className="single-player_btn" route="/multi-player">
+          MultiPlayer
+        </MyButton>
+        <MyButton className="single-player_btn" route="/score">
+          Leader Board
+        </MyButton>
       </nav>
       <Settings />
     </section>
