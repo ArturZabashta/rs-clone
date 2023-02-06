@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
+import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
@@ -17,16 +18,19 @@ export const App: React.FC = () => {
   return (
     <Router>
       <Header />
-      <Routes>
-        <Route path="/" element={<WelcomePage />}></Route>
-        <Route path="/home" element={<HomePage />}></Route>
-        <Route path="/login" element={<LogInPage />}></Route>
-        <Route path="/signup" element={<SignUpPage />}></Route>
-        <Route path="/single-player" element={<SinglePlayer />}></Route>
-        <Route path="/multi-player" element={<MultiPlayer />}></Route>
-        <Route path="/score" element={<ScorePage />}></Route>
-        <Route path="*" element={<ErrorPage />}></Route>
-      </Routes>
+      <main className="main">
+        <Routes>
+          <Route path="/" element={<WelcomePage />}></Route>
+          <Route path="/home" element={<HomePage />}></Route>
+          <Route path="/login" element={<LogInPage />}></Route>
+          <Route path="/signup" element={<SignUpPage />}></Route>
+          <Route path="/single-player" element={<SinglePlayer />}></Route>
+          <Route path="/multi-player" element={<MultiPlayer />}></Route>
+          <Route path="/score" element={<ScorePage />}></Route>
+          <Route path="*" element={<ErrorPage />}></Route>
+        </Routes>
+      </main>
+      <Footer />
     </Router>
   );
 };

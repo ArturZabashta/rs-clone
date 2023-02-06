@@ -5,7 +5,8 @@ import React from 'react';
 const ScorePage: React.FC = () => {
   return (
     <section className="score-page">
-      <h2 className="page-title">Score Page </h2>
+      <h2 className="page-title">SinglePlayer Score </h2>
+      <h2 className="page-title">MultiPlayer Score </h2>
     </section>
   );
 };
