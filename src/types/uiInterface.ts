@@ -3,5 +3,6 @@ export type UiType = {
   currentPage: string;
   isLogin: boolean;
   isMenuOn: boolean;
+  isSettingsOn: boolean;
   score: number;
 };

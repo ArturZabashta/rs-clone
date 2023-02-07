@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import Settings from './components/Settings/Settings';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
 import LogInPage from './pages/LoginPage/LoginPage';
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </main>
+      <Settings />
       <Footer />
     </Router>
   );

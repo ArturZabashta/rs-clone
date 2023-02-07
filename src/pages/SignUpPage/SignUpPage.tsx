@@ -77,7 +77,7 @@ const SignUpPage: React.FC = () => {
           sign up
         </MyButton>
       </form>
-      <MyButton className="change_authorize f-bold" route={'/login'}>
+      <MyButton className="change_authorization f-bold" route={'/login'}>
         Already have an account?
       </MyButton>
     </section>
