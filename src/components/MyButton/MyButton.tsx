@@ -11,7 +11,6 @@ interface MyButtonProps {
   isDisabled?: boolean;
   onClickButton?: () => void;
 }
-
 const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisabled, onClickButton }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisab
   };
 
   return (
-    <button className={className} disabled={isDisabled ? true : false} onClick={() => handleClick()}>
+    <button className={className} disabled={isDisabled} onClick={() => handleClick()}>
       {children}
     </button>
   );

@@ -5,4 +5,6 @@ export type UiType = {
   isMenuOn: boolean;
   isSettingsOn: boolean;
   score: number;
+  topScores: string[];
+  popUpMsg: string;
 };

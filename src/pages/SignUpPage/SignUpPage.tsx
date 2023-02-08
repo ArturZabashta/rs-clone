@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
-import { setCurrentPage } from '../../store/uiSlice';
+import { setCurrentPage, setPopUpMsg } from '../../store/uiSlice';
 
 type FormData = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -22,11 +22,37 @@ const SignUpPage: React.FC = () => {
     formState: { errors, isValid, isDirty },
   } = useForm<FormData>();
 
+  const registration = async (data: FormData) => {
+    //e.preventDefault();
+    setIsDisabled(true);
+    const { username, password } = { ...data };
+    const res = await fetch('https://rsclone-server.onrender.com/auth/registration', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const { message } = await res.json();
+    dispatch(setPopUpMsg(message));
+
+    if (res.status === 201) {
+      dispatch(setCurrentPage('/login'));
+      navigate('/login');
+    } else {
+      if (res.status === 400) {
+        dispatch(setCurrentPage('/login'));
+        navigate('/login');
+      }
+    }
+  };
+
   const onSubmit = handleSubmit((data: FormData) => {
     console.log('onSubmit data = ', data);
-    dispatch(setCurrentPage('/home'));
-    navigate('/home');
-    setIsDisabled(true);
+    registration(data);
   });
 
   useEffect(() => {
@@ -36,23 +62,24 @@ const SignUpPage: React.FC = () => {
   return (
     <section className="signup-page">
       <h3>Create an account</h3>
+
       <form onSubmit={onSubmit}>
-        <span>Email</span>
+        <span>User name</span>
         <input
-          type={'email'}
-          id="email"
-          {...register('email', {
+          type={'text'}
+          id="username"
+          {...register('username', {
             required: 'The field is required',
             minLength: {
               value: 5,
               message: 'Minimum 5 characters',
             },
-            pattern: /[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,3}/,
+            pattern: /[a-zA-Z0-9]{5,}/,
           })}
         />
-        {errors.email && (
+        {errors.username && (
           <span className={'email-error'}>
-            {errors.email.message ||
+            {errors.username.message ||
               'Input your Email. Example user@mail.com. You can use latin characters and digitals'}
           </span>
         )}
@@ -83,4 +110,62 @@ const SignUpPage: React.FC = () => {
     </section>
   );
 };
+
 export default SignUpPage;
+
+// =======
+
+// import MyButton from '../../components/MyButton/MyButton';
+// import { useAppDispatch } from '../../hooks/userHooks';
+// import { setPopUpMsg } from '../../store/uiSlice';
+
+// import '../../styles/SingUpPage.scss';
+
+// const SignUpPage: React.FC = () => {
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [isDisabled, setIsDisabled] = useState(true);
+
+//   const dispatch = useAppDispatch();
+
+//   const submitHandler = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     const res = await fetch('https://rsclone-server.onrender.com/auth/registration', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         username,
+//         password,
+//       }),
+//     });
+//     const { message } = await res.json();
+//     dispatch(setPopUpMsg(message));
+//     if (res.status !== 201) {
+//       //TODO move to loginPage
+//     }
+//     setUsername('');
+//     setPassword('');
+//   };
+
+//   const formValidator = (...args: string[]) => {
+//     return !args.every((item) => item.length >= 4 && !item.includes(' '));
+//   };
+
+//   useEffect(() => {
+//     setIsDisabled(formValidator(username, password));
+//   }, [username, password]);
+// >>>>>>> 0d3326cce614931b0f695e9487e497c465bb4853
+
+// =======
+//       <form onSubmit={(e) => submitHandler(e)}>
+//         <span>Username</span>
+//         <input type={'text'} value={username} onChange={(e) => setUsername(e.target.value)}></input>
+//         <span>Password</span>
+//         <input type={'password'} value={password} onChange={(e) => setPassword(e.target.value)}></input>
+//         <MyButton className="signup_btn btn_blue" disabled={isDisabled} route="/home">
+//           sign up
+//         </MyButton>
+//       </form>
+// >>>>>>> 0d3326cce614931b0f695e9487e497c465bb4853

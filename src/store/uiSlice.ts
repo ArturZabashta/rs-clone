@@ -9,6 +9,8 @@ const initialState: UiType = {
   isMenuOn: false,
   isSettingsOn: false,
   score: 0,
+  topScores: [],
+  popUpMsg: '',
 };
 
 export const uiSlice = createSlice({
@@ -27,9 +29,15 @@ export const uiSlice = createSlice({
     setIsSettingsOn: (state, action: PayloadAction<boolean>) => {
       state.isSettingsOn = action.payload;
     },
+    setTopScores: (state, action: PayloadAction<Array<string>>) => {
+      state.topScores = action.payload;
+    },
+    setPopUpMsg: (state, action: PayloadAction<string>) => {
+      state.popUpMsg = action.payload;
+    },
   },
 });
 
-export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn } = uiSlice.actions;
+export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setTopScores, setPopUpMsg } = uiSlice.actions;
 
 export default uiSlice.reducer;

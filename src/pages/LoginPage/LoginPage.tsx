@@ -4,12 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
-import { setCurrentPage } from '../../store/uiSlice';
-
-import '../../styles/LoginPage.scss';
+import { setCurrentPage, setIsLogin, setPopUpMsg, setTopScores } from '../../store/uiSlice';
 
 type FormData = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -23,11 +21,35 @@ const LogInPage: React.FC = () => {
     formState: { errors, isValid, isDirty },
   } = useForm<FormData>();
 
+  const authorization = async (data: FormData) => {
+    //e.preventDefault();
+    setIsDisabled(true);
+    const { username, password } = { ...data };
+    const res = await fetch('https://rsclone-server.onrender.com/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
+    const { message, token, topScores } = await res.json();
+    if (res.status === 200) {
+      dispatch(setTopScores(topScores));
+      dispatch(setIsLogin(true));
+      sessionStorage.setItem('auth_token', token);
+      dispatch(setCurrentPage('/home'));
+      navigate('/home');
+    } else {
+      dispatch(setPopUpMsg(message));
+    }
+  };
+
   const onSubmit = handleSubmit((data: FormData) => {
     console.log('onSubmit data = ', data);
-    dispatch(setCurrentPage('/home'));
-    navigate('/home');
-    setIsDisabled(true);
+    authorization(data);
   });
 
   useEffect(() => {
@@ -39,20 +61,20 @@ const LogInPage: React.FC = () => {
       <form onSubmit={onSubmit}>
         <span>Email</span>
         <input
-          type={'email'}
-          id="email"
-          {...register('email', {
+          type={'text'}
+          id="username"
+          {...register('username', {
             required: 'The field is required',
             minLength: {
               value: 5,
               message: 'Minimum 5 characters',
             },
-            pattern: /[a-zA-Z0-9]+@[a-z]+\.[a-z]{2,3}/,
+            pattern: /[a-zA-Z0-9]{5,}/,
           })}
         />
-        {errors.email && (
+        {errors.username && (
           <span className={'email-error'}>
-            {errors.email.message ||
+            {errors.username.message ||
               'Input your Email. Example user@mail.com. You can use latin characters and digitals'}
           </span>
         )}
@@ -84,3 +106,54 @@ const LogInPage: React.FC = () => {
   );
 };
 export default LogInPage;
+
+// =======
+// const LogInPage: React.FC = () => {
+//   const dispatch = useAppDispatch();
+
+//   const [username, setUsername] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [isDisabled, setIsDisabled] = useState(true);
+
+//   const submitHandler = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     const res = await fetch('https://rsclone-server.onrender.com/auth/login', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         username,
+//         password,
+//       }),
+//     });
+//     const { message, token, topScores } = await res.json();
+//     if (res.status === 200) {
+//       dispatch(setTopScores(topScores));
+//       dispatch(setIsLogin(true));
+//       sessionStorage.setItem('auth_token', token);
+//       //TODO move to home page
+//     } else {
+//       dispatch(setPopUpMsg(message));
+//     }
+//     setUsername('');
+//     setPassword('');
+//   };
+
+//   const formValidator = (...args: string[]) => {
+//     return !args.every((item) => item.length >= 4 && !item.includes(' '));
+//   };
+
+//   useEffect(() => {
+//     setIsDisabled(formValidator(username, password));
+//   }, [username, password]);
+
+//   return (
+//     <section className="login-page">
+//       <form onSubmit={(e) => submitHandler(e)}>
+//         <span>Username</span>
+//         <input type={'text'} onChange={(e) => setUsername(e.target.value)} value={username}></input>
+//         <span>Password</span>
+//         <input type={'password'} onChange={(e) => setPassword(e.target.value)} value={password}></input>
+//         <MyButton className="login_btn btn_blue" disabled={isDisabled}>
+// >>>>>>> 0d3326cce614931b0f695e9487e497c465bb4853

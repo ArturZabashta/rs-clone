@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
+import PopUp from './components/PopUp';
 import Settings from './components/Settings/Settings';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
@@ -19,6 +20,7 @@ export const App: React.FC = () => {
   return (
     <Router>
       <Header />
+      <PopUp />
       <main className="main">
         <Routes>
           <Route path="/" element={<WelcomePage />}></Route>
