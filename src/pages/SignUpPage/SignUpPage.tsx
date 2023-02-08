@@ -4,6 +4,8 @@ import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { setPopUpMsg } from '../../store/uiSlice';
 
+import '../../styles/SingUpPage.scss';
+
 const SignUpPage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -42,13 +44,13 @@ const SignUpPage: React.FC = () => {
 
   return (
     <section className="signup-page">
+      <h3>Create an account</h3>
       <form onSubmit={(e) => submitHandler(e)}>
-        <h3 style={{ alignSelf: 'center' }}>Create an account</h3>
         <span>Username</span>
         <input type={'text'} value={username} onChange={(e) => setUsername(e.target.value)}></input>
         <span>Password</span>
         <input type={'password'} value={password} onChange={(e) => setPassword(e.target.value)}></input>
-        <MyButton className="signup_btn btn_blue" disabled={isDisabled}>
+        <MyButton className="signup_btn btn_blue" disabled={isDisabled} route="/home">
           sign up
         </MyButton>
       </form>
