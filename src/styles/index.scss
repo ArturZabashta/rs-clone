@@ -118,6 +118,10 @@ button {
     text-shadow: 1px 1px 2px #3498db, 0 0 1em blue, 0 0 0.2em blue;
     box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
   }
+  &:disabled {
+    box-shadow: 0 0 40px 40px #adafb1 inset, 0 0 0 0 #a4a8aa;
+    cursor: default;
+  }
 }
 
 h1,
@@ -232,4 +236,22 @@ form {
     background-position: center left;
     backdrop-filter: blur(6px);
   }
+}
+
+.popUp {
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: .7;
+  border-radius: 5px;
+  width: 300px;
+  height: 100px;
+  background-color: #FFFFFF;
+  color: #814050;
+  text-align: center;
+  transition: all 1s linear;
+}
+.popUp__disabled {
+  transform: translate(-50%, -300%);
 }

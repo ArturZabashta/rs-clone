@@ -4,4 +4,6 @@ export type UiType = {
   isLogin: boolean;
   isMenuOn: boolean;
   score: number;
+  topScores: string[];
+  popUpMsg: string;
 };
