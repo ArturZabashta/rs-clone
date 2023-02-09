@@ -7,11 +7,12 @@ import GameMenu from '../GameMenu/GameMenu';
 import MyButton from '../MyButton/MyButton';
 
 import { ReactComponent as LogoSvg } from './HeaderLogo/logo.svg';
+import { ReactComponent as MenuSvg } from './HeaderLogo/menu.svg';
 
 const Header: React.FC = () => {
   const location = useLocation().pathname;
   // Global State
-  const { currentPage, isMenuOn } = useAppSelector((state) => state.ui);
+  const { currentPage, isMenuOn, isLogin, username } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
   // Local State
   const [path, setPath] = useState(currentPage ?? location);
@@ -72,28 +73,29 @@ const Header: React.FC = () => {
 
   return (
     <header className="header" style={{ display: 'flex' }}>
-      <h1>
+      <h1 className="header_logo">
         <LogoSvg />
       </h1>
       <h2 className="current-page">{pageName}</h2>
       <nav className="header_nav">
-        {location === '/' ? (
-          <MyButton className="login_btn f-bold" route="/login">
-            ALREADY HAVE AN ACCOUNT?
-          </MyButton>
+        {isLogin ? (
+          <div className="header_welcome">Glad to see you, {username}</div>
         ) : (
-          ''
+          <div>
+            <MyButton className="login_btn f-bold" route="/login">
+              Log In
+            </MyButton>
+            <MyButton className="login_btn f-bold btn_blue" route="/signup">
+              Sign Up
+            </MyButton>
+          </div>
         )}
 
-        {location === '/home' || location === '/' ? (
-          ''
-        ) : (
-          <MyButton className="prev-page_btn" route={path} onClickButton={backHandler}>
-            Go Back
-          </MyButton>
-        )}
+        <GameMenu />
 
-        {location === '/home' || location === '/' ? '' : <GameMenu />}
+        {/* <MyButton className={menuOn ? 'menu_btn __menu-on' : 'menu_btn'} onClickButton={menuHandler}>
+          Menu
+        </MyButton> */}
       </nav>
     </header>
   );

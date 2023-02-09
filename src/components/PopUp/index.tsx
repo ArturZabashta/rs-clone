@@ -6,6 +6,7 @@ const PopUp: React.FC = () => {
   const [styles, setStyles] = useState('popUp popUp__disabled');
   const popUpMsg = useAppSelector((store) => store.ui.popUpMsg);
   useEffect(() => {
+    if (popUpMsg === '') return;
     setStyles('popUp');
     setTimeout(() => {
       setStyles('popUp popUp__disabled');

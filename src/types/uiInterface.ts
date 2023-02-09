@@ -1,5 +1,5 @@
 export type UiType = {
-  user: string;
+  username: string;
   currentPage: string;
   isLogin: boolean;
   isMenuOn: boolean;
