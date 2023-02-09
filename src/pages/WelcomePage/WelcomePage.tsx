@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import BackgroundVideo from '../../components/BackgroundVideo/BackgroundVideo';
 import MyButton from '../../components/MyButton/MyButton';
 
 import '../../styles/WelcomePage.scss';
 const WelcomePage: React.FC = () => {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
