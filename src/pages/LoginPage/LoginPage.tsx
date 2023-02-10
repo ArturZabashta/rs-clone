@@ -6,6 +6,7 @@ import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { setTopScores } from '../../store/gameSlice';
 import { setCurrentPage, setIsLogin, setPopUpMsg } from '../../store/uiSlice';
+import { setUsername } from '../../store/uiSlice';
 
 type FormData = {
   username: string;

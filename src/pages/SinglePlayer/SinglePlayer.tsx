@@ -104,7 +104,7 @@ const SinglePlayer: React.FC = () => {
       ) : (
         ''
       )}
-      {isGameFinished ? <GameResult score={score} /> : ''};
+      {isGameFinished ? <GameResult score={score} /> : ''}
     </section>
   );
 };
