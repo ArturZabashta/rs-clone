@@ -1,42 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 import MyButton from '../../components/MyButton/MyButton';
-import { useAppSelector } from '../../hooks/userHooks';
+import { useAppSelector, useOnClickOutside } from '../../hooks/userHooks';
 
-interface GameMenuProps {
-  menuOnProp: boolean;
-  onClickClose: () => void;
-}
+import Hamburger from './Hamburger';
 
-const GameMenu: React.FC<GameMenuProps> = ({ menuOnProp, onClickClose }) => {
+import '../../styles/index.scss';
+
+const StyledMenu = styled.div<{ menuOn: boolean }>`
+  transform: ${({ menuOn }) => (menuOn ? 'translateX(0)' : 'translateX(-100%)')};
+`;
+
+const GameMenu: React.FC = () => {
   const { isMenuOn } = useAppSelector((state) => state.ui);
-  const [menuOn, setMenuOn] = useState(menuOnProp);
+  const [menuOn, setMenuOn] = useState<boolean>(false);
 
   const menuHandler = () => {
-    onClickClose();
+    setMenuOn(false);
   };
 
   useEffect(() => {
     setMenuOn(isMenuOn);
   }, [isMenuOn]);
 
+  const node = useRef<HTMLDivElement>(null);
+  useOnClickOutside(node, () => setMenuOn(false));
+
   return (
-    <div
-      className="menu"
-      style={menuOn ? { display: 'block', background: 'green' } : { display: 'none', background: 'red' }}
-    >
-      <MyButton className="single-player_btn" route="/single-player" onClickButton={menuHandler}>
-        SinglePlayer
-      </MyButton>
-      <MyButton className="single-player_btn" route="/multi-player" onClickButton={menuHandler}>
-        MultiPlayer
-      </MyButton>
-      <MyButton className="single-player_btn" route="/score" onClickButton={menuHandler}>
-        Leader Board
-      </MyButton>
-      <MyButton className="close-menu_btn" onClickButton={menuHandler}>
-        Close Menu
-      </MyButton>
+    <div ref={node}>
+      <StyledMenu className="menu" menuOn={menuOn}>
+        <MyButton className="menu_btn single-player_btn" route="/single-player" onClickButton={() => menuHandler()}>
+          SinglePlayer
+        </MyButton>
+        <MyButton className="menu_btn multi-player_btn" route="/multi-player" onClickButton={() => menuHandler()}>
+          MultiPlayer
+        </MyButton>
+        <MyButton className="menu_btn leader-board_btn" route="/score" onClickButton={() => menuHandler()}>
+          Leader Board
+        </MyButton>
+      </StyledMenu>
+      <Hamburger menuOn={menuOn} setMenuOn={setMenuOn} />
     </div>
   );
 };
