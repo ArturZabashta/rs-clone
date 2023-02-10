@@ -6,6 +6,8 @@ import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { setCurrentPage, setPopUpMsg } from '../../store/uiSlice';
 
+import '../../styles/SignUpPage.scss';
+
 type FormData = {
   username: string;
   password: string;
@@ -89,10 +91,10 @@ const SignUpPage: React.FC = () => {
           {...register('password', {
             required: 'The field is required',
             minLength: {
-              value: 7,
-              message: 'Minimum 7 characters',
+              value: 5,
+              message: 'Minimum 5 characters',
             },
-            pattern: /[\d\wА-я]{7,}/,
+            pattern: /[\d\wА-я]{5,}/,
           })}
         />
         {errors.password && (
@@ -104,9 +106,6 @@ const SignUpPage: React.FC = () => {
           sign up
         </MyButton>
       </form>
-      <MyButton className="change_authorization f-bold" route={'/login'}>
-        Already have an account?
-      </MyButton>
     </section>
   );
 };
