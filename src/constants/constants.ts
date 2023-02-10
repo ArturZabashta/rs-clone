@@ -1,46 +1,46 @@
 import { IData } from '../types/gameInterface';
 
-export const game: Array<IData> = [
+export const gameView: Array<IData> = [
   {
     city: 'Berlin',
     latLng: {
-      lat: 52.5157566,
-      lng: 13.3773385,
+      lat: 52.51627880657826,
+      lng: 13.377699494037898,
     },
   },
   {
     city: 'Rome',
     latLng: {
-      lat: 41.8901568,
-      lng: 12.4961851,
+      lat: 41.903255240706855,
+      lng: 12.466296130620883,
     },
   },
   {
     city: 'Paris',
     latLng: {
-      lat: 48.8834046,
-      lng: 2.3323482,
+      lat: 48.85298023125738,
+      lng: 2.349906005381753,
     },
   },
   {
     city: 'New-York',
     latLng: {
-      lat: 40.7072118,
-      lng: -74.0122092,
+      lat: 40.68946670018704,
+      lng: -74.0445109313384,
     },
   },
   {
     city: 'Pisa',
     latLng: {
-      lat: 43.7225318,
-      lng: 10.4001557,
+      lat: 43.72323112062163,
+      lng: 10.396647860153356,
     },
   },
   {
     city: 'Sydney',
     latLng: {
-      lat: 33.8603713,
-      lng: 151.2171988,
+      lat: -33.851740020629904,
+      lng: 151.2107223253133,
     },
   },
   {

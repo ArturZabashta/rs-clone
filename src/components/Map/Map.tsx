@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 
+import { PointLatLng } from '../../types/gameInterface';
 import MyButton from '../MyButton/MyButton';
-
-interface IUserPoint {
-  lat: number;
-  lng: number;
-}
 
 const { REACT_APP_API_KEY } = process.env;
 
-const Map: React.FC = () => {
-  const [userDistance, setUserDistance] = useState<number>();
-  const [userPoint, setUserPoint] = useState<IUserPoint>({ lat: 0, lng: 0 });
-  const [answerPoint, setAnswerPoint] = useState<IUserPoint>({ lat: 42.345573, lng: -71.098326 });
+interface MapProps {
+  questionNum: number;
+  pointLatLng: PointLatLng;
+  onAnswerHandler: (distance: number) => void;
+}
+
+const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) => {
+  // const [userDistance, setUserDistance] = useState<number>();
+  const [userPoint, setUserPoint] = useState<PointLatLng>({ lat: 0, lng: 0 });
+  const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
 
   const onClick = (event: google.maps.MapMouseEvent) => {
@@ -30,8 +32,13 @@ const Map: React.FC = () => {
     console.log('userPoint=', userPoint);
     const distance = google.maps.geometry.spherical.computeDistanceBetween(answerPoint, userPoint) / 1000;
     console.log('distance=', distance + 'km');
-    setUserDistance(distance);
+    onAnswerHandler(distance);
   };
+
+  useEffect(() => {
+    setIsAnswered(false);
+    setAnswerPoint(pointLatLng);
+  }, [questionNum]);
 
   return (
     <GoogleMapProvider>
@@ -39,7 +46,7 @@ const Map: React.FC = () => {
         className="question-map"
         opts={{
           zoom: 7,
-          center: { lat: 42.345573, lng: -71.098326 },
+          center: { lat: 51.4772186, lng: 0.0001 },
           streetViewControl: true,
           disableDefaultUI: true,
           zoomControl: true,
@@ -63,7 +70,7 @@ const Map: React.FC = () => {
           width: '100%',
         }}
         opts={{
-          position: { lat: 42.345573, lng: -71.098326 },
+          position: pointLatLng,
           addressControl: false,
         }}
       />
