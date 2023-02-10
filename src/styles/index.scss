@@ -207,7 +207,7 @@ h3 {
       border: none;
       cursor: pointer;
       outline: none;
-      z-index: 1;
+      z-index: 99;
     
       &:hover,
       &:focus {
