@@ -9,7 +9,6 @@ import Hamburger from './Hamburger';
 import '../../styles/index.scss';
 
 const StyledMenu = styled.div<{ menuOn: boolean }>`
-  display: ${({ menuOn }) => (menuOn ? 'flex' : 'none')};
   transform: ${({ menuOn }) => (menuOn ? 'translateX(0)' : 'translateX(-100%)')};
 `;
 
