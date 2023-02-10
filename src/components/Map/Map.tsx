@@ -11,6 +11,7 @@ interface IUserPoint {
 const { REACT_APP_API_KEY } = process.env;
 
 const Map: React.FC = () => {
+  const [userDistance, setUserDistance] = useState<number>();
   const [userPoint, setUserPoint] = useState<IUserPoint>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<IUserPoint>({ lat: 42.345573, lng: -71.098326 });
   const [isAnswered, setIsAnswered] = useState(false);
@@ -22,19 +23,14 @@ const Map: React.FC = () => {
     const lng = Number(event.latLng.lng());
 
     setUserPoint({ lat, lng });
-    console.log('userPoint=', userPoint);
   };
 
   const handleGuess = () => {
     setIsAnswered(true);
-    console.log(
-      google.maps.geometry.spherical.computeDistanceBetween(answerPoint, {
-        lat: Number(userPoint?.lat),
-        lng: Number(userPoint?.lng),
-      }) /
-        1000 +
-        'км'
-    );
+    console.log('userPoint=', userPoint);
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(answerPoint, userPoint) / 1000;
+    console.log('distance=', distance + 'km');
+    setUserDistance(distance);
   };
 
   return (
