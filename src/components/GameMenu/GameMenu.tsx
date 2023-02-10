@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppSelector, useOnClickOutside } from '../../hooks/userHooks';
-import { Props } from '../../types/uiInterface';
 
 import Hamburger from './Hamburger';
 
