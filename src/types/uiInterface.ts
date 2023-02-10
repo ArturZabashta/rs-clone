@@ -8,3 +8,8 @@ export type UiType = {
   topScores: string[];
   popUpMsg: string;
 };
+
+export type Props = {
+  menuOn: boolean;
+  setMenuOn: (v: boolean) => void;
+};
