@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
+import { GoogleMapProvider, MapBox, Marker, Polyline, StandaloneStreetView } from '@googlemap-react/core';
 
 import { PointLatLng } from '../../types/gameInterface';
 import MyButton from '../MyButton/MyButton';
@@ -10,13 +10,15 @@ interface MapProps {
   questionNum: number;
   pointLatLng: PointLatLng;
   onAnswerHandler: (distance: number) => void;
+  switchMarker: boolean;
 }
 
-const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) => {
+const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, switchMarker }) => {
   // const [userDistance, setUserDistance] = useState<number>();
   const [userPoint, setUserPoint] = useState<PointLatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
+  const [isClicked, setIsClicked] = useState(switchMarker);
 
   const onClick = (event: google.maps.MapMouseEvent) => {
     console.log('lat=', event.latLng.lat(), 'lng=', event.latLng.lng());
@@ -25,6 +27,7 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) 
     const lng = Number(event.latLng.lng());
 
     setUserPoint({ lat, lng });
+    setIsClicked(true);
   };
 
   const handleGuess = () => {
@@ -38,7 +41,8 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) 
   useEffect(() => {
     setIsAnswered(false);
     setAnswerPoint(pointLatLng);
-  }, [questionNum]);
+    setIsClicked(switchMarker);
+  }, [questionNum, switchMarker]);
 
   return (
     <GoogleMapProvider>
@@ -47,7 +51,7 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) 
         opts={{
           zoom: 7,
           center: { lat: 51.4772186, lng: 0.0001 },
-          streetViewControl: true,
+          streetViewControl: false,
           disableDefaultUI: true,
           zoomControl: true,
         }}
@@ -64,7 +68,7 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) 
         LoadingComponent={<div>Loading</div>}
         useGeometry
       />
-      <StreetView
+      <StandaloneStreetView
         style={{
           height: '100%',
           width: '100%',
@@ -98,18 +102,24 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler }) 
       ) : (
         ''
       )}
-      <Marker
-        id="marker2"
-        opts={{
-          position: {
-            lat: Number(userPoint?.lat),
-            lng: Number(userPoint?.lng),
-          },
-        }}
-      />
-      <MyButton className={'guess_btn'} onClickButton={handleGuess}>
-        GUESS
-      </MyButton>
+      {isClicked ? (
+        <>
+          <Marker
+            id="marker2"
+            opts={{
+              position: {
+                lat: Number(userPoint?.lat),
+                lng: Number(userPoint?.lng),
+              },
+            }}
+          />
+          <MyButton className={'guess_btn'} onClickButton={handleGuess}>
+            GUESS
+          </MyButton>
+        </>
+      ) : (
+        ''
+      )}
     </GoogleMapProvider>
   );
 };

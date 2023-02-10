@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
-import { setCurrentPage, setIsLogin, setPopUpMsg, setTopScores } from '../../store/uiSlice';
+import { setTopScores } from '../../store/gameSlice';
+import { setCurrentPage, setIsLogin, setPopUpMsg } from '../../store/uiSlice';
 
 type FormData = {
   username: string;

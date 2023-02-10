@@ -1,11 +1,9 @@
-export type UiType = {
+export type UiStoreType = {
   user: string;
   currentPage: string;
   isLogin: boolean;
   isMenuOn: boolean;
   isSettingsOn: boolean;
-  score: number;
-  topScores: string[];
   popUpMsg: string;
 };
 

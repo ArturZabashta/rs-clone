@@ -1,3 +1,8 @@
+export type GameStoreType = {
+  score: number;
+  topScores: string[];
+};
+
 export type LatLng = {
   lat: number;
   lng: number;
@@ -9,7 +14,6 @@ export interface IData {
 }
 
 export type GameDataTransfer = {
-  points: number;
   distance: number;
 };
 
