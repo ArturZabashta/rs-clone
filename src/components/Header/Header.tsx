@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import { setIsMenuOn } from '../../store/uiSlice';
 import GameMenu from '../GameMenu/GameMenu';
 import MyButton from '../MyButton/MyButton';
 
 import { ReactComponent as LogoSvg } from './HeaderLogo/logo.svg';
-import { ReactComponent as MenuSvg } from './HeaderLogo/menu.svg';
 
 const Header: React.FC = () => {
   const location = useLocation().pathname;
@@ -65,12 +63,6 @@ const Header: React.FC = () => {
     setMenuOn(isMenuOn);
   }, [currentPage, isMenuOn]);
 
-  const backHandler = () => {
-    if (menuOn) {
-      dispatch(setIsMenuOn(false));
-    }
-  };
-
   return (
     <header className="header" style={{ display: 'flex' }}>
       <h1 className="header_logo">
@@ -90,12 +82,7 @@ const Header: React.FC = () => {
             </MyButton>
           </div>
         )}
-
         <GameMenu />
-
-        {/* <MyButton className={menuOn ? 'menu_btn __menu-on' : 'menu_btn'} onClickButton={menuHandler}>
-          Menu
-        </MyButton> */}
       </nav>
     </header>
   );
