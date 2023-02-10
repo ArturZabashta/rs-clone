@@ -64,10 +64,6 @@ const Header: React.FC = () => {
     setMenuOn(isMenuOn);
   }, [currentPage, isMenuOn]);
 
-  const menuHandler = () => {
-    dispatch(setIsMenuOn(!menuOn));
-  };
-
   const backHandler = () => {
     if (menuOn) {
       dispatch(setIsMenuOn(false));
@@ -92,20 +88,13 @@ const Header: React.FC = () => {
         {location === '/home' || location === '/' ? (
           ''
         ) : (
-          <MyButton className={menuOn ? 'menu_btn __menu-on' : 'menu_btn'} onClickButton={menuHandler}>
-            Menu
-          </MyButton>
-        )}
-
-        {location === '/home' || location === '/' ? (
-          ''
-        ) : (
           <MyButton className="prev-page_btn" route={path} onClickButton={backHandler}>
             Go Back
           </MyButton>
         )}
+
+        {location === '/home' || location === '/' ? '' : <GameMenu />}
       </nav>
-      <GameMenu menuOnProp={menuOn} onClickClose={backHandler} />
     </header>
   );
 };
