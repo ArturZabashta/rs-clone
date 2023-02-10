@@ -40,6 +40,7 @@ const LogInPage: React.FC = () => {
     if (res.status === 200) {
       dispatch(setTopScores(topScores));
       dispatch(setIsLogin(true));
+      dispatch(setUsername(username));
       sessionStorage.setItem('auth_token', token);
       dispatch(setCurrentPage('/home'));
       navigate('/home');
@@ -60,7 +61,7 @@ const LogInPage: React.FC = () => {
   return (
     <section className="login-page">
       <form onSubmit={onSubmit}>
-        <span>Email</span>
+        <span>Username</span>
         <input
           type={'text'}
           id="username"
@@ -85,10 +86,10 @@ const LogInPage: React.FC = () => {
           {...register('password', {
             required: 'The field is required',
             minLength: {
-              value: 7,
-              message: 'Minimum 7 characters',
+              value: 5,
+              message: 'Minimum 5 characters',
             },
-            pattern: /[\d\wА-я]{7,}/,
+            pattern: /[\d\wА-я]{5,}/,
           })}
         />
         {errors.password && (
@@ -100,9 +101,6 @@ const LogInPage: React.FC = () => {
           log in
         </MyButton>
       </form>
-      <MyButton className="change_authorization f-bold" route={'/signup'}>
-        Create an account
-      </MyButton>
     </section>
   );
 };

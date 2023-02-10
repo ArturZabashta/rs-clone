@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UiStoreType } from '../types/uiInterface';
 
 const initialState: UiStoreType = {
-  user: '',
+  username: '',
   currentPage: '',
   isLogin: false,
   isMenuOn: false,
@@ -28,11 +28,14 @@ export const uiSlice = createSlice({
       state.isSettingsOn = action.payload;
     },
     setPopUpMsg: (state, action: PayloadAction<string>) => {
-      state.popUpMsg = action.payload;
+      state.popUpMsg = state.popUpMsg === action.payload ? action.payload + ' ' : action.payload;
+    },
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload;
     },
   },
 });
 
-export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setPopUpMsg } = uiSlice.actions;
+export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setPopUpMsg, setUsername } = uiSlice.actions;
 
 export default uiSlice.reducer;

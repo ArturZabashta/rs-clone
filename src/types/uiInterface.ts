@@ -1,5 +1,5 @@
 export type UiStoreType = {
-  user: string;
+  username: string;
   currentPage: string;
   isLogin: boolean;
   isMenuOn: boolean;

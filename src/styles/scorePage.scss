@@ -1,0 +1,19 @@
+.score-page {
+  width: 30%;
+  margin: 20px auto;
+  
+  .score-page_title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .scores_item {
+    margin: 10px auto;
+    padding: 7px;
+    border: 1px white solid;
+    border-radius: 2px;
+    text-align: center;
+    width: 50%;
+    min-width: fit-content;
+  }
+}
