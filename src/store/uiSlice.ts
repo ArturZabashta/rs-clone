@@ -1,15 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { UiType } from '../types/uiInterface';
+import { UiStoreType } from '../types/uiInterface';
 
-const initialState: UiType = {
+const initialState: UiStoreType = {
   username: '',
   currentPage: '',
   isLogin: false,
   isMenuOn: false,
   isSettingsOn: false,
-  score: 0,
-  topScores: [],
   popUpMsg: '',
 };
 
@@ -29,9 +27,6 @@ export const uiSlice = createSlice({
     setIsSettingsOn: (state, action: PayloadAction<boolean>) => {
       state.isSettingsOn = action.payload;
     },
-    setTopScores: (state, action: PayloadAction<Array<string>>) => {
-      state.topScores = action.payload;
-    },
     setPopUpMsg: (state, action: PayloadAction<string>) => {
       state.popUpMsg = state.popUpMsg === action.payload ? action.payload + ' ' : action.payload;
     },
@@ -41,7 +36,6 @@ export const uiSlice = createSlice({
   },
 });
 
-export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setTopScores, setPopUpMsg, setUsername } =
-  uiSlice.actions;
+export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setPopUpMsg, setUsername } = uiSlice.actions;
 
 export default uiSlice.reducer;
