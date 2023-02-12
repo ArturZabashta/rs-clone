@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GameStoreType } from '../types/gameInterface';
+import { GameStoreType, Players } from '../types/gameInterface';
 
 const initialState: GameStoreType = {
   score: 0,
   topScores: [],
+  players: [],
 };
 
 export const gameSlice = createSlice({
@@ -17,9 +18,12 @@ export const gameSlice = createSlice({
     setTopScores: (state, action: PayloadAction<Array<string>>) => {
       state.topScores = action.payload;
     },
+    setPlayersTeam: (state, action: PayloadAction<Array<Players>>) => {
+      state.players = action.payload;
+    },
   },
 });
 
-export const { setScore, setTopScores } = gameSlice.actions;
+export const { setScore, setTopScores, setPlayersTeam } = gameSlice.actions;
 
 export default gameSlice.reducer;

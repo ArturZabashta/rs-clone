@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import GameResult from '../../components/GameResult/GameResult';
-import Map from '../../components/Map';
-import MyButton from '../../components/MyButton/MyButton';
-import { gameView } from '../../constants/constants';
-import { useAppDispatch } from '../../hooks/userHooks';
-import { useAppSelector } from '../../hooks/userHooks';
-import { setScore } from '../../store/gameSlice';
-import { getDiapasonRandomNum, SinglePointsCounter } from '../../utils/utilities';
-//const API_KEY = String(process.env.REACT_APP_API_KEY);
+import GameResult from '../../../components/GameResult/GameResult';
+import Map from '../../../components/Map';
+import MyButton from '../../../components/MyButton/MyButton';
+import { gameView } from '../../../constants/constants';
+import { useAppDispatch } from '../../../hooks/userHooks';
+import { useAppSelector } from '../../../hooks/userHooks';
+import { setScore } from '../../../store/gameSlice';
+import { getDiapasonRandomNum, SinglePointsCounter } from '../../../utils/utilities';
 
-const SinglePlayer: React.FC = () => {
+const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
@@ -53,7 +52,7 @@ const SinglePlayer: React.FC = () => {
     <section
       className="single-player"
       style={{
-        height: '80vh',
+        height: '70vh',
         width: '100vw',
         display: 'flex',
       }}
@@ -97,7 +96,7 @@ const SinglePlayer: React.FC = () => {
           <p className="answer_city">{`This is  ${gameView[question].city}`}</p>
           <p className="distance">{`You were wrong by  ${distance} km`}</p>
           <p className="points">{`Your result is  ${answerPoints}  points`}</p>
-          <MyButton className="login_btn f-bold" onClickButton={setNextLevel}>
+          <MyButton className="next_question" onClickButton={setNextLevel}>
             Next question
           </MyButton>
         </div>
@@ -108,4 +107,4 @@ const SinglePlayer: React.FC = () => {
     </section>
   );
 };
-export default React.memo(SinglePlayer);
+export default MultiGamePage;

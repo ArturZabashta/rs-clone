@@ -1,6 +1,7 @@
 export type GameStoreType = {
   score: number;
   topScores: string[];
+  players: Players[];
 };
 
 export type LatLng = {
@@ -20,4 +21,17 @@ export type GameDataTransfer = {
 export type PointLatLng = {
   lat: number;
   lng: number;
+};
+
+export type Opponents = {
+  id: number;
+  name: string;
+  surname: string;
+  gender: string;
+};
+
+export type Players = {
+  id: number;
+  name: string;
+  points: number;
 };
