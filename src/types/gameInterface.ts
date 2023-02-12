@@ -34,4 +34,6 @@ export type Players = {
   id: number;
   name: string;
   points: number;
+  latLng: LatLng;
+  playerScore: number;
 };

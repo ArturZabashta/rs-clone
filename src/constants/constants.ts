@@ -11,8 +11,8 @@ export const gameView: Array<IData> = [
   {
     city: 'Rome',
     latLng: {
-      lat: 41.893282893306505,
-      lng: 12.485374500659933,
+      lat: 41.880387578917,
+      lng: 12.49243091433626,
     },
   },
   {
@@ -39,8 +39,8 @@ export const gameView: Array<IData> = [
   {
     city: 'Sydney',
     latLng: {
-      lat: -33.851090208959675,
-      lng: 51.21075187443617,
+      lat: -33.85591530899063,
+      lng: 151.21513790704674,
     },
   },
   {
@@ -51,10 +51,10 @@ export const gameView: Array<IData> = [
     },
   },
   {
-    city: 'Cologne',
+    city: 'Nice',
     latLng: {
-      lat: 50.932443077686074,
-      lng: 6.964291952235292,
+      lat: 43.70365212397382,
+      lng: 7.278388363176886,
     },
   },
   {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import GameResult from '../../components/GameResult/GameResult';
-import Map from '../../components/Map';
+import SingleGameMap from '../../components/Map/SingleGameMap';
 import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/constants';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { useAppSelector } from '../../hooks/userHooks';
 import { setScore } from '../../store/gameSlice';
-import { getDiapasonRandomNum, SinglePointsCounter } from '../../utils/utilities';
+import { getDiapasonRandomNum, singlePointsCounter } from '../../utils/utilities';
 //const API_KEY = String(process.env.REACT_APP_API_KEY);
 
 const SinglePlayer: React.FC = () => {
@@ -35,10 +35,9 @@ const SinglePlayer: React.FC = () => {
 
   const onAnswerHandler = (distance: number) => {
     console.log('distance from SP=', distance);
-    const correctDistance = Math.ceil(distance);
     setIsAnswered(true);
-    setDistance(correctDistance);
-    const points = SinglePointsCounter(correctDistance);
+    setDistance(distance);
+    const points = singlePointsCounter(distance);
     setAnswerPoints(points);
     dispatch(setScore(points));
   };
@@ -67,7 +66,7 @@ const SinglePlayer: React.FC = () => {
           margin: '1rem',
         }}
       >
-        <Map
+        <SingleGameMap
           pointLatLng={gameView[question].latLng}
           onAnswerHandler={onAnswerHandler}
           questionNum={question}

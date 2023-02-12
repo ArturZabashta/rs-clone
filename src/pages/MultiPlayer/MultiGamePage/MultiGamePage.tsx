@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 import GameResult from '../../../components/GameResult/GameResult';
-import Map from '../../../components/Map';
+import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
 import { gameView } from '../../../constants/constants';
-import { useAppDispatch } from '../../../hooks/userHooks';
-import { useAppSelector } from '../../../hooks/userHooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import { setScore } from '../../../store/gameSlice';
-import { getDiapasonRandomNum, SinglePointsCounter } from '../../../utils/utilities';
+import { Players } from '../../../types/gameInterface';
+import { getDiapasonRandomNum, singlePointsCounter } from '../../../utils/utilities';
 
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
+  const { players } = useAppSelector((state) => state.game);
+  const [gamePlayers, setGamePlayers] = useState<Players[]>(players);
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
   const [distance, setDistance] = useState(0);
@@ -33,13 +35,14 @@ const MultiGamePage: React.FC = () => {
   };
 
   const onAnswerHandler = (distance: number) => {
-    console.log('distance from SP=', distance);
-    const correctDistance = Math.ceil(distance);
+    const copyArray: Array<Players> = Object.assign([], gamePlayers);
+    // console.log('distance from SP=', distance);
+    // const correctDistance = Math.ceil(distance);
     setIsAnswered(true);
-    setDistance(correctDistance);
-    const points = SinglePointsCounter(correctDistance);
-    setAnswerPoints(points);
-    dispatch(setScore(points));
+    // setDistance(correctDistance);
+    // const points = SinglePointsCounter(correctDistance);
+    // setAnswerPoints(points);
+    // dispatch(setScore(points));
   };
 
   useEffect(() => {
@@ -66,8 +69,8 @@ const MultiGamePage: React.FC = () => {
           margin: '1rem',
         }}
       >
-        <Map
-          pointLatLng={gameView[question].latLng}
+        <MultiGameMap
+          propsLatLng={gameView[question].latLng}
           onAnswerHandler={onAnswerHandler}
           questionNum={question}
           switchMarker={false}

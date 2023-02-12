@@ -15,7 +15,9 @@ const MultiPlayer: React.FC = () => {
   const [playersArray, setPlayersArray] = useState<Players[]>([]);
 
   const setOpponents = () => {
-    setPlayersArray([{ id: 0, name: username === '' ? 'Player' : username, points: 0 }]);
+    setPlayersArray([
+      { id: 0, name: username === '' ? 'Player' : username, points: 0, playerScore: 0, latLng: { lat: 0, lng: 0 } },
+    ]);
     setIsFindClicked(true);
   };
 
@@ -24,19 +26,21 @@ const MultiPlayer: React.FC = () => {
       setTimeout(() => {
         function setClosure() {
           let nextPlayerId: number;
-          const copy: Array<Players> = Object.assign([], playersArray);
+          const copyArray: Array<Players> = Object.assign([], playersArray);
           do {
             nextPlayerId = getDiapasonRandomNum(1, opponents.length);
             console.warn('nextPlayer = ', nextPlayerId);
-          } while (copy.find((player: Players) => player.id === nextPlayerId) !== undefined);
+          } while (copyArray.find((player: Players) => player.id === nextPlayerId) !== undefined);
           console.warn('Final nextPlayer = ', nextPlayerId);
           const nextPlayer: Players = {
             id: opponents[nextPlayerId - 1].id,
             name: opponents[nextPlayerId - 1].name,
             points: 0,
+            playerScore: 0,
+            latLng: { lat: 0, lng: 0 },
           };
-          copy.push(nextPlayer);
-          setPlayersArray(copy);
+          copyArray.push(nextPlayer);
+          setPlayersArray(copyArray);
           dispatch(setPlayersTeam(playersArray));
         }
         setClosure();
