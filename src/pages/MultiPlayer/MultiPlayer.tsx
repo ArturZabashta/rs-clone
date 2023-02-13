@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import MyButton from '../../components/MyButton/MyButton';
+import { DEFAULT_PLAYER } from '../../constants/constants';
 import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { setPlayersTeam } from '../../store/gameSlice';
-import { Players } from '../../types/gameInterface';
+import { IPlayer } from '../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../utils/utilities';
 
 const MultiPlayer: React.FC = () => {
@@ -12,7 +13,7 @@ const MultiPlayer: React.FC = () => {
   const { username } = useAppSelector((state) => state.ui);
   const [isFindClicked, setIsFindClicked] = useState<boolean>(false);
   const [isGameAvailable, setIsGameAvailable] = useState<boolean>(false);
-  const [playersArray, setPlayersArray] = useState<Players[]>([]);
+  const [playersArray, setPlayersArray] = useState<IPlayer[]>([]);
 
   const setOpponents = () => {
     setPlayersArray([
@@ -21,30 +22,31 @@ const MultiPlayer: React.FC = () => {
     setIsFindClicked(true);
   };
 
+  const updateStore = () => {
+    dispatch(setPlayersTeam(playersArray));
+  };
+
   useEffect(() => {
-    if (playersArray.length < 7 && isFindClicked === true) {
+    if (playersArray.length <= 6 && isFindClicked === true) {
       setTimeout(() => {
         function setClosure() {
           let nextPlayerId: number;
-          const copyArray: Array<Players> = Object.assign([], playersArray);
+          const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(playersArray));
           do {
             nextPlayerId = getDiapasonRandomNum(1, opponents.length);
             console.warn('nextPlayer = ', nextPlayerId);
-          } while (copyArray.find((player: Players) => player.id === nextPlayerId) !== undefined);
+          } while (copyArray.find((player: IPlayer) => player.id === nextPlayerId) !== undefined);
           console.warn('Final nextPlayer = ', nextPlayerId);
-          const nextPlayer: Players = {
-            id: opponents[nextPlayerId - 1].id,
-            name: opponents[nextPlayerId - 1].name,
-            points: 0,
-            playerScore: 0,
-            latLng: { lat: 0, lng: 0 },
-          };
+
+          const nextPlayer: IPlayer = Object.assign({}, DEFAULT_PLAYER);
+          nextPlayer.id = opponents[nextPlayerId - 1].id;
+          nextPlayer.name = opponents[nextPlayerId - 1].name;
+
           copyArray.push(nextPlayer);
           setPlayersArray(copyArray);
-          dispatch(setPlayersTeam(playersArray));
         }
         setClosure();
-      }, 1200);
+      }, Math.random() * 1200);
       console.log('playersArray = ', playersArray);
     }
     if (playersArray.length === 7) setIsGameAvailable(true);
@@ -54,7 +56,7 @@ const MultiPlayer: React.FC = () => {
     <section className="multi-player">
       <h2>List of Opponents</h2>
       <div className="players_wrapper">
-        {playersArray.map((player: Players) => (
+        {playersArray.map((player: IPlayer) => (
           <div className="players_item" key={player.id}>
             {player.name}
           </div>
@@ -63,7 +65,12 @@ const MultiPlayer: React.FC = () => {
       <MyButton className="login_btn f-bold" onClickButton={setOpponents}>
         Find Opponents
       </MyButton>
-      <MyButton className="login_btn f-bold" route={'/game'} isDisabled={isGameAvailable ? false : true}>
+      <MyButton
+        className="login_btn f-bold"
+        route={'/game'}
+        isDisabled={isGameAvailable ? false : true}
+        onClickButton={updateStore}
+      >
         Let&apos;s start the Game
       </MyButton>
     </section>

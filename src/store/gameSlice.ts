@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GameStoreType, Players } from '../types/gameInterface';
+import { GameStoreType, IPlayer } from '../types/gameInterface';
 
 const initialState: GameStoreType = {
   score: 0,
@@ -18,7 +18,7 @@ export const gameSlice = createSlice({
     setTopScores: (state, action: PayloadAction<Array<string>>) => {
       state.topScores = action.payload;
     },
-    setPlayersTeam: (state, action: PayloadAction<Array<Players>>) => {
+    setPlayersTeam: (state, action: PayloadAction<Array<IPlayer>>) => {
       state.players = action.payload;
     },
   },

@@ -11,14 +11,13 @@ export const getDiapasonRandomNum = (min: number, max: number): number =>
 export const getCoordinates = (latLng: LatLng) => {
   let newLat: number;
   let newLng: number;
-  console.warn('Input latLng', latLng);
+
   do {
     newLat = latLng.lat + getDiapasonRandomNum(0, 5) * (Math.random() > 0.5 ? 1 : -1);
     newLng = latLng.lng + getDiapasonRandomNum(0, 20) * (Math.random() > 0.5 ? 1 : -1);
   } while (newLat > 180 && newLat < -180 && newLng > 90 && newLng < -90);
 
   const newLatLng: LatLng = { lat: newLat, lng: newLng };
-  console.warn('Output latLng', latLng);
   return newLatLng;
 };
 

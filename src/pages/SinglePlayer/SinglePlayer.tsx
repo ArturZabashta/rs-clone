@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import GameResult from '../../components/GameResult/GameResult';
 import SingleGameMap from '../../components/Map/SingleGameMap';
 import MyButton from '../../components/MyButton/MyButton';
-import { gameView } from '../../constants/constants';
+import { gameView } from '../../constants/places-data';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { useAppSelector } from '../../hooks/userHooks';
 import { setScore } from '../../store/gameSlice';
@@ -62,7 +62,7 @@ const SinglePlayer: React.FC = () => {
         style={{
           position: 'relative',
           height: '70vh',
-          width: '70vw',
+          width: '100vw',
           margin: '1rem',
         }}
       >
@@ -72,14 +72,6 @@ const SinglePlayer: React.FC = () => {
           questionNum={question}
           switchMarker={false}
         />
-        <div
-          className="players_wrapper"
-          style={{
-            height: '100%',
-            width: '27vw',
-            position: 'relative',
-          }}
-        ></div>
       </div>
       {isAnswered ? (
         <div

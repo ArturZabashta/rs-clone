@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMapProvider, MapBox, Marker, Polyline, StandaloneStreetView } from '@googlemap-react/core';
+import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
-import { LatLng, Players, PointLatLng } from '../../../types/gameInterface';
+import { setPlayersTeam } from '../../../store/gameSlice';
+import { IPlayer, LatLng, PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance, getCoordinates, singlePointsCounter } from '../../../utils/utilities';
 import MyButton from '../../MyButton/MyButton';
 
@@ -11,23 +12,20 @@ const { REACT_APP_API_KEY } = process.env;
 interface MultiGameMapProps {
   questionNum: number;
   propsLatLng: PointLatLng;
-  onAnswerHandler: (distance: number) => void;
+  onAnswerHandler: (gamePlayers: IPlayer[]) => void;
   switchMarker: boolean;
 }
 
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
-  // const [userDistance, setUserDistance] = useState<number>();
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
-  const [gamePlayers, setGamePlayers] = useState<Players[]>(players);
+  const [gamePlayers, setGamePlayers] = useState<IPlayer[]>(players);
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
 
   const onClick = (event: google.maps.MapMouseEvent) => {
-    console.log('lat=', event.latLng.lat(), 'lng=', event.latLng.lng());
-
     const lat = Number(event.latLng.lat());
     const lng = Number(event.latLng.lng());
 
@@ -36,38 +34,37 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   };
 
   const handleGuess = () => {
-    console.log('userPoint=', userPoint);
-    const distance = calculateDistance(answerPoint, userPoint);
-    console.log('distance=', distance + 'km');
-    onAnswerHandler(distance);
+    //const distance = calculateDistance(answerPoint, userPoint);
     addOpponentsMarkers();
   };
 
   const addOpponentsMarkers = () => {
-    console.log(gamePlayers);
-    const copyArray: Array<Players> = JSON.parse(JSON.stringify(gamePlayers));
-    console.log(copyArray);
-    const newCopyPlayers: Players[] = copyArray.map((player: Players) => {
-      console.log('player=', player);
+    //console.log(gamePlayers);
+    const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(gamePlayers));
+    //console.log(copyArray);
+    const newCopyPlayers: Array<IPlayer> = copyArray.map((player: IPlayer) => {
+      //console.log('player=', player);
       let points: number;
       if (player.id === 0) {
         player.latLng = userPoint;
         points = singlePointsCounter(calculateDistance(userPoint, answerPoint));
       } else {
         const latLng = getCoordinates(answerPoint);
-        console.log('latLng=', latLng);
+        //console.log('latLng=', latLng);
         player.latLng = latLng;
         points = calculateDistance(latLng, answerPoint);
       }
-      console.log('points=', points);
+      //console.log('points=', points);
       player.points = points;
       player.playerScore = player.playerScore + points;
       return player;
     });
-    console.log('copyPlayers=', newCopyPlayers);
+
     setIsClicked(false);
     setGamePlayers(newCopyPlayers);
+    dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
+    onAnswerHandler(newCopyPlayers);
   };
 
   useEffect(() => {
@@ -81,10 +78,11 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
       <MapBox
         className="question-map"
         opts={{
-          zoom: 7,
+          zoom: 8,
           center: { lat: 51.4772186, lng: 0.0001 },
           streetViewControl: false,
           disableDefaultUI: true,
+          scrollwheel: true,
           zoomControl: true,
         }}
         apiKey={REACT_APP_API_KEY}
@@ -98,9 +96,13 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         }}
         onClick={onClick}
         LoadingComponent={<div>Loading</div>}
+        LoadedComponent={null}
         useGeometry
+        useDrawing
+        usePlaces
       />
-      <StandaloneStreetView
+      <StreetView
+        className="streetView"
         style={{
           height: '100%',
           width: '100%',
@@ -113,7 +115,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
       {isAnswered ? (
         <>
           <Marker
-            id="marker1"
+            id="marker111"
             opts={{
               position: {
                 lat: Number(answerPoint?.lat),
@@ -122,7 +124,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
               icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             }}
           />
-          {gamePlayers.map((player: Players, index: number) => (
+          {gamePlayers.map((player: IPlayer, index: number) => (
             <Marker
               id={`marker${player.id}`}
               key={100 + index}
@@ -132,7 +134,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
               }}
             />
           ))}
-          {gamePlayers.map((player: Players, index: number) => (
+          {gamePlayers.map((player: IPlayer, index: number) => (
             <Polyline
               id={`polyline${player.id}`}
               key={200 + index}

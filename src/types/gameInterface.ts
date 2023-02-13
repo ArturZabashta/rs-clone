@@ -1,7 +1,7 @@
 export type GameStoreType = {
   score: number;
   topScores: string[];
-  players: Players[];
+  players: IPlayer[];
 };
 
 export type LatLng = {
@@ -30,7 +30,7 @@ export type Opponents = {
   gender: string;
 };
 
-export type Players = {
+export type IPlayer = {
   id: number;
   name: string;
   points: number;
