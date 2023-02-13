@@ -1,6 +1,9 @@
 export type GameStoreType = {
   score: number;
   topScores: string[];
+  isSoundOn: boolean;
+  musicVolume: number;
+  effectsVolume: number;
 };
 
 export type LatLng = {

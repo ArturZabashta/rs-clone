@@ -1,0 +1,63 @@
+.settings-container {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(13, 44, 49, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1001;
+  align-items: center;
+  display: none;
+
+  &__active {
+    display: block;
+  }
+
+  .settings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .settings_title{
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .settings_sound{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 15px 0;
+  }
+
+  .settings_input{
+    flex-grow: 1;
+  }
+
+  .settings_deliner {
+    width: 95%;
+    height: 1px;
+    background-color: rgb(187, 187, 187);
+    margin: 10px auto;
+  }
+
+  .settings_switchers {
+    display: flex;
+    justify-content: space-around;
+    font-weight: 600;
+    font-variant: small-caps;
+  }
+  .settings_switcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .settings_btn {
+    margin: 20px auto;
+  }
+}
