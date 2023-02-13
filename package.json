@@ -76,7 +76,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^2.8.3",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "react-switch": "^7.0.0"
   },
   "repository": {
     "type": "git",

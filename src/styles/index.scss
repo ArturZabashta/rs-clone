@@ -142,7 +142,47 @@ button {
 .login_btn {
   display: initial;
 }
+.menu_btn {
+  border: none;
+  padding: 0;
+  font-size: 2rem;
+  font-weight: 800;
+  font-style: italic;
+  transition: all 150ms ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+    color: #8baaaa;
+    box-shadow: none;
+  }
+  &:disabled {
+    color: #a4a8aa;
+    &:hover {
+      transform: none;
+      color: #a4a8aa;
+    }
+  }
+}
+.multi-player_btn{
+  margin-top: 0;
+}
+.menu_login-block {
+  width: fit-content;
+  border-radius: 5px;
+  padding: 0;
+  &__able {
+    padding-block-start: 0;
+    padding-inline-start: 0;
+    border: none;
+  }
+}
 
+.menu_disclaimer{
+  margin-left: 20px;
+
+  &__hide{
+    display: none;
+  }
+}
 h1,
 h2 {
   text-align: center;
@@ -217,6 +257,11 @@ h3 {
         min-width: 222px;
         align-self: flex-start;
       }
+      
+      .menu_options {
+        margin-top: 40px;
+      }
+      
     }
     
     .hamburger {
@@ -259,12 +304,6 @@ h3 {
     flex-basis: 33%;
   }
 
-  .settings {
-    display: flex;
-    gap: 20px;
-    align-items: center;
-  }
-
   .current-page {
     flex-basis: 33%;
     align-self: center;
@@ -289,7 +328,30 @@ h3 {
     color: #fff;
   }
 }
+.options {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  margin-left: 20px;
 
+  .options_item {
+    color: #f7f7f7;
+    cursor: pointer;
+    transition: transform .15s ease-in;
+    font-weight: 800;
+    font-variant: small-caps;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .options_logo {
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+  }
+}
 .main {
   padding-top: 50px;
 }
