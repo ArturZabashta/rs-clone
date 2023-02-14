@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import GameMenu from '../GameMenu/GameMenu';
 import MyButton from '../MyButton/MyButton';
+import UserLvl from '../UserLevel';
 
 import { ReactComponent as LogoSvg } from './HeaderLogo/logo.svg';
 
@@ -71,7 +72,10 @@ const Header: React.FC = () => {
       <h2 className="current-page">{pageName}</h2>
       <nav className="header_nav">
         {isLogin ? (
-          <div className="header_welcome">Glad to see you, {username}</div>
+          <div className="header_welcome">
+            <span className="header_username">{username}</span>
+            <UserLvl />
+          </div>
         ) : (
           <div>
             <MyButton className="login_btn f-bold" route="/login">
