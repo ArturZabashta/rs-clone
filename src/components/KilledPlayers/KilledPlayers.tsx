@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useAppDispatch } from '../../hooks/userHooks';
+import { setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import MyButton from '../MyButton/MyButton';
 interface GameResultProps {
@@ -7,11 +9,15 @@ interface GameResultProps {
   onContinueHandler: (remainingPlayers: IPlayer[]) => void;
 }
 const KilledPlayers: React.FC<GameResultProps> = ({ allPlayers, onContinueHandler }) => {
+  const dispatch = useAppDispatch();
   const setKillPlayers = () => {
     const copyArray: IPlayer[] = JSON.parse(JSON.stringify(allPlayers));
     if (copyArray.length > 2) copyArray.pop();
     if (copyArray.length > 2) copyArray.pop();
+    console.log('Array after killed', copyArray);
+    // dispatch(setPlayersTeam(copyArray));
     onContinueHandler(copyArray);
+    // dispatch(setPlayersTeam(copyArray));
   };
 
   return (

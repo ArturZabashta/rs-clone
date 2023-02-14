@@ -67,8 +67,8 @@ export const gameView: Array<IData> = [
   {
     city: 'Tokyo',
     latLng: {
-      lat: 35.49883883557832,
-      lng: 139.76324199117764,
+      lat: 35.65167334332945,
+      lng: 139.64727047819642,
     },
   },
   {

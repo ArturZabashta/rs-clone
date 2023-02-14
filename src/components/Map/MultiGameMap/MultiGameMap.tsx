@@ -10,16 +10,23 @@ import MyButton from '../../MyButton/MyButton';
 const { REACT_APP_API_KEY } = process.env;
 
 interface MultiGameMapProps {
+  propPlayers: IPlayer[];
   questionNum: number;
   propsLatLng: PointLatLng;
   onAnswerHandler: (gamePlayers: IPlayer[]) => void;
   switchMarker: boolean;
 }
 
-const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
+const MultiGameMap: React.FC<MultiGameMapProps> = ({
+  propPlayers,
+  questionNum,
+  propsLatLng,
+  onAnswerHandler,
+  switchMarker,
+}) => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
-  const [gamePlayers, setGamePlayers] = useState<IPlayer[]>(players);
+  const [gamePlayers, setGamePlayers] = useState<IPlayer[]>(propPlayers);
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -40,7 +47,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
 
   const addOpponentsMarkers = () => {
     //console.log(gamePlayers);
-    const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(gamePlayers));
+    const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(propPlayers));
     //console.log(copyArray);
     const newCopyPlayers: Array<IPlayer> = copyArray.map((player: IPlayer) => {
       //console.log('player=', player);
@@ -61,8 +68,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     });
 
     setIsClicked(false);
-    setGamePlayers(newCopyPlayers);
-    dispatch(setPlayersTeam(newCopyPlayers));
+    // setGamePlayers(newCopyPlayers);
+    //dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
     onAnswerHandler(newCopyPlayers);
   };
@@ -72,6 +79,11 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     setAnswerPoint(propsLatLng);
     setIsClicked(switchMarker);
   }, [questionNum, switchMarker]);
+
+  useEffect(() => {
+    console.log('propPlayers from useEffect', propPlayers);
+    console.log('gamePlayers from useEffect', gamePlayers);
+  }, [propPlayers.length]);
 
   return (
     <GoogleMapProvider>

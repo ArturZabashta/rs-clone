@@ -34,9 +34,9 @@ const MultiPlayer: React.FC = () => {
           const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(playersArray));
           do {
             nextPlayerId = getDiapasonRandomNum(1, opponents.length);
-            console.warn('nextPlayer = ', nextPlayerId);
+            // console.warn('nextPlayer = ', nextPlayerId);
           } while (copyArray.find((player: IPlayer) => player.id === nextPlayerId) !== undefined);
-          console.warn('Final nextPlayer = ', nextPlayerId);
+          // console.warn('Final nextPlayer = ', nextPlayerId);
 
           const nextPlayer: IPlayer = Object.assign({}, DEFAULT_PLAYER);
           nextPlayer.id = opponents[nextPlayerId - 1].id;
@@ -47,7 +47,7 @@ const MultiPlayer: React.FC = () => {
         }
         setClosure();
       }, Math.random() * 1200);
-      console.log('playersArray = ', playersArray);
+      // console.log('playersArray = ', playersArray);
     }
     if (playersArray.length === 7) setIsGameAvailable(true);
   }, [playersArray]);

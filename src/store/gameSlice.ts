@@ -36,6 +36,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setScore, setTopScores, setPlayersTeam, setIsSoundOn, setEffectsVolume, setMusicVolume } = gameSlice.actions;
+export const { setScore, setTopScores, setPlayersTeam, setIsSoundOn, setEffectsVolume, setMusicVolume } =
+  gameSlice.actions;
 
 export default gameSlice.reducer;
