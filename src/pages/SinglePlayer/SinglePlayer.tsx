@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../hooks/userHooks';
 import { useAppSelector } from '../../hooks/userHooks';
 import { setScore } from '../../store/gameSlice';
 import { getDiapasonRandomNum, SinglePointsCounter } from '../../utils/utilities';
-//const API_KEY = String(process.env.REACT_APP_API_KEY);
+// const API_KEY = String(process.env.REACT_APP_API_KEY);
 
 const SinglePlayer: React.FC = () => {
   const dispatch = useAppDispatch();

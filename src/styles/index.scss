@@ -51,9 +51,11 @@ body {
   0% {
     background-position: 0 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0 50%;
   }
@@ -142,6 +144,7 @@ button {
 .login_btn {
   display: initial;
 }
+
 .menu_btn {
   border: none;
   padding: 0;
@@ -149,26 +152,32 @@ button {
   font-weight: 800;
   font-style: italic;
   transition: all 150ms ease-in-out;
+
   &:hover {
     transform: scale(1.1);
     color: #8baaaa;
     box-shadow: none;
   }
+
   &:disabled {
     color: #a4a8aa;
+
     &:hover {
       transform: none;
       color: #a4a8aa;
     }
   }
 }
-.multi-player_btn{
+
+.multi-player_btn {
   margin-top: 0;
 }
+
 .menu_login-block {
   width: fit-content;
   border-radius: 5px;
   padding: 0;
+
   &__able {
     padding-block-start: 0;
     padding-inline-start: 0;
@@ -176,13 +185,14 @@ button {
   }
 }
 
-.menu_disclaimer{
+.menu_disclaimer {
   margin-left: 20px;
 
-  &__hide{
+  &__hide {
     display: none;
   }
 }
+
 h1,
 h2 {
   text-align: center;
@@ -222,7 +232,7 @@ h3 {
 
   .header_nav {
     position: absolute;
-    right: 0;
+    right: 20px;
     display: flex;
     flex-wrap: wrap;
 
@@ -232,14 +242,14 @@ h3 {
       height: 100vh;
       width: 30vw;
       position: fixed;
-      background-color: rgba(0,0,0,.7);
+      background-color: rgba(0, 0, 0, .7);
       z-index: 999;
       padding: 10rem 4rem;
       display: flex;
       flex-direction: column;
       clip-path: polygon(0 0, 100% 0, 50% 100%, 0% 100%);
       transition: transform 0.3s ease-in-out;
-    
+
       @media (max-width: 1400px) {
         width: 50vw;
       }
@@ -257,13 +267,13 @@ h3 {
         min-width: 222px;
         align-self: flex-start;
       }
-      
+
       .menu_options {
         margin-top: 40px;
       }
-      
+
     }
-    
+
     .hamburger {
       position: fixed;
       top: 0;
@@ -272,7 +282,7 @@ h3 {
       height: 2rem;
       padding: 0;
       background: transparent;
-    
+
       display: flex;
       flex-direction: column;
       justify-content: space-around;
@@ -281,12 +291,12 @@ h3 {
       cursor: pointer;
       outline: none;
       z-index: 99;
-    
+
       &:hover,
       &:focus {
         box-shadow: none;
       }
-    
+
       div {
         position: relative;
         width: 2rem;
@@ -297,7 +307,6 @@ h3 {
         transform-origin: 1px;
       }
     }
-    // flex-basis: 33%;
   }
 
   .header_logo {
@@ -316,18 +325,40 @@ h3 {
 
   .header_welcome {
     font-size: 1rem;
-    font-weight: 700;
     margin: 20px;
-    padding: 1.2em 3.8em;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
     text-decoration: none;
     text-align: center;
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
     border: 2px solid #FFFFFF;
     border-radius: 0.6em;
-    color: #fff;
+
+    .header_username {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #fff;
+
+    }
+
+    .lvl {
+      width: 110px;
+    }
+
+    .lvl_bar {
+      border-radius: 2px;
+      transform: skewX(341deg);
+    }
+
+    .lvl_level {
+      color: #fecd19;
+      font-weight: 700;
+    }
   }
 }
+
 .options {
   display: flex;
   justify-content: space-around;
@@ -340,7 +371,7 @@ h3 {
     transition: transform .15s ease-in;
     font-weight: 800;
     font-variant: small-caps;
-    
+
     &:hover {
       transform: scale(1.1);
     }
@@ -352,6 +383,7 @@ h3 {
     margin: 0 auto;
   }
 }
+
 .main {
   padding-top: 50px;
 }
