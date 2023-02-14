@@ -5,10 +5,9 @@ import { setIsLoosedGame, setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import MyButton from '../MyButton/MyButton';
 interface GameResultProps {
-  propPlayers: IPlayer[];
-  onContinueHandler: (remainingPlayers: IPlayer[]) => void;
+  onContinueHandler: () => void;
 }
-const KilledPlayers: React.FC<GameResultProps> = ({ propPlayers, onContinueHandler }) => {
+const KilledPlayers: React.FC<GameResultProps> = ({ onContinueHandler }) => {
   const { players } = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
   const setKillPlayers = () => {
@@ -21,7 +20,7 @@ const KilledPlayers: React.FC<GameResultProps> = ({ propPlayers, onContinueHandl
     }
     console.log('Array after killed', copyArray);
     dispatch(setPlayersTeam(copyArray));
-    onContinueHandler(copyArray);
+    onContinueHandler();
   };
 
   return (
@@ -35,9 +34,10 @@ const KilledPlayers: React.FC<GameResultProps> = ({ propPlayers, onContinueHandl
         zIndex: '10',
         top: '0',
         left: '0',
+        paddingTop: '7rem',
       }}
     >
-      <p>{`Someone has to leave`}</p>
+      <h2>{`Someone has to leave`}</h2>
       {players.map((player: IPlayer, index: number) =>
         index === players.length - 2 || index === players.length - 1 ? (
           <h3 key={index} style={{ color: 'red' }}>

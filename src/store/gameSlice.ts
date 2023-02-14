@@ -10,6 +10,7 @@ const initialState: GameStoreType = {
   musicVolume: 0.6,
   effectsVolume: 0.5,
   level: 1,
+  round: 1,
   isLoosedGame: false,
 };
 
@@ -44,6 +45,12 @@ export const gameSlice = createSlice({
     resetLevel: (state) => {
       state.level = 1;
     },
+    setRound: (state) => {
+      state.round = state.round + 1;
+    },
+    resetRound: (state) => {
+      state.round = 1;
+    },
     setIsLoosedGame: (state, action: PayloadAction<boolean>) => {
       state.isLoosedGame = action.payload;
     },
@@ -60,6 +67,8 @@ export const {
   setSortPlayersTeam,
   setLevel,
   resetLevel,
+  setRound,
+  resetRound,
   setIsLoosedGame,
 } = gameSlice.actions;
 

@@ -6,6 +6,7 @@ export type GameStoreType = {
   musicVolume: number;
   effectsVolume: number;
   level: number;
+  round: number;
   isLoosedGame: boolean;
 };
 

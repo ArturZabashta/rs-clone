@@ -7,12 +7,14 @@ import { gameView } from '../../constants/places-data';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { useAppSelector } from '../../hooks/userHooks';
 import { setScore } from '../../store/gameSlice';
+import { resetLevel, setLevel } from '../../store/gameSlice';
 import { getDiapasonRandomNum, singlePointsCounter } from '../../utils/utilities';
-//const API_KEY = String(process.env.REACT_APP_API_KEY);
 
 const SinglePlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
+  const { level } = useAppSelector((state) => state.game);
+
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
   const [distance, setDistance] = useState(0);
@@ -30,11 +32,16 @@ const SinglePlayer: React.FC = () => {
     setQuestion(nextQuestion);
     setQuestionArray([...questionArray, nextQuestion]);
     setIsAnswered(false);
-    console.warn('Score is =', score);
+
+    if (level === 9) {
+      setIsGameFinished(true);
+      dispatch(resetLevel());
+    }
+
+    dispatch(setLevel());
   };
 
   const onAnswerHandler = (distance: number) => {
-    console.log('distance from SP=', distance);
     setIsAnswered(true);
     setDistance(distance);
     const points = singlePointsCounter(distance);
@@ -42,27 +49,21 @@ const SinglePlayer: React.FC = () => {
     dispatch(setScore(points));
   };
 
-  useEffect(() => {
-    if (questionArray.length === 5) {
-      setIsGameFinished(true);
-    }
-  }, [questionArray]);
-
   return (
     <section
       className="single-player"
       style={{
-        height: '80vh',
+        height: '70vh',
         width: '100vw',
-        display: 'flex',
       }}
     >
+      <h3>{`Question ${level}`}</h3>
       <div
         className="question_wrapper"
         style={{
           position: 'relative',
-          height: '70vh',
-          width: '100vw',
+          height: '60vh',
+          width: '97vw',
           margin: '1rem',
         }}
       >

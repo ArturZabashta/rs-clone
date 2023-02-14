@@ -10,24 +10,16 @@ import MyButton from '../../MyButton/MyButton';
 const { REACT_APP_API_KEY } = process.env;
 
 interface MultiGameMapProps {
-  propPlayers: IPlayer[];
   questionNum: number;
   propsLatLng: PointLatLng;
-  onAnswerHandler: (gamePlayers: IPlayer[]) => void;
+  onAnswerHandler: () => void;
   switchMarker: boolean;
 }
 
-const MultiGameMap: React.FC<MultiGameMapProps> = ({
-  propPlayers,
-  questionNum,
-  propsLatLng,
-  onAnswerHandler,
-  switchMarker,
-}) => {
+const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
 
-  const [gamePlayers, setGamePlayers] = useState<IPlayer[]>(propPlayers);
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -42,37 +34,30 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
   };
 
   const handleGuess = () => {
-    //const distance = calculateDistance(answerPoint, userPoint);
     addOpponentsMarkers();
   };
 
   const addOpponentsMarkers = () => {
-    //console.log(gamePlayers);
     const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(players));
-    //console.log(copyArray);
     const newCopyPlayers: Array<IPlayer> = copyArray.map((player: IPlayer) => {
-      //console.log('player=', player);
       let points: number;
       if (player.id === 0) {
         player.latLng = userPoint;
         points = singlePointsCounter(calculateDistance(userPoint, answerPoint));
       } else {
         const latLng = getCoordinates(answerPoint);
-        //console.log('latLng=', latLng);
         player.latLng = latLng;
         points = calculateDistance(latLng, answerPoint);
       }
-      //console.log('points=', points);
       player.points = points;
       player.playerScore = player.playerScore + points;
       return player;
     });
 
     setIsClicked(false);
-    // setGamePlayers(newCopyPlayers);
     dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
-    onAnswerHandler(newCopyPlayers);
+    onAnswerHandler();
   };
 
   useEffect(() => {
@@ -80,11 +65,6 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
     setAnswerPoint(propsLatLng);
     setIsClicked(switchMarker);
   }, [questionNum, switchMarker]);
-
-  // useEffect(() => {
-  //   console.log('propPlayers from useEffect', propPlayers);
-  //   console.log('gamePlayers from useEffect', gamePlayers);
-  // }, [propPlayers.length]);
 
   return (
     <GoogleMapProvider>
@@ -128,7 +108,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
       {isAnswered ? (
         <>
           <Marker
-            id="marker111"
+            id="marker007"
             opts={{
               position: {
                 lat: Number(answerPoint?.lat),

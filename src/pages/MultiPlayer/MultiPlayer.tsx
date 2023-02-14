@@ -26,6 +26,7 @@ const MultiPlayer: React.FC = () => {
     dispatch(setPlayersTeam(playersArray));
   };
 
+  // Запуск автогенерации команды оппонентов
   useEffect(() => {
     if (playersArray.length <= 6 && isFindClicked === true) {
       setTimeout(() => {
@@ -34,9 +35,7 @@ const MultiPlayer: React.FC = () => {
           const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(playersArray));
           do {
             nextPlayerId = getDiapasonRandomNum(1, opponents.length);
-            // console.warn('nextPlayer = ', nextPlayerId);
           } while (copyArray.find((player: IPlayer) => player.id === nextPlayerId) !== undefined);
-          // console.warn('Final nextPlayer = ', nextPlayerId);
 
           const nextPlayer: IPlayer = Object.assign({}, DEFAULT_PLAYER);
           nextPlayer.id = opponents[nextPlayerId - 1].id;
@@ -47,14 +46,13 @@ const MultiPlayer: React.FC = () => {
         }
         setClosure();
       }, Math.random() * 1200);
-      // console.log('playersArray = ', playersArray);
     }
     if (playersArray.length === 7) setIsGameAvailable(true);
   }, [playersArray]);
 
   return (
     <section className="multi-player">
-      <h2>List of Opponents</h2>
+      <h3>List of Opponents</h3>
       <div
         className="players_wrapper"
         style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '100vw', height: '50vh' }}

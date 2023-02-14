@@ -6,25 +6,21 @@ import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
 import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
-import { resetLevel, setLevel, setPlayersTeam, setScore, setSortPlayersTeam } from '../../../store/gameSlice';
+import { resetLevel, resetRound, setLevel, setRound, setSortPlayersTeam } from '../../../store/gameSlice';
 import { IPlayer } from '../../../types/gameInterface';
-import { getDiapasonRandomNum, singlePointsCounter } from '../../../utils/utilities';
+import { getDiapasonRandomNum } from '../../../utils/utilities';
 
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { score } = useAppSelector((state) => state.game);
   const { players } = useAppSelector((state) => state.game);
   const { level } = useAppSelector((state) => state.game);
+  const { round } = useAppSelector((state) => state.game);
   const { isLoosedGame } = useAppSelector((state) => state.game);
 
-  const [gamePlayers, setGamePlayers] = useState<IPlayer[]>(players);
-  const [remainingGamePlayers, setRemainingGamePlayers] = useState<IPlayer[]>([]);
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
-  const [answerPoints, setAnswerPoints] = useState(0);
-  const [isAnswered, setIsAnswered] = useState(false);
 
-  const [roundCount, setRoundCount] = useState(1);
+  const [isAnswered, setIsAnswered] = useState(false);
   const [isRoundFinished, setIsRoundFinished] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
 
@@ -38,77 +34,44 @@ const MultiGamePage: React.FC = () => {
     setQuestion(nextQuestion);
     setQuestionArray([...questionArray, nextQuestion]);
     setIsAnswered(false);
-    console.warn('questionArray.length =', questionArray.length);
-    if (level === 3 || level === 6) {
+
+    dispatch(setLevel());
+
+    if (level === 3 && round < 3) {
       setIsRoundFinished(true);
-    }
-    if (level === 9) {
-      setIsGameFinished(true);
+      dispatch(setRound());
       dispatch(resetLevel());
     }
-    dispatch(setLevel());
-    console.warn('Players play setNextQuestion G.store =', players);
-    console.warn('Players play setNextQuestion state =', gamePlayers);
-    console.warn('Players setNextQuestion remainingGamePlayers =', remainingGamePlayers);
-    console.warn('questionArray is =', questionArray);
+    if (round === 3 && level === 3) {
+      setIsGameFinished(true);
+      dispatch(resetLevel());
+      dispatch(resetRound());
+    }
+    //dispatch(setLevel());
   };
 
-  const onAnswerHandler = (getPlayers: IPlayer[]) => {
-    const copyGetPlayers: Array<IPlayer> = JSON.parse(JSON.stringify(getPlayers));
-    setSorted(players);
-    // setGamePlayers(copyGetPlayers);
-
+  const onAnswerHandler = () => {
+    setSorted();
     setIsAnswered(true);
   };
 
-  function setSorted(array: IPlayer[]) {
-    // setTimeout(() => {
-    //   function setClosure() {
-    //     const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(players));
-    //     copyArray.sort((a: IPlayer, b: IPlayer) => b.playerScore - a.playerScore);
-    //     // setGamePlayers(copyArray);
-    //     dispatch(setPlayersTeam(copyArray));
-    //     console.warn('setSorted players =', copyArray);
-    //   }
-    //   setClosure();
-    // }, 3500);
+  function setSorted() {
     setTimeout(
       () => {
-        // const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(players));
-        // copyArray.sort((a: IPlayer, b: IPlayer) => b.playerScore - a.playerScore);
-        // setGamePlayers(copyArray);
         dispatch(setSortPlayersTeam());
-        // console.warn('setSorted players =', copyArray);
       },
-      level === 3 || level === 6 ? 0 : 3500
+      level === 3 ? 0 : 3500
     );
   }
 
-  const continueHandler = (remainingPlayers: IPlayer[]) => {
-    console.log('remainingPlayers', remainingPlayers);
-    //setRemainingGamePlayers(remainingPlayers);
-
-    // setGamePlayers(remainingPlayers);
-    // dispatch(setPlayersTeam(remainingPlayers));
-    //setGamePlayers(remainingPlayers);
-    setSorted(players);
-    // setGamePlayers(remainingPlayers);
-    console.warn('Players play continueHandler G.store =', players);
+  const continueHandler = () => {
+    setSorted();
     setIsRoundFinished(false);
-    setRoundCount((prev) => prev + 1);
-    // setNextQuestion();
   };
-
-  // useEffect(() => {
-  //   if (questionArray.length === 10) {
-  //
-  //   }
-  //   // setGamePlayers(players);
-  // }, [questionArray, players]);
 
   return (
     <section className="Multi-player">
-      <p>{`Round ${level}`}</p>
+      <p style={{ textAlign: 'center' }}>{`Round ${round}. Question ${level}`}</p>
       <div
         className="game_wrapper"
         style={{
@@ -127,7 +90,6 @@ const MultiGamePage: React.FC = () => {
           }}
         >
           <MultiGameMap
-            propPlayers={players}
             propsLatLng={gameView[question].latLng}
             onAnswerHandler={onAnswerHandler}
             questionNum={question}
@@ -179,7 +141,7 @@ const MultiGamePage: React.FC = () => {
         ''
       )}
       {isGameFinished || isLoosedGame ? <GameResult /> : ''}
-      {isRoundFinished ? <KilledPlayers propPlayers={players} onContinueHandler={continueHandler} /> : ''}
+      {isRoundFinished ? <KilledPlayers onContinueHandler={continueHandler} /> : ''}
     </section>
   );
 };
