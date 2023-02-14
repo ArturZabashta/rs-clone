@@ -26,6 +26,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
+
   const [gamePlayers, setGamePlayers] = useState<IPlayer[]>(propPlayers);
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
@@ -47,7 +48,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
 
   const addOpponentsMarkers = () => {
     //console.log(gamePlayers);
-    const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(propPlayers));
+    const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(players));
     //console.log(copyArray);
     const newCopyPlayers: Array<IPlayer> = copyArray.map((player: IPlayer) => {
       //console.log('player=', player);
@@ -69,7 +70,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
 
     setIsClicked(false);
     // setGamePlayers(newCopyPlayers);
-    //dispatch(setPlayersTeam(newCopyPlayers));
+    dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
     onAnswerHandler(newCopyPlayers);
   };
@@ -80,10 +81,10 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
     setIsClicked(switchMarker);
   }, [questionNum, switchMarker]);
 
-  useEffect(() => {
-    console.log('propPlayers from useEffect', propPlayers);
-    console.log('gamePlayers from useEffect', gamePlayers);
-  }, [propPlayers.length]);
+  // useEffect(() => {
+  //   console.log('propPlayers from useEffect', propPlayers);
+  //   console.log('gamePlayers from useEffect', gamePlayers);
+  // }, [propPlayers.length]);
 
   return (
     <GoogleMapProvider>
@@ -136,7 +137,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
               icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             }}
           />
-          {gamePlayers.map((player: IPlayer, index: number) => (
+          {players.map((player: IPlayer, index: number) => (
             <Marker
               id={`marker${player.id}`}
               key={100 + index}
@@ -146,7 +147,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({
               }}
             />
           ))}
-          {gamePlayers.map((player: IPlayer, index: number) => (
+          {players.map((player: IPlayer, index: number) => (
             <Polyline
               id={`polyline${player.id}`}
               key={200 + index}

@@ -5,6 +5,8 @@ export type GameStoreType = {
   isSoundOn: boolean;
   musicVolume: number;
   effectsVolume: number;
+  level: number;
+  isLoosedGame: boolean;
 };
 
 export type LatLng = {

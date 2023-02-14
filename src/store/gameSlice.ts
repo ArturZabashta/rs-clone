@@ -9,6 +9,8 @@ const initialState: GameStoreType = {
   isSoundOn: true,
   musicVolume: 0.6,
   effectsVolume: 0.5,
+  level: 1,
+  isLoosedGame: false,
 };
 
 export const gameSlice = createSlice({
@@ -33,10 +35,32 @@ export const gameSlice = createSlice({
     setEffectsVolume: (state, action: PayloadAction<number>) => {
       state.effectsVolume = action.payload;
     },
+    setSortPlayersTeam: (state) => {
+      state.players = state.players.sort((a: IPlayer, b: IPlayer) => b.playerScore - a.playerScore);
+    },
+    setLevel: (state) => {
+      state.level = state.level + 1;
+    },
+    resetLevel: (state) => {
+      state.level = 1;
+    },
+    setIsLoosedGame: (state, action: PayloadAction<boolean>) => {
+      state.isLoosedGame = action.payload;
+    },
   },
 });
 
-export const { setScore, setTopScores, setPlayersTeam, setIsSoundOn, setEffectsVolume, setMusicVolume } =
-  gameSlice.actions;
+export const {
+  setScore,
+  setTopScores,
+  setPlayersTeam,
+  setIsSoundOn,
+  setEffectsVolume,
+  setMusicVolume,
+  setSortPlayersTeam,
+  setLevel,
+  resetLevel,
+  setIsLoosedGame,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

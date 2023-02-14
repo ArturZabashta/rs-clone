@@ -55,10 +55,17 @@ const MultiPlayer: React.FC = () => {
   return (
     <section className="multi-player">
       <h2>List of Opponents</h2>
-      <div className="players_wrapper">
+      <div
+        className="players_wrapper"
+        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '100vw', height: '50vh' }}
+      >
         {playersArray.map((player: IPlayer) => (
-          <div className="players_item" key={player.id}>
-            {player.name}
+          <div
+            className="players_item"
+            key={player.id}
+            style={{ width: '20vw', height: '20vh', border: 'solid 1px grey', borderRadius: '0.5rem', margin: '1vw' }}
+          >
+            <h3>{player.name}</h3>
           </div>
         ))}
       </div>
