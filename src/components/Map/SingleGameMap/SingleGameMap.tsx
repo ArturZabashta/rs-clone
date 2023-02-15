@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StandaloneStreetView } from '@googlemap-react/core';
 
-import { PointLatLng } from '../../types/gameInterface';
-import MyButton from '../MyButton/MyButton';
+import { PointLatLng } from '../../../types/gameInterface';
+import { calculateDistance } from '../../../utils/utilities';
+import MyButton from '../../MyButton/MyButton';
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -13,7 +14,7 @@ interface MapProps {
   switchMarker: boolean;
 }
 
-const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, switchMarker }) => {
+const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, switchMarker }) => {
   // const [userDistance, setUserDistance] = useState<number>();
   const [userPoint, setUserPoint] = useState<PointLatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
@@ -33,7 +34,7 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, sw
   const handleGuess = () => {
     setIsAnswered(true);
     console.log('userPoint=', userPoint);
-    const distance = google.maps.geometry.spherical.computeDistanceBetween(answerPoint, userPoint) / 1000;
+    const distance = calculateDistance(answerPoint, userPoint);
     console.log('distance=', distance + 'km');
     onAnswerHandler(distance);
   };
@@ -124,4 +125,4 @@ const Map: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, sw
   );
 };
 
-export default Map;
+export default SingleGameMap;

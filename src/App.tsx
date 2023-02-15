@@ -8,6 +8,7 @@ import Settings from './components/Settings/Settings';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import HomePage from './pages/HomePage/HomePage';
 import LogInPage from './pages/LoginPage/LoginPage';
+import MultiGamePage from './pages/MultiPlayer/MultiGamePage/MultiGamePage';
 import MultiPlayer from './pages/MultiPlayer/MultiPlayer';
 import ScorePage from './pages/ScorePage/ScorePage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
           <Route path="/single-player" element={<SinglePlayer />}></Route>
           <Route path="/multi-player" element={<MultiPlayer />}></Route>
           <Route path="/score" element={<ScorePage />}></Route>
+          <Route path="/game" element={<MultiGamePage />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </main>

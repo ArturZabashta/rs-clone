@@ -1,13 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GameStoreType } from '../types/gameInterface';
+import { GameStoreType, IPlayer } from '../types/gameInterface';
 
 const initialState: GameStoreType = {
   score: 0,
   topScores: [],
+  players: [],
   isSoundOn: true,
   musicVolume: 0.6,
   effectsVolume: 0.5,
+  level: 1,
+  round: 1,
+  isLoosedGame: false,
 };
 
 export const gameSlice = createSlice({
@@ -20,6 +24,9 @@ export const gameSlice = createSlice({
     setTopScores: (state, action: PayloadAction<Array<string>>) => {
       state.topScores = action.payload;
     },
+    setPlayersTeam: (state, action: PayloadAction<Array<IPlayer>>) => {
+      state.players = action.payload;
+    },
     setIsSoundOn: (state, action: PayloadAction<boolean>) => {
       state.isSoundOn = action.payload;
     },
@@ -29,9 +36,40 @@ export const gameSlice = createSlice({
     setEffectsVolume: (state, action: PayloadAction<number>) => {
       state.effectsVolume = action.payload;
     },
+    setSortPlayersTeam: (state) => {
+      state.players = state.players.sort((a: IPlayer, b: IPlayer) => b.playerScore - a.playerScore);
+    },
+    setLevel: (state) => {
+      state.level = state.level + 1;
+    },
+    resetLevel: (state) => {
+      state.level = 1;
+    },
+    setRound: (state) => {
+      state.round = state.round + 1;
+    },
+    resetRound: (state) => {
+      state.round = 1;
+    },
+    setIsLoosedGame: (state, action: PayloadAction<boolean>) => {
+      state.isLoosedGame = action.payload;
+    },
   },
 });
 
-export const { setScore, setTopScores, setIsSoundOn, setEffectsVolume, setMusicVolume } = gameSlice.actions;
+export const {
+  setScore,
+  setTopScores,
+  setPlayersTeam,
+  setIsSoundOn,
+  setEffectsVolume,
+  setMusicVolume,
+  setSortPlayersTeam,
+  setLevel,
+  resetLevel,
+  setRound,
+  resetRound,
+  setIsLoosedGame,
+} = gameSlice.actions;
 
 export default gameSlice.reducer;

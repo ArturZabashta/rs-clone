@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
 import GameResult from '../../components/GameResult/GameResult';
-import Map from '../../components/Map';
+import SingleGameMap from '../../components/Map/SingleGameMap';
 import MyButton from '../../components/MyButton/MyButton';
-import { gameView } from '../../constants/constants';
+import { gameView } from '../../constants/places-data';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { useAppSelector } from '../../hooks/userHooks';
 import { setScore } from '../../store/gameSlice';
-import { getDiapasonRandomNum, SinglePointsCounter } from '../../utils/utilities';
-// const API_KEY = String(process.env.REACT_APP_API_KEY);
+import { resetLevel, setLevel } from '../../store/gameSlice';
+import { getDiapasonRandomNum, singlePointsCounter } from '../../utils/utilities';
 
 const SinglePlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
+  const { level } = useAppSelector((state) => state.game);
+
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
   const [distance, setDistance] = useState(0);
@@ -30,57 +32,47 @@ const SinglePlayer: React.FC = () => {
     setQuestion(nextQuestion);
     setQuestionArray([...questionArray, nextQuestion]);
     setIsAnswered(false);
-    console.warn('Score is =', score);
+
+    if (level === 9) {
+      setIsGameFinished(true);
+      dispatch(resetLevel());
+    }
+
+    dispatch(setLevel());
   };
 
   const onAnswerHandler = (distance: number) => {
-    console.log('distance from SP=', distance);
-    const correctDistance = Math.ceil(distance);
     setIsAnswered(true);
-    setDistance(correctDistance);
-    const points = SinglePointsCounter(correctDistance);
+    setDistance(distance);
+    const points = singlePointsCounter(distance);
     setAnswerPoints(points);
     dispatch(setScore(points));
   };
-
-  useEffect(() => {
-    if (questionArray.length === 5) {
-      setIsGameFinished(true);
-    }
-  }, [questionArray]);
 
   return (
     <section
       className="single-player"
       style={{
-        height: '80vh',
+        height: '70vh',
         width: '100vw',
-        display: 'flex',
       }}
     >
+      <h3>{`Question ${level}`}</h3>
       <div
         className="question_wrapper"
         style={{
           position: 'relative',
-          height: '70vh',
-          width: '70vw',
+          height: '60vh',
+          width: '97vw',
           margin: '1rem',
         }}
       >
-        <Map
+        <SingleGameMap
           pointLatLng={gameView[question].latLng}
           onAnswerHandler={onAnswerHandler}
           questionNum={question}
           switchMarker={false}
         />
-        <div
-          className="players_wrapper"
-          style={{
-            height: '100%',
-            width: '27vw',
-            position: 'relative',
-          }}
-        ></div>
       </div>
       {isAnswered ? (
         <div
@@ -97,7 +89,7 @@ const SinglePlayer: React.FC = () => {
           <p className="answer_city">{`This is  ${gameView[question].city}`}</p>
           <p className="distance">{`You were wrong by  ${distance} km`}</p>
           <p className="points">{`Your result is  ${answerPoints}  points`}</p>
-          <MyButton className="next_question" onClickButton={setNextLevel}>
+          <MyButton className="login_btn f-bold" onClickButton={setNextLevel}>
             Next question
           </MyButton>
         </div>
