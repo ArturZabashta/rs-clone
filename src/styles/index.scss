@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Julee&display=swap');
+@import './HomePage.scss';
 
 *,
 *::before,
@@ -42,9 +43,8 @@ body {
   color: #FFFFFF;
   overflow-x: hidden;
   position: relative;
-  background: linear-gradient(45deg, #8baaaa, #ae8b9c);
-  background-size: 400% 400%;
-  animation: anim 2.5s infinite ease-in-out;
+  backdrop-filter: brightness(0.8);
+  background: url('https://i.artfile.me/wallpaper/24-08-2017/1920x1200/priroda-dorogi-gory-doroga-1215432.jpg');
 }
 
 @keyframes anim {
@@ -268,10 +268,6 @@ h3 {
         align-self: flex-start;
       }
 
-      .menu_options {
-        margin-top: 40px;
-      }
-
     }
 
     .hamburger {
@@ -364,6 +360,7 @@ h3 {
   justify-content: space-around;
   width: 50%;
   margin-left: 20px;
+  margin-top: 40px;
 
   .options_item {
     color: #f7f7f7;

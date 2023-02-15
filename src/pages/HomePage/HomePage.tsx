@@ -1,31 +1,19 @@
 import React from 'react';
 
-import MyButton from '../../components/MyButton/MyButton';
-import { useAppDispatch } from '../../hooks/userHooks';
-import { setIsSettingsOn } from '../../store/uiSlice';
+import Menu from '../../components/GameMenu/Menu';
+import GameRule from '../../components/GameRule';
+import { gameRules } from '../../constants/game-description';
 
 const HomePage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const settingsHandler = () => {
-    dispatch(setIsSettingsOn(true));
-    console.log('Settings On');
-  };
+  const handler = () => console.log(123);
   return (
     <section className="home-page">
-      <nav>
-        <MyButton className="single-player_btn" route="/single-player">
-          SinglePlayer
-        </MyButton>
-        <MyButton className="single-player_btn" route="/multi-player">
-          MultiPlayer
-        </MyButton>
-        <MyButton className="single-player_btn" route="/score">
-          Leader Board
-        </MyButton>
-        <MyButton className="settings_btn" onClickButton={settingsHandler}>
-          Settings
-        </MyButton>
-      </nav>
+      <Menu menuHandler={handler} />
+      <section className="home-page_rules rules">
+        {gameRules.map((item, ind) => (
+          <GameRule head={item.title} body={item.body} key={ind} />
+        ))}
+      </section>
     </section>
   );
 };
