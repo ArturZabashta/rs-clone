@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 
+import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import { setPlayersTeam } from '../../../store/gameSlice';
 import { IPlayer, LatLng, PointLatLng } from '../../../types/gameInterface';
@@ -25,16 +26,28 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
 
+  const [center, setCenter] = useState<LatLng>({ lat: 51.4772186, lng: 0.0001 });
+  const [mapSize, setMapSize] = useState('13vw');
+  const [showUTS, setShowUTS] = useState(false);
+  const [showContinent, setShowContinent] = useState(false);
+  const [showFlag, setShowFlag] = useState(false);
+
   const onClick = (event: google.maps.MapMouseEvent) => {
     const lat = Number(event.latLng.lat());
     const lng = Number(event.latLng.lng());
 
     setUserPoint({ lat: lat, lng: lng });
     setIsClicked(true);
+    setMapSize('56vh');
   };
 
   const handleGuess = () => {
     addOpponentsMarkers();
+    setShowUTS(false);
+    setShowContinent(false);
+    setShowFlag(false);
+    setMapSize('56vh');
+    setCenter(answerPoint);
   };
 
   const addOpponentsMarkers = () => {
@@ -60,6 +73,26 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     onAnswerHandler();
   };
 
+  const onMouseMove = () => {
+    setMapSize('56vh');
+  };
+  const onMouseOut = () => {
+    if (!isClicked) setMapSize('13vh');
+  };
+  const onPovChanged = () => {
+    setMapSize('13vh');
+  };
+
+  const handleUTSBtn = () => {
+    setShowUTS(true);
+  };
+  const handleContinentBtn = () => {
+    setShowContinent(true);
+  };
+  const handleFlagBtn = () => {
+    setShowFlag(true);
+  };
+
   useEffect(() => {
     setIsAnswered(false);
     setAnswerPoint(propsLatLng);
@@ -68,42 +101,66 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
 
   return (
     <GoogleMapProvider>
+      <div className="multigame_question__help">
+        {showUTS ? (
+          <div className="multigame_question__utc">{`UTS: ${gameView[questionNum].utc}`}</div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleUTSBtn}>
+            Get UTS
+          </MyButton>
+        )}
+        {showContinent ? (
+          <div className="multigame_question__continent">{gameView[questionNum].continent}</div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
+            Get Location
+          </MyButton>
+        )}
+        {showFlag ? (
+          <div
+            className="multigame_question__flag"
+            style={{ backgroundImage: `url('${gameView[questionNum].picture[0]}')` }}
+          ></div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
+            Get Flag
+          </MyButton>
+        )}
+      </div>
       <MapBox
-        className="question-map"
+        className="multigame_question__map"
         opts={{
-          zoom: 8,
-          center: { lat: 51.4772186, lng: 0.0001 },
+          zoom: 3,
+          center: center,
           streetViewControl: false,
           disableDefaultUI: true,
           scrollwheel: true,
-          zoomControl: true,
+          zoomControl: false,
         }}
         apiKey={REACT_APP_API_KEY}
-        style={{
-          height: '33vh',
-          width: '33vh',
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          zIndex: '2',
-        }}
         onClick={onClick}
         LoadingComponent={<div>Loading</div>}
         LoadedComponent={null}
         useGeometry
         useDrawing
         usePlaces
+        style={{
+          height: mapSize,
+          width: mapSize,
+        }}
+        onMouseMove={onMouseMove}
+        onMouseOut={onMouseOut}
       />
       <StreetView
-        className="streetView"
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
+        className="multigame_question__streetview"
         opts={{
           position: propsLatLng,
           addressControl: false,
+          showRoadLabels: false,
+          panControl: false,
+          zoomControl: false,
         }}
+        onPovChanged={onPovChanged}
       />
       {isAnswered ? (
         <>

@@ -18,6 +18,9 @@ export type LatLng = {
 export interface IData {
   city: string;
   latLng: LatLng;
+  utc: string;
+  continent: string;
+  picture: string[];
 }
 
 export type GameDataTransfer = {

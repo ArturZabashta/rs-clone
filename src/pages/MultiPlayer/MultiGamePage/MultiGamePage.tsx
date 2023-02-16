@@ -10,6 +10,8 @@ import { resetLevel, resetRound, setLevel, setRound, setSortPlayersTeam } from '
 import { IPlayer } from '../../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../../utils/utilities';
 
+import '../../../styles/MultiGame.scss';
+
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
@@ -70,25 +72,10 @@ const MultiGamePage: React.FC = () => {
   };
 
   return (
-    <section className="Multi-player">
-      <p style={{ textAlign: 'center' }}>{`Round ${round}. Question ${level}`}</p>
-      <div
-        className="game_wrapper"
-        style={{
-          height: '60vh',
-          width: '100vw',
-          display: 'flex',
-        }}
-      >
-        <div
-          className="question_wrapper"
-          style={{
-            position: 'relative',
-            height: '60vh',
-            width: '70vw',
-            margin: '1rem',
-          }}
-        >
+    <section className="multigame">
+      <p className="multigame_title">{`Round ${round}. Question ${level}`}</p>
+      <div className="multigame_wrapper">
+        <div className="multigame_question">
           <MultiGameMap
             propsLatLng={gameView[question].latLng}
             onAnswerHandler={onAnswerHandler}
@@ -96,43 +83,25 @@ const MultiGamePage: React.FC = () => {
             switchMarker={false}
           />
         </div>
-        <div
-          className="players_wrapper"
-          style={{
-            height: '100%',
-            width: '27vw',
-            position: 'relative',
-          }}
-        >
+        <div className="multigame_players-list">
           {players.map((player: IPlayer, index: number) => (
-            <div
-              className="players_item"
-              key={index}
-              style={{ margin: '1rem', border: 'solid 1px grey', borderRadius: '0.2rem' }}
-            >
-              <p className="players_item__name">{`${player.name}`}</p>
-              <p className="players_item__points">
-                {isAnswered ? `Earned ${player.points} points` : `Not answered yet`}
+            <div className="multigame_players-item" key={index}>
+              <p className="multigame_players-item__info">
+                <span>{`${player.name}`}</span>
+                <span className="multigame_players-item__score">{`${player.playerScore}`}</span>
               </p>
-              <p className="players_item__points">{`Score:  ${player.playerScore}`}</p>
+              <p
+                className={isAnswered ? 'multigame_players-item__modal' : 'multigame_players-item__modal  __hide'}
+              >{`Earned ${player.points} points`}</p>
             </div>
           ))}
         </div>
       </div>
 
       {isAnswered ? (
-        <div
-          className="next_question"
-          style={{
-            position: 'fixed',
-            top: '33%',
-            left: '33%',
-            backgroundColor: 'black',
-            zIndex: '999 ',
-            textAlign: 'center',
-          }}
-        >
-          <p className="city_name">{`It is ${gameView[question].city}`}</p>
+        <div className="multigame_wrapper__modal">
+          <p className="city_name">This place is in</p>
+          <p className="city_name">{gameView[question].city}</p>
           <MyButton className="next_question" onClickButton={setNextQuestion}>
             Next question
           </MyButton>

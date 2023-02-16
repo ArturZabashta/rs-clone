@@ -4,6 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { setIsLoosedGame, setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import MyButton from '../MyButton/MyButton';
+
+import '../../styles/GameResult.scss';
 interface GameResultProps {
   onContinueHandler: () => void;
 }
@@ -24,29 +26,21 @@ const KilledPlayers: React.FC<GameResultProps> = ({ onContinueHandler }) => {
   };
 
   return (
-    <div
-      className={'game_result'}
-      style={{
-        position: 'fixed',
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'black',
-        zIndex: '10',
-        top: '0',
-        left: '0',
-        paddingTop: '7rem',
-      }}
-    >
+    <div className={'game_result'}>
       <h2>{`Someone has to leave`}</h2>
-      {players.map((player: IPlayer, index: number) =>
-        index === players.length - 2 || index === players.length - 1 ? (
-          <h3 key={index} style={{ color: 'red' }}>
-            {player.name}
-          </h3>
-        ) : (
-          <h3 key={index}>{player.name}</h3>
-        )
-      )}
+
+      <div className="winners_list" style={{ textAlign: 'center' }}>
+        {players.map((player: IPlayer, index: number) =>
+          index === players.length - 2 || index === players.length - 1 ? (
+            <h3 key={index} style={{ color: 'red' }}>
+              {player.name}
+            </h3>
+          ) : (
+            <h3 key={index}>{player.name}</h3>
+          )
+        )}
+      </div>
+
       <div>
         <MyButton className={'settings_btn'} onClickButton={setKillPlayers}>
           Continue

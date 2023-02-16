@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMapProvider, MapBox, Marker, Polyline, StandaloneStreetView } from '@googlemap-react/core';
+import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 
 import { PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance } from '../../../utils/utilities';
@@ -15,7 +15,6 @@ interface MapProps {
 }
 
 const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, switchMarker }) => {
-  // const [userDistance, setUserDistance] = useState<number>();
   const [userPoint, setUserPoint] = useState<PointLatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -50,7 +49,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
       <MapBox
         className="question-map"
         opts={{
-          zoom: 7,
+          zoom: 3,
           center: { lat: 51.4772186, lng: 0.0001 },
           streetViewControl: false,
           disableDefaultUI: true,
@@ -69,7 +68,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
         LoadingComponent={<div>Loading</div>}
         useGeometry
       />
-      <StandaloneStreetView
+      <StreetView
         style={{
           height: '100%',
           width: '100%',
@@ -77,6 +76,9 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
         opts={{
           position: pointLatLng,
           addressControl: false,
+          showRoadLabels: false,
+          panControl: false,
+          zoomControl: false,
         }}
       />
       {isAnswered ? (
@@ -88,6 +90,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
                 lat: Number(answerPoint?.lat),
                 lng: Number(answerPoint?.lng),
               },
+              icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             }}
           />
           <Polyline
