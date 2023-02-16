@@ -16,12 +16,11 @@ const ScorePage: React.FC = () => {
   const { username } = useAppSelector((state) => state.ui);
   const [bestScores, setBestScores] = useState<IBestScore[]>([]);
   useEffect(() => {
-    fetch('http://localhost:4000/best_score')
+    fetch('https://rsclone-server.onrender.com/best_score')
       .then((res) => res.json())
       .then((res: IScoreRes) => {
         setBestScores(res.results);
-      })
-      .then(() => console.log(bestScores));
+      });
   }, []);
 
   return (
