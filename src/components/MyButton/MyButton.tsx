@@ -17,7 +17,7 @@ const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisab
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
-  const [playMyButton] = useSound(soundMyButton, { volume: musicVolume });
+  const [playMyButton] = useSound(soundMyButton, { volume: effectsVolume });
   const handleClick = () => {
     if (route) {
       dispatch(setCurrentPage(route));

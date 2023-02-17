@@ -24,7 +24,7 @@ const SinglePlayer: React.FC = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
 
-  const [playNextQuestion] = useSound(soundNextQuestion, { volume: musicVolume });
+  const [playNextQuestion] = useSound(soundNextQuestion, { volume: effectsVolume });
 
   //  Следующий произвольный вопрос из списка
   const setNextLevel = () => {

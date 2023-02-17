@@ -72,4 +72,19 @@
   .settings_btn {
     margin: 20px auto;
   }
+
+  .mute {
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: -3px;
+      left: 10px;
+      width: 3px;
+      height: 35px;
+      background: #FFFFFF;
+      transform: rotate(-50deg);
+    }
+  }
 }

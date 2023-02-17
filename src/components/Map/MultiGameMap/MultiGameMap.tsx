@@ -28,7 +28,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
 
-  const [playGuess] = useSound(soundGuess, { volume: musicVolume });
+  const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
 
   const onClick = (event: google.maps.MapMouseEvent) => {
     const lat = Number(event.latLng.lat());

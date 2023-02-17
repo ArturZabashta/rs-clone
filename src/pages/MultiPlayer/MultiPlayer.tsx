@@ -17,7 +17,7 @@ const MultiPlayer: React.FC = () => {
   const [isFindClicked, setIsFindClicked] = useState<boolean>(false);
   const [isGameAvailable, setIsGameAvailable] = useState<boolean>(false);
   const [playersArray, setPlayersArray] = useState<IPlayer[]>([]);
-  const [playNextQuestion] = useSound(soundNextQuestion, { volume: musicVolume });
+  const [playNextQuestion] = useSound(soundNextQuestion, { volume: effectsVolume });
 
   const setOpponents = () => {
     setPlayersArray([

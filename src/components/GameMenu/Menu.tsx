@@ -25,7 +25,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
     dispatch(setIsSettingsOn(!isSettingsOn));
   };
 
-  const [playGameStart] = useSound(soundStartGame, { volume: musicVolume });
+  const [playGameStart] = useSound(soundStartGame, { volume: effectsVolume });
 
   return (
     <div>

@@ -27,7 +27,7 @@ const MultiGamePage: React.FC = () => {
   const [isRoundFinished, setIsRoundFinished] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
 
-  const [playNextQuestion] = useSound(soundNextQuestion, { volume: musicVolume });
+  const [playNextQuestion] = useSound(soundNextQuestion, { volume: effectsVolume });
 
   //  Следующий произвольный вопрос из списка
   const setNextQuestion = () => {
