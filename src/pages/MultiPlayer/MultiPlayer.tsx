@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import GameMusic from '../../components/GameMusic/GameMisic';
 import MyButton from '../../components/MyButton/MyButton';
 import { DEFAULT_PLAYER } from '../../constants/constants';
 import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
 import { setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../utils/utilities';
@@ -54,7 +52,6 @@ const MultiPlayer: React.FC = () => {
 
   return (
     <section className="multi-player">
-      <GameMusic />
       <h3>List of Opponents</h3>
       <div
         className="players_wrapper"

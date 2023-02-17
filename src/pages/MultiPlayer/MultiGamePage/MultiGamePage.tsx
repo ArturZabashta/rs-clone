@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import useSound from 'use-sound';
 
+import GameMusic from '../../../components/GameMusic/GameMusic';
 import GameResult from '../../../components/GameResult/GameResult';
 import KilledPlayers from '../../../components/KilledPlayers/KilledPlayers';
 import MultiGameMap from '../../../components/Map/MultiGameMap';
@@ -78,6 +79,7 @@ const MultiGamePage: React.FC = () => {
 
   return (
     <section className="Multi-player">
+      {isGameFinished || isLoosedGame ? '' : <GameMusic />}
       <p style={{ textAlign: 'center' }}>{`Round ${round}. Question ${level}`}</p>
       <div
         className="game_wrapper"

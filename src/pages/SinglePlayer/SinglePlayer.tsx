@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useSound from 'use-sound';
 
-import GameMusic from '../../components/GameMusic/GameMisic';
+import GameMusic from '../../components/GameMusic/GameMusic';
 import GameResult from '../../components/GameResult/GameResult';
 import SingleGameMap from '../../components/Map/SingleGameMap';
 import MyButton from '../../components/MyButton/MyButton';
@@ -64,7 +64,7 @@ const SinglePlayer: React.FC = () => {
         width: '100vw',
       }}
     >
-      <GameMusic />
+      {isGameFinished ? '' : <GameMusic />}
       <h3>{`Question ${level}`}</h3>
       <div
         className="question_wrapper"

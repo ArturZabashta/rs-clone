@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useAppSelector } from '../../hooks/userHooks';
 import soundGameMusic from '../../sounds/musicGame_sound.mp3';
