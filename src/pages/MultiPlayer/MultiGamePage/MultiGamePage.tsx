@@ -23,8 +23,6 @@ import {
 import { IPlayer } from '../../../types/gameInterface';
 import { getDiapasonRandomNum, sendUserScore } from '../../../utils/utilities';
 
-import '../../../styles/MultiGame.scss';
-
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);

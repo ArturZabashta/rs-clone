@@ -8,8 +8,6 @@ import { setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../utils/utilities';
 
-import '../../styles/MultiPlayer.scss';
-
 const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);

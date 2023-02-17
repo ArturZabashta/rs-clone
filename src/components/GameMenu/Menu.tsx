@@ -9,8 +9,6 @@ import { setIsSettingsOn } from '../../store/uiSlice';
 import { ReactComponent as ContactSvg } from './assets/contact.svg';
 import { ReactComponent as SettingsSvg } from './assets/settings.svg';
 
-import '../../styles/index.scss';
-
 interface IMenuProps {
   menuHandler?(): void;
 }

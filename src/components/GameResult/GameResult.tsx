@@ -4,8 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { resetLevel, setIsLoosedGame } from '../../store/gameSlice';
 import MyButton from '../MyButton/MyButton';
 
-import '../../styles/GameResult.scss';
-
 interface GameResultProps {
   score?: number;
 }
