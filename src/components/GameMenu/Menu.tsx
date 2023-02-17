@@ -1,7 +1,9 @@
 import React from 'react';
+import useSound from 'use-sound';
 
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundStartGame from '../../sounds/gameOn_sound.mp3';
 import { setIsSettingsOn } from '../../store/uiSlice';
 
 import { ReactComponent as ContactSvg } from './assets/contact.svg';
@@ -15,6 +17,7 @@ interface IMenuProps {
 
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   const { isLogin, isSettingsOn } = useAppSelector((state) => state.ui);
+  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
 
   const dispatch = useAppDispatch();
 
@@ -22,9 +25,18 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
     dispatch(setIsSettingsOn(!isSettingsOn));
   };
 
+  const [playGameStart] = useSound(soundStartGame, { volume: musicVolume });
+
   return (
     <div>
-      <MyButton className="menu_btn single-player_btn" route="/single-player" onClickButton={() => menuHandler()}>
+      <MyButton
+        className="menu_btn single-player_btn"
+        route="/single-player"
+        onClickButton={() => {
+          menuHandler();
+          isSoundOn && playGameStart();
+        }}
+      >
         SinglePlayer
       </MyButton>
       <fieldset className={isLogin ? 'menu_login-block__able' : 'menu_login-block'}>
@@ -33,7 +45,10 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           className="menu_btn multi-player_btn"
           route="/multi-player"
           isDisabled={!isLogin}
-          onClickButton={() => menuHandler()}
+          onClickButton={() => {
+            menuHandler();
+            isSoundOn && playGameStart();
+          }}
         >
           MultiPlayer
         </MyButton>
@@ -53,7 +68,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           </div>
           <div className="options_title">contact us</div>
         </div>
-        <div className="options_item" onClick={() => settingsHandler()}>
+        <div className="options_item settings__button" onClick={() => settingsHandler()}>
           <div className="options_logo">
             <SettingsSvg />
           </div>

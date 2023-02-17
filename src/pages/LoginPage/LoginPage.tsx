@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import useSound from 'use-sound';
 
 import MyButton from '../../components/MyButton/MyButton';
-import { useAppDispatch } from '../../hooks/userHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundLogIn from '../../sounds/logIn_sound.mp3';
 import { setTopScores } from '../../store/gameSlice';
 import { setCurrentPage, setIsLogin, setPopUpMsg } from '../../store/uiSlice';
 import { setUsername } from '../../store/uiSlice';
@@ -17,6 +19,7 @@ const LogInPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isDisabled, setIsDisabled] = useState(true);
+  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
   const {
     register,
     handleSubmit,
@@ -50,9 +53,12 @@ const LogInPage: React.FC = () => {
     }
   };
 
+  const [playLogIn] = useSound(soundLogIn, { volume: musicVolume });
+
   const onSubmit = handleSubmit((data: FormData) => {
     console.log('onSubmit data = ', data);
     authorization(data);
+    isSoundOn && playLogIn();
   });
 
   useEffect(() => {

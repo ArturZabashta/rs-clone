@@ -5,7 +5,9 @@ import { Props } from '../../types/uiInterface';
 import '../../styles/index.scss';
 
 const StyledHamburger = styled.button<{ menuOn: boolean }>`
+  left: ${({ menuOn }) => (menuOn ? '29vw' : '3vw')};
   div {
+    background-color: ${({ menuOn }) => (menuOn ? '#000000' : '#FFFFFF')};
     :first-child {
       transform: ${({ menuOn }) => (menuOn ? 'rotate(45deg)' : 'rotate(0)')};
     }

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import useSound from 'use-sound';
 
 import GameResult from '../../../components/GameResult/GameResult';
 import KilledPlayers from '../../../components/KilledPlayers/KilledPlayers';
@@ -6,6 +7,7 @@ import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
 import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
+import soundNextQuestion from '../../../sounds/nextQuestion_sound.mp3';
 import { resetLevel, resetRound, setLevel, setRound, setSortPlayersTeam } from '../../../store/gameSlice';
 import { IPlayer } from '../../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../../utils/utilities';
@@ -16,6 +18,7 @@ const MultiGamePage: React.FC = () => {
   const { level } = useAppSelector((state) => state.game);
   const { round } = useAppSelector((state) => state.game);
   const { isLoosedGame } = useAppSelector((state) => state.game);
+  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
@@ -23,6 +26,8 @@ const MultiGamePage: React.FC = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isRoundFinished, setIsRoundFinished] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
+
+  const [playNextQuestion] = useSound(soundNextQuestion, { volume: musicVolume });
 
   //  Следующий произвольный вопрос из списка
   const setNextQuestion = () => {
@@ -48,6 +53,8 @@ const MultiGamePage: React.FC = () => {
       dispatch(resetRound());
     }
     //dispatch(setLevel());
+
+    isSoundOn && playNextQuestion();
   };
 
   const onAnswerHandler = () => {

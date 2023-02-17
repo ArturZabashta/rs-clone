@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import useSound from 'use-sound';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundSettingsOn from '../../sounds/settingsOn_sound.mp3';
 import { setEffectsVolume, setIsSoundOn, setMusicVolume } from '../../store/gameSlice';
 import { setIsSettingsOn } from '../../store/uiSlice';
 import MyButton from '../MyButton/MyButton';
@@ -23,8 +25,11 @@ const Settings: React.FC = () => {
     dispatch(setIsSettingsOn(false));
   };
 
+  const [playOn] = useSound(soundSettingsOn, { volume: musicVolume });
+
   const volumeSwitcher = (checked: boolean) => {
     dispatch(setIsSoundOn(checked));
+    checked && playOn();
   };
   const fullscreenSwitcher = (checked: boolean) => {
     setIsFullscreenOn(!isFullscreenOn);

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import useSound from 'use-sound';
 
-import { useAppDispatch } from '../../hooks/userHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundMyButton from '../../sounds/myButton_sound.mp3';
 import { setCurrentPage } from '../../store/uiSlice';
 
 interface MyButtonProps {
@@ -14,12 +16,16 @@ interface MyButtonProps {
 const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisabled, onClickButton }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const [playMyButton] = useSound(soundMyButton, { volume: musicVolume });
   const handleClick = () => {
     if (route) {
       dispatch(setCurrentPage(route));
       navigate(route);
     }
     if (onClickButton) onClickButton();
+
+    isSoundOn && playMyButton();
   };
 
   return (
