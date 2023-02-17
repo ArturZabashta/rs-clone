@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
+import useSound from 'use-sound';
 
 import CustomCountdown from '../../../components/CustomCountdown/CustomCountdown';
+import GameMusic from '../../../components/GameMusic/GameMusic';
 import GameResult from '../../../components/GameResult/GameResult';
 import KilledPlayers from '../../../components/KilledPlayers/KilledPlayers';
 import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
 import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
+import soundNextQuestion from '../../../sounds/nextQuestion_sound.mp3';
 import {
   resetLevel,
   resetRound,
@@ -27,6 +30,7 @@ const MultiGamePage: React.FC = () => {
   const { level } = useAppSelector((state) => state.game);
   const { round } = useAppSelector((state) => state.game);
   const { isLoosedGame } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
@@ -34,6 +38,8 @@ const MultiGamePage: React.FC = () => {
   const [isAnswered, setIsAnswered] = useState(false);
   const [isRoundFinished, setIsRoundFinished] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
+
+  const [playNextQuestion] = useSound(soundNextQuestion, { volume: effectsVolume });
 
   //  Следующий произвольный вопрос из списка
   const setNextQuestion = () => {
@@ -58,6 +64,8 @@ const MultiGamePage: React.FC = () => {
       dispatch(resetLevel());
       dispatch(resetRound());
     }
+
+    isSoundOn && playNextQuestion();
   };
 
   const onAnswerHandler = () => {
@@ -86,6 +94,7 @@ const MultiGamePage: React.FC = () => {
 
   return (
     <section className="multigame">
+      {isGameFinished || isLoosedGame ? '' : <GameMusic />}
       <p className="multigame_title">{`Round ${round}. Question ${level}`}</p>
       {isAnswered ? (
         ''

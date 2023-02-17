@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
+import useSound from 'use-sound';
 
+import { useAppSelector } from '../../../hooks/userHooks';
+import soundGuess from '../../../sounds/guess_sound.mp3';
 import { PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance } from '../../../utils/utilities';
 import MyButton from '../../MyButton/MyButton';
@@ -19,6 +22,8 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
   const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
 
   const onClick = (event: google.maps.MapMouseEvent) => {
     console.log('lat=', event.latLng.lat(), 'lng=', event.latLng.lng());
@@ -36,6 +41,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
     const distance = calculateDistance(answerPoint, userPoint);
     console.log('distance=', distance + 'km');
     onAnswerHandler(distance);
+    isSoundOn && playGuess();
   };
 
   useEffect(() => {

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import useSound from 'use-sound';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundSettingsOn from '../../sounds/settingsOn_sound.mp3';
 import { setEffectsVolume, setIsSoundOn, setMusicVolume } from '../../store/gameSlice';
 import { setIsSettingsOn } from '../../store/uiSlice';
 import MyButton from '../MyButton/MyButton';
@@ -23,8 +25,11 @@ const Settings: React.FC = () => {
     dispatch(setIsSettingsOn(false));
   };
 
+  const [playOn] = useSound(soundSettingsOn, { volume: musicVolume });
+
   const volumeSwitcher = (checked: boolean) => {
     dispatch(setIsSoundOn(checked));
+    checked && playOn();
   };
   const fullscreenSwitcher = (checked: boolean) => {
     setIsFullscreenOn(!isFullscreenOn);
@@ -51,7 +56,7 @@ const Settings: React.FC = () => {
             min={0}
             max={1}
             step={0.1}
-            value={musicVolume}
+            value={isSoundOn ? musicVolume : 0}
             onChange={(e) => dispatch(setMusicVolume(Number(e.target.value)))}
           ></input>
         </div>
@@ -67,14 +72,16 @@ const Settings: React.FC = () => {
             min={0}
             max={1}
             step={0.1}
-            value={effectsVolume}
+            value={isSoundOn ? effectsVolume : 0}
             onChange={(e) => dispatch(setEffectsVolume(Number(e.target.value)))}
           ></input>
         </div>
         <div className="settings_deliner"></div>
         <div className="settings_switchers">
           <div className="settings_switcher">
-            <SoundSvg />
+            <div className={isSoundOn ? '' : 'mute'}>
+              <SoundSvg />
+            </div>
             <MySwitch checked={isSoundOn} handleChange={volumeSwitcher}>
               sound
             </MySwitch>

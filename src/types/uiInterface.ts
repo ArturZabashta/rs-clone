@@ -11,3 +11,8 @@ export type Props = {
   menuOn: boolean;
   setMenuOn: (v: boolean) => void;
 };
+
+export interface IBestScore {
+  username: string;
+  score: number;
+}

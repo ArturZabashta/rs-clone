@@ -1,6 +1,16 @@
+.welcome-page {
+  background-image: none !important;
+
+  overflow-y: hidden;
+}
+
+.page-title {
+  margin-bottom: 50px;
+}
+
 .video {
   position: fixed;
-  top: 80px;
+  top: 0;
   z-index: -1;
   width: 100%;
 }

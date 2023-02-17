@@ -1,12 +1,22 @@
 .score-page {
-  width: 30%;
-  margin: 20px auto;
-  
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 20px;
+
   .score-page_title {
     text-align: center;
     font-size: 2rem;
     margin-bottom: 2rem;
   }
+
+  .score-page_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 30%;
+  }
+
   .scores_item {
     margin: 10px auto;
     padding: 7px;
@@ -16,4 +26,63 @@
     width: 50%;
     min-width: fit-content;
   }
+}
+
+.best-results {
+  width: 100%;
+
+  .top_item {
+    flex-basis: calc(1/3*100%);
+    text-align: center;
+
+    .top1_stand,
+    .top2_stand,
+    .top3_stand {
+      background-color: rgb(32 36 69 / 86%);
+      transition: padding 200ms ease-in;
+      overflow: hidden;     
+    }
+    @keyframes rise-bar1 {
+      from {
+        padding-top: 0;
+      } to {
+        padding-top: 50px;
+      }
+    }
+    @keyframes rise-bar2 {
+      from {
+        padding-top: 0;
+      } to {
+        padding-top: 30px;
+      }
+    }
+    @keyframes rise-bar3 {
+      from {
+        padding-top: 0;
+      } to {
+        padding-top: 20px;
+      }
+    }
+    .top1_stand{            
+      animation: forwards 1s rise-bar1; 
+    }
+    .top2_stand{      
+      animation: forwards 1s rise-bar2; 
+    }
+    .top3_stand{      
+      animation: forwards 1s rise-bar3; 
+    }    
+  }
+  .best-results_top{
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    margin-bottom: 30px;
+  }
+  .best-results_rest {
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+  }
+  
 }
