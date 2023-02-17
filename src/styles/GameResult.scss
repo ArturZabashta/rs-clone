@@ -1,22 +1,21 @@
 .game_result{
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  padding-top: 3rem;
   background-color: rgba(0, 0, 0, 0.87);
-  z-index: 20;
-  
-  padding-top: 7rem;
-
+  z-index: 1999;
 
   .winners_list{
     display: flex;
     flex-direction: column;
+    margin-top: 3rem;
 
     .winners_item{
       display: flex;

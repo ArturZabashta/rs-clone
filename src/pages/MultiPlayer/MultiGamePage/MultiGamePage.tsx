@@ -94,9 +94,9 @@ const MultiGamePage: React.FC = () => {
 
   return (
     <section className="multigame">
-      {isGameFinished || isLoosedGame ? '' : <GameMusic />}
+      {isGameFinished || isLoosedGame || isGameFinished ? '' : <GameMusic />}
       <p className="multigame_title">{`Round ${round}. Question ${level}`}</p>
-      {isAnswered ? (
+      {isAnswered || isRoundFinished ? (
         ''
       ) : (
         <Countdown date={Date.now() + 30000} autoStart={true} renderer={CustomCountdown} onComplete={onComplete} />

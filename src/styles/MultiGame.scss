@@ -7,15 +7,15 @@
 
   &_title{
     position: absolute;
-    left: 35%;
-    top: -30px;
+    left: calc(50% - 10rem);
+    top: 1.5rem;
     font-size: 2rem;
     font-weight: bold;    
   }
 
   &_timer{
     position: absolute;
-    top: -2rem;
+    top: 1.5rem;
     left: 2rem;;
     font-size: 1.5rem;
     font-weight: bold;
@@ -101,8 +101,9 @@
 
       .guess_btn{
         position: fixed;
-        bottom: 5rem;
+        bottom: -1rem;
         left: 40%;
+        z-index: 1000;
       }
 
     }
