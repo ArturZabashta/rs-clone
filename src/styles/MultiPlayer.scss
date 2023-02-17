@@ -1,0 +1,50 @@
+.multiplayer{
+  position: relative;
+  font-family: "Montserrat", sans-serif;  
+  margin: 0;  
+  font-variant: small-caps;
+  font-style: italic; 
+
+  &_title{
+    position: absolute;
+    left: calc(50% - 11rem);
+    top: 1.5rem;
+    font-size: 2.4rem;
+    font-weight: bold;
+    
+  }
+
+  &_players{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: center;    
+    width: 100vw; 
+    height: 50vh;
+    margin-bottom: 2rem;
+    padding-top: 1rem;
+
+    &__item {
+      display: flex;
+      flex: 0 0 min(20vh, 20vw);
+      justify-content: center;
+      align-items: flex-start;      
+      height: min(20vh, 20vw);
+      border: solid 1px grey;
+      background-color: rgba(16, 16, 28, 0.8);
+      border-radius: 1rem;
+      margin: 2vw;
+      padding: 0.5rem;
+
+      font-size: 1.5rem;
+      font-weight: bold;
+    } 
+
+  }
+
+  &_nav{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}

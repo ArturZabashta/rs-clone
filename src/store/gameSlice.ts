@@ -12,6 +12,7 @@ const initialState: GameStoreType = {
   level: 1,
   round: 1,
   isLoosedGame: false,
+  missedAnswer: false,
 };
 
 export const gameSlice = createSlice({
@@ -54,6 +55,9 @@ export const gameSlice = createSlice({
     setIsLoosedGame: (state, action: PayloadAction<boolean>) => {
       state.isLoosedGame = action.payload;
     },
+    setMissedAnswer: (state, action: PayloadAction<boolean>) => {
+      state.missedAnswer = action.payload;
+    },
   },
 });
 
@@ -70,6 +74,7 @@ export const {
   setRound,
   resetRound,
   setIsLoosedGame,
+  setMissedAnswer,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

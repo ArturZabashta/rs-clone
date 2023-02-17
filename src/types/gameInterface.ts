@@ -8,6 +8,7 @@ export type GameStoreType = {
   level: number;
   round: number;
   isLoosedGame: boolean;
+  missedAnswer: boolean;
 };
 
 export type LatLng = {
@@ -18,6 +19,9 @@ export type LatLng = {
 export interface IData {
   city: string;
   latLng: LatLng;
+  utc: string;
+  continent: string;
+  picture: string[];
 }
 
 export type GameDataTransfer = {

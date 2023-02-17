@@ -8,6 +8,8 @@ import { setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../utils/utilities';
 
+import '../../styles/MultiPlayer.scss';
+
 const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
@@ -51,33 +53,28 @@ const MultiPlayer: React.FC = () => {
   }, [playersArray]);
 
   return (
-    <section className="multi-player">
-      <h3>List of Opponents</h3>
-      <div
-        className="players_wrapper"
-        style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', width: '100vw', height: '50vh' }}
-      >
+    <section className="multiplayer">
+      <p className="multiplayer_title">List of Opponents</p>
+      <div className="multiplayer_players">
         {playersArray.map((player: IPlayer) => (
-          <div
-            className="players_item"
-            key={player.id}
-            style={{ width: '20vw', height: '20vh', border: 'solid 1px grey', borderRadius: '0.5rem', margin: '1vw' }}
-          >
-            <h3>{player.name}</h3>
+          <div className="multiplayer_players__item" key={player.id}>
+            <p>{player.name}</p>
           </div>
         ))}
       </div>
-      <MyButton className="login_btn f-bold" onClickButton={setOpponents}>
-        Find Opponents
-      </MyButton>
-      <MyButton
-        className="login_btn f-bold"
-        route={'/game'}
-        isDisabled={isGameAvailable ? false : true}
-        onClickButton={updateStore}
-      >
-        Let&apos;s start the Game
-      </MyButton>
+      <div className="multiplayer_nav">
+        <MyButton className="menu_btn game_btn" onClickButton={setOpponents}>
+          Find Opponents
+        </MyButton>
+        <MyButton
+          className="menu_btn game_btn"
+          route={'/game'}
+          isDisabled={isGameAvailable ? false : true}
+          onClickButton={updateStore}
+        >
+          Let&apos;s start the Game
+        </MyButton>
+      </div>
     </section>
   );
 };

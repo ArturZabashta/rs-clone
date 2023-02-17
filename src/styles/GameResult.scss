@@ -1,0 +1,33 @@
+.game_result{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 3rem;
+  background-color: rgba(0, 0, 0, 0.87);
+  z-index: 1999;
+
+  .winners_list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+
+    .winners_item{
+      display: flex;
+      flex-direction: column;
+
+    }
+  }
+
+  &__nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
