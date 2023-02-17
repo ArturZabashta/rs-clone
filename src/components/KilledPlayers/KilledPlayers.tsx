@@ -17,10 +17,9 @@ const KilledPlayers: React.FC<GameResultProps> = ({ onContinueHandler }) => {
     const killedPlayers = copyArray.splice(copyArray.length - 2);
 
     if (killedPlayers.find((player: IPlayer) => player.id === 0) !== undefined) {
-      console.log('You Lose:(');
       dispatch(setIsLoosedGame(true));
     }
-    console.log('Array after killed', copyArray);
+
     dispatch(setPlayersTeam(copyArray));
     onContinueHandler();
   };

@@ -10,8 +10,16 @@
     left: 35%;
     top: -30px;
     font-size: 2rem;
+    font-weight: bold;    
+  }
+
+  &_timer{
+    position: absolute;
+    top: -2rem;
+    left: 2rem;;
+    font-size: 1.5rem;
     font-weight: bold;
-    
+    color: red;
   }
 
   &_wrapper{

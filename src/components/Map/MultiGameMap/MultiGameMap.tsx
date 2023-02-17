@@ -3,7 +3,7 @@ import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@google
 
 import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
-import { setPlayersTeam } from '../../../store/gameSlice';
+import { setMissedAnswer, setPlayersTeam } from '../../../store/gameSlice';
 import { IPlayer, LatLng, PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance, getCoordinates, singlePointsCounter } from '../../../utils/utilities';
 import MyButton from '../../MyButton/MyButton';
@@ -19,7 +19,9 @@ interface MultiGameMapProps {
 
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
+  const { username } = useAppSelector((state) => state.ui);
   const { players } = useAppSelector((state) => state.game);
+  const { missedAnswer } = useAppSelector((state) => state.game);
 
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
@@ -54,7 +56,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(players));
     const newCopyPlayers: Array<IPlayer> = copyArray.map((player: IPlayer) => {
       let points: number;
-      if (player.id === 0) {
+      if (missedAnswer && player.id === 0) return player;
+      if (!missedAnswer && player.id === 0) {
         player.latLng = userPoint;
         points = singlePointsCounter(calculateDistance(userPoint, answerPoint));
       } else {
@@ -71,6 +74,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
     onAnswerHandler();
+    dispatch(setMissedAnswer(false));
   };
 
   const onMouseMove = () => {
@@ -98,6 +102,15 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     setAnswerPoint(propsLatLng);
     setIsClicked(switchMarker);
   }, [questionNum, switchMarker]);
+
+  useEffect(() => {
+    if (missedAnswer) {
+      setUserPoint(answerPoint);
+      setIsClicked(true);
+      setMapSize('56vh');
+      handleGuess();
+    }
+  }, [missedAnswer]);
 
   return (
     <GoogleMapProvider>
@@ -174,28 +187,60 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
               icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             }}
           />
-          {players.map((player: IPlayer, index: number) => (
-            <Marker
-              id={`marker${player.id}`}
-              key={100 + index}
-              opts={{
-                label: `${player.name}`,
-                position: player.latLng,
-              }}
-            />
-          ))}
-          {players.map((player: IPlayer, index: number) => (
-            <Polyline
-              id={`polyline${player.id}`}
-              key={200 + index}
-              opts={{
-                path: [
-                  { lat: Number(answerPoint?.lat), lng: Number(answerPoint?.lng) },
-                  { lat: Number(player.latLng?.lat), lng: Number(player.latLng?.lng) },
-                ],
-              }}
-            />
-          ))}
+          {players.map((player: IPlayer, index: number) => {
+            if (missedAnswer && player.name === username) return;
+            if (missedAnswer && player.name !== username) {
+              return (
+                <Marker
+                  key={100 + index}
+                  opts={{
+                    label: `${player.name}`,
+                    position: player.latLng,
+                  }}
+                />
+              );
+            }
+            if (!missedAnswer) {
+              return (
+                <Marker
+                  key={100 + index}
+                  opts={{
+                    label: `${player.name}`,
+                    position: player.latLng,
+                  }}
+                />
+              );
+            }
+          })}
+          {players.map((player: IPlayer, index: number) => {
+            if (missedAnswer && player.name === username) return;
+            if (missedAnswer && player.name !== username) {
+              return (
+                <Polyline
+                  key={200 + index}
+                  opts={{
+                    path: [
+                      { lat: Number(answerPoint?.lat), lng: Number(answerPoint?.lng) },
+                      { lat: Number(player.latLng?.lat), lng: Number(player.latLng?.lng) },
+                    ],
+                  }}
+                />
+              );
+            }
+            if (!missedAnswer) {
+              return (
+                <Polyline
+                  key={200 + index}
+                  opts={{
+                    path: [
+                      { lat: Number(answerPoint?.lat), lng: Number(answerPoint?.lng) },
+                      { lat: Number(player.latLng?.lat), lng: Number(player.latLng?.lng) },
+                    ],
+                  }}
+                />
+              );
+            }
+          })}
         </>
       ) : (
         ''

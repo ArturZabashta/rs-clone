@@ -21,14 +21,15 @@
     justify-content: center;    
     width: 100vw; 
     height: 50vh;
+    margin-bottom: 2rem;
     padding-top: 1rem;
 
     &__item {
       display: flex;
-      flex: 0 0 20vw;
+      flex: 0 0 min(20vh, 20vw);
       justify-content: center;
       align-items: flex-start;      
-      height: 20vh;
+      height: min(20vh, 20vw);
       border: solid 1px grey;
       background-color: rgba(16, 16, 28, 0.8);
       border-radius: 1rem;

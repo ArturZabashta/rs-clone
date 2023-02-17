@@ -1,12 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Countdown from 'react-countdown';
 
+import CustomCountdown from '../../../components/CustomCountdown/CustomCountdown';
 import GameResult from '../../../components/GameResult/GameResult';
 import KilledPlayers from '../../../components/KilledPlayers/KilledPlayers';
 import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
 import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
-import { resetLevel, resetRound, setLevel, setRound, setSortPlayersTeam } from '../../../store/gameSlice';
+import {
+  resetLevel,
+  resetRound,
+  setLevel,
+  setMissedAnswer,
+  setRound,
+  setSortPlayersTeam,
+} from '../../../store/gameSlice';
 import { IPlayer } from '../../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../../utils/utilities';
 
@@ -49,7 +58,6 @@ const MultiGamePage: React.FC = () => {
       dispatch(resetLevel());
       dispatch(resetRound());
     }
-    //dispatch(setLevel());
   };
 
   const onAnswerHandler = () => {
@@ -71,9 +79,20 @@ const MultiGamePage: React.FC = () => {
     setIsRoundFinished(false);
   };
 
+  const onComplete = () => {
+    console.log('missedAnswer!!!!');
+    dispatch(setMissedAnswer(true));
+  };
+
   return (
     <section className="multigame">
       <p className="multigame_title">{`Round ${round}. Question ${level}`}</p>
+      {isAnswered ? (
+        ''
+      ) : (
+        <Countdown date={Date.now() + 30000} autoStart={true} renderer={CustomCountdown} onComplete={onComplete} />
+      )}
+
       <div className="multigame_wrapper">
         <div className="multigame_question">
           <MultiGameMap

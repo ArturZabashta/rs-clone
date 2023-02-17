@@ -8,6 +8,7 @@ export type GameStoreType = {
   level: number;
   round: number;
   isLoosedGame: boolean;
+  missedAnswer: boolean;
 };
 
 export type LatLng = {
