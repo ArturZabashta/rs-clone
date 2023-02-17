@@ -6,6 +6,7 @@ import SingleGameMap from '../../components/Map/SingleGameMap';
 import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundGameMusic from '../../sounds/musicGame_sound.mp3';
 import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
 import { setScore } from '../../store/gameSlice';
 import { resetLevel, setLevel } from '../../store/gameSlice';
@@ -63,6 +64,7 @@ const SinglePlayer: React.FC = () => {
         width: '100vw',
       }}
     >
+      {isSoundOn ? <audio src={soundGameMusic} autoPlay /> : ''}
       <h3>{`Question ${level}`}</h3>
       <div
         className="question_wrapper"

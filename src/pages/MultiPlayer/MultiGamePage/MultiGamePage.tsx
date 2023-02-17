@@ -18,7 +18,7 @@ const MultiGamePage: React.FC = () => {
   const { level } = useAppSelector((state) => state.game);
   const { round } = useAppSelector((state) => state.game);
   const { isLoosedGame } = useAppSelector((state) => state.game);
-  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);

@@ -19,7 +19,7 @@ const LogInPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [isDisabled, setIsDisabled] = useState(true);
-  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const {
     register,
     handleSubmit,

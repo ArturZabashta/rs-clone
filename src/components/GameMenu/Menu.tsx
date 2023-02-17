@@ -17,7 +17,7 @@ interface IMenuProps {
 
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   const { isLogin, isSettingsOn } = useAppSelector((state) => state.ui);
-  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const dispatch = useAppDispatch();
 

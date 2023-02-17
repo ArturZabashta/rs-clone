@@ -23,7 +23,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
   const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
-  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
 
   const onClick = (event: google.maps.MapMouseEvent) => {

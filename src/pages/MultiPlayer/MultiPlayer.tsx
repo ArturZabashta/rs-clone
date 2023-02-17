@@ -5,6 +5,7 @@ import MyButton from '../../components/MyButton/MyButton';
 import { DEFAULT_PLAYER } from '../../constants/constants';
 import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundGameMusic from '../../sounds/musicGame_sound.mp3';
 import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
 import { setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
@@ -56,6 +57,7 @@ const MultiPlayer: React.FC = () => {
 
   return (
     <section className="multi-player">
+      {isSoundOn ? <audio src={soundGameMusic} autoPlay /> : ''}
       <h3>List of Opponents</h3>
       <div
         className="players_wrapper"

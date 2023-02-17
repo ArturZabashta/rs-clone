@@ -21,7 +21,7 @@ interface MultiGameMapProps {
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
-  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);

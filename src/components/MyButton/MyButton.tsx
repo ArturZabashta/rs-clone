@@ -16,7 +16,7 @@ interface MyButtonProps {
 const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisabled, onClickButton }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const [playMyButton] = useSound(soundMyButton, { volume: effectsVolume });
   const handleClick = () => {
     if (route) {
