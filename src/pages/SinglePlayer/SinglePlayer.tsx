@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import useSound from 'use-sound';
 
+import GameMusic from '../../components/GameMusic/GameMusic';
 import GameResult from '../../components/GameResult/GameResult';
 import SingleGameMap from '../../components/Map/SingleGameMap';
 import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/places-data';
-import { useAppDispatch } from '../../hooks/userHooks';
-import { useAppSelector } from '../../hooks/userHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
 import { setScore } from '../../store/gameSlice';
 import { resetLevel, setLevel } from '../../store/gameSlice';
 import { getDiapasonRandomNum, singlePointsCounter } from '../../utils/utilities';
@@ -14,6 +16,7 @@ const SinglePlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
   const { level } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
@@ -21,6 +24,8 @@ const SinglePlayer: React.FC = () => {
   const [answerPoints, setAnswerPoints] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isGameFinished, setIsGameFinished] = useState(false);
+
+  const [playNextQuestion] = useSound(soundNextQuestion, { volume: effectsVolume });
 
   //  Следующий произвольный вопрос из списка
   const setNextLevel = () => {
@@ -39,6 +44,8 @@ const SinglePlayer: React.FC = () => {
     }
 
     dispatch(setLevel());
+
+    isSoundOn && playNextQuestion();
   };
 
   const onAnswerHandler = (distance: number) => {
@@ -57,6 +64,7 @@ const SinglePlayer: React.FC = () => {
         width: '100vw',
       }}
     >
+      {isGameFinished ? '' : <GameMusic />}
       <h3>{`Question ${level}`}</h3>
       <div
         className="question_wrapper"

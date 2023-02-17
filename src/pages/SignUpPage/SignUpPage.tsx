@@ -6,8 +6,6 @@ import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch } from '../../hooks/userHooks';
 import { setCurrentPage, setPopUpMsg } from '../../store/uiSlice';
 
-import '../../styles/SignUpPage.scss';
-
 type FormData = {
   username: string;
   password: string;

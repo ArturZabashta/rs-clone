@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
+import useSound from 'use-sound';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
+import soundGuess from '../../../sounds/guess_sound.mp3';
 import { setPlayersTeam } from '../../../store/gameSlice';
 import { IPlayer, LatLng, PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance, getCoordinates, singlePointsCounter } from '../../../utils/utilities';
@@ -19,11 +21,14 @@ interface MultiGameMapProps {
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { players } = useAppSelector((state) => state.game);
+  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
+
+  const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
 
   const onClick = (event: google.maps.MapMouseEvent) => {
     const lat = Number(event.latLng.lat());
@@ -35,6 +40,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
 
   const handleGuess = () => {
     addOpponentsMarkers();
+    isSoundOn && playGuess();
   };
 
   const addOpponentsMarkers = () => {

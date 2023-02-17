@@ -43,8 +43,9 @@ body {
   color: #FFFFFF;
   overflow-x: hidden;
   position: relative;
-  backdrop-filter: brightness(0.8);
-  background: url('https://i.artfile.me/wallpaper/24-08-2017/1920x1200/priroda-dorogi-gory-doroga-1215432.jpg');
+  background: linear-gradient(45deg, #8baaaa, #ae8b9c);
+  background-size: 400% 400%;
+  animation: anim 2.5s infinite ease-in-out;
 }
 
 @keyframes anim {
@@ -123,6 +124,25 @@ button {
     outline: 0;
     box-shadow: 0 0 10px 0 #FFFFFF inset, 0 0 10px 4px #FFFFFF;
   }
+}
+
+button:disabled,
+button[disabled] {
+  pointer-events: none;
+  opacity: .5;
+}
+
+.main {
+  height: calc(100vh - 154.5px);
+}
+
+.main>section {
+  padding-top: 100px;
+  height: 100%;
+
+  backdrop-filter: brightness(0.8);
+  background-image: url('https://i.artfile.me/wallpaper/24-08-2017/1920x1200/priroda-dorogi-gory-doroga-1215432.jpg');
+  background-position: center;
 }
 
 .btn_blue {
@@ -214,10 +234,6 @@ h3 {
   font-size: 36px;
 }
 
-.page-title {
-  margin: 70px 0 50px;
-}
-
 .header {
   position: relative;
   padding: 20px;
@@ -273,7 +289,6 @@ h3 {
     .hamburger {
       position: fixed;
       top: 0;
-      left: 3vw;
       width: 2rem;
       height: 2rem;
       padding: 0;
@@ -298,7 +313,6 @@ h3 {
         width: 2rem;
         height: 0.25rem;
         border-radius: 10px;
-        background-color: #FFFFFF;
         transition: all 0.3s linear;
         transform-origin: 1px;
       }
@@ -379,10 +393,6 @@ h3 {
     height: 20px;
     margin: 0 auto;
   }
-}
-
-.main {
-  padding-top: 50px;
 }
 
 .f-bold {
