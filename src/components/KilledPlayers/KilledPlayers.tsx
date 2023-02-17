@@ -5,7 +5,6 @@ import { setIsLoosedGame, setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer } from '../../types/gameInterface';
 import MyButton from '../MyButton/MyButton';
 
-import '../../styles/GameResult.scss';
 interface GameResultProps {
   onContinueHandler: () => void;
 }

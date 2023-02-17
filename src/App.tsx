@@ -15,8 +15,6 @@ import SignUpPage from './pages/SignUpPage/SignUpPage';
 import SinglePlayer from './pages/SinglePlayer/SinglePlayer';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 
-import './styles/App.scss';
-
 export const App: React.FC = () => {
   return (
     <Router>

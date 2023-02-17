@@ -16,3 +16,7 @@ export interface IBestScore {
   username: string;
   score: number;
 }
+
+export interface ITopScoreResp {
+  topScores: string[];
+}

@@ -13,8 +13,6 @@ import { ReactComponent as FullscreenSvg } from './assets/fullscreen.svg';
 import { ReactComponent as SoundSvg } from './assets/sound.svg';
 import { ReactComponent as EffectsSvg } from './assets/volume.svg';
 
-import '../../styles/Settings.scss';
-
 const Settings: React.FC = () => {
   const { isSettingsOn } = useAppSelector((state) => state.ui);
   const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);

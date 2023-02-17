@@ -18,11 +18,10 @@ import {
   setMissedAnswer,
   setRound,
   setSortPlayersTeam,
+  setTopScores,
 } from '../../../store/gameSlice';
 import { IPlayer } from '../../../types/gameInterface';
-import { getDiapasonRandomNum } from '../../../utils/utilities';
-
-import '../../../styles/MultiGame.scss';
+import { getDiapasonRandomNum, sendUserScore } from '../../../utils/utilities';
 
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -61,6 +60,8 @@ const MultiGamePage: React.FC = () => {
     }
     if (round === 3 && level === 3) {
       setIsGameFinished(true);
+      const score = players.find((item) => item.id === 0)?.playerScore as number;
+      sendUserScore(score, true).then((res) => res && dispatch(setTopScores(res)));
       dispatch(resetLevel());
       dispatch(resetRound());
     }

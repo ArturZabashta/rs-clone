@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks/userHooks';
 
 const ScoreList: React.FC = () => {
   const { topScores } = useAppSelector((state) => state.game);
-  const scoreArr = topScores.slice().sort((a, b) => Number(b) - Number(a));
+  const scoreArr = topScores.slice(0, 7).sort((a, b) => Number(b) - Number(a));
   return topScores.length === 0 ? (
     <div className="scores_item">There is no results yet</div>
   ) : (

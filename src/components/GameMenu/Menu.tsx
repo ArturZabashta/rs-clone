@@ -9,10 +9,8 @@ import { setIsSettingsOn } from '../../store/uiSlice';
 import { ReactComponent as ContactSvg } from './assets/contact.svg';
 import { ReactComponent as SettingsSvg } from './assets/settings.svg';
 
-import '../../styles/index.scss';
-
 interface IMenuProps {
-  menuHandler(): void;
+  menuHandler?(): void;
 }
 
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
@@ -33,7 +31,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
         className="menu_btn single-player_btn"
         route="/single-player"
         onClickButton={() => {
-          menuHandler();
+          menuHandler && menuHandler();
           isSoundOn && playGameStart();
         }}
       >
@@ -46,7 +44,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           route="/multi-player"
           isDisabled={!isLogin}
           onClickButton={() => {
-            menuHandler();
+            menuHandler && menuHandler();
             isSoundOn && playGameStart();
           }}
         >
@@ -56,7 +54,9 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           className="menu_btn leader-board_btn"
           route="/score"
           isDisabled={!isLogin}
-          onClickButton={() => menuHandler()}
+          onClickButton={() => {
+            menuHandler && menuHandler();
+          }}
         >
           Leader Board
         </MyButton>
