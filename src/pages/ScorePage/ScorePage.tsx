@@ -13,7 +13,7 @@ interface IScoreRes {
 }
 
 const ScorePage: React.FC = () => {
-  const { username } = useAppSelector((state) => state.ui);
+  const { username, isLogin } = useAppSelector((state) => state.ui);
   const [bestScores, setBestScores] = useState<IBestScore[]>([]);
   useEffect(() => {
     fetch('https://rsclone-server.onrender.com/best_score')
@@ -29,13 +29,15 @@ const ScorePage: React.FC = () => {
         <h2 className="score-page_title">Best Scores</h2>
         {bestScores.length === 0 ? <div className="spinner"></div> : <BestList scoreList={bestScores} />}
       </div>
-      <div className="score-page_item">
-        <h2 className="score-page_title">
-          {' '}
-          <span style={{ textTransform: 'capitalize' }}>{username}&apos;s</span> high scores:{' '}
-        </h2>
-        <ScoreList />
-      </div>
+      {isLogin && (
+        <div className="score-page_item">
+          <h2 className="score-page_title">
+            {' '}
+            <span style={{ textTransform: 'capitalize' }}>{username}&apos;s</span> high scores:{' '}
+          </h2>
+          <ScoreList />
+        </div>
+      )}
     </section>
   );
 };

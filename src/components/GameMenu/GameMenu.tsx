@@ -6,8 +6,6 @@ import { useAppSelector, useOnClickOutside } from '../../hooks/userHooks';
 import Hamburger from './Hamburger';
 import Menu from './Menu';
 
-import '../../styles/index.scss';
-
 const StyledMenu = styled.div<{ menuOn: boolean }>`
   transform: ${({ menuOn }) => (menuOn ? 'translateX(0)' : 'translateX(-100%)')};
 `;

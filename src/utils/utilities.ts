@@ -1,4 +1,5 @@
 import { LatLng, PointLatLng } from '../types/gameInterface';
+import { ITopScoreResp } from '../types/uiInterface';
 
 export const singlePointsCounter = (distance: number): number => {
   const points = 3000 - distance > 0 ? 3000 - distance : 0;
@@ -24,4 +25,23 @@ export const getCoordinates = (latLng: LatLng) => {
 export const calculateDistance = (truePoint: PointLatLng, userPoint: PointLatLng) => {
   const distance = Math.ceil(google.maps.geometry.spherical.computeDistanceBetween(truePoint, userPoint) / 1000);
   return distance;
+};
+
+export const sendUserScore = async (score: number, isLogin: boolean) => {
+  if (isLogin) {
+    const token = sessionStorage.getItem('auth_token') as string;
+    const request = await fetch('https://rsclone-server.onrender.com/score', {
+      method: 'POST',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        score: score,
+      }),
+    });
+    const { topScores }: ITopScoreResp = await request.json();
+    console.log(topScores);
+    return topScores;
+  }
 };

@@ -8,15 +8,16 @@ import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
-import { setScore } from '../../store/gameSlice';
+import { setScore, setTopScores } from '../../store/gameSlice';
 import { resetLevel, setLevel } from '../../store/gameSlice';
-import { getDiapasonRandomNum, singlePointsCounter } from '../../utils/utilities';
+import { getDiapasonRandomNum, sendUserScore, singlePointsCounter } from '../../utils/utilities';
 
 const SinglePlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
   const { level } = useAppSelector((state) => state.game);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const { isLogin } = useAppSelector((state) => state.ui);
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
@@ -40,7 +41,10 @@ const SinglePlayer: React.FC = () => {
 
     if (level === 9) {
       setIsGameFinished(true);
-      dispatch(resetLevel());
+      sendUserScore(score, isLogin).then((res) => {
+        res && dispatch(setTopScores(res));
+        dispatch(resetLevel());
+      });
     }
 
     dispatch(setLevel());
