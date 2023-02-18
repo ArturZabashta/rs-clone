@@ -61,24 +61,10 @@ const SinglePlayer: React.FC = () => {
   };
 
   return (
-    <section
-      className="single-player"
-      style={{
-        height: '70vh',
-        width: '100vw',
-      }}
-    >
+    <section className="singleplayer">
       {isGameFinished ? '' : <GameMusic />}
-      <h3>{`Question ${level}`}</h3>
-      <div
-        className="question_wrapper"
-        style={{
-          position: 'relative',
-          height: '60vh',
-          width: '97vw',
-          margin: '1rem',
-        }}
-      >
+      <p className="singleplayer_title">{`Question #${level}`}</p>
+      <div className="singleplayer_wrapper">
         <SingleGameMap
           pointLatLng={gameView[question].latLng}
           onAnswerHandler={onAnswerHandler}
@@ -87,17 +73,7 @@ const SinglePlayer: React.FC = () => {
         />
       </div>
       {isAnswered ? (
-        <div
-          className="next_question"
-          style={{
-            position: 'fixed',
-            top: '33%',
-            left: '33%',
-            backgroundColor: 'black',
-            zIndex: '999 ',
-            textAlign: 'center',
-          }}
-        >
+        <div className="singleplayer_modal">
           <p className="answer_city">{`This is  ${gameView[question].city}`}</p>
           <p className="distance">{`You were wrong by  ${distance} km`}</p>
           <p className="points">{`Your result is  ${answerPoints}  points`}</p>

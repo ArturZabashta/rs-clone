@@ -22,7 +22,7 @@ const GameResult: React.FC<GameResultProps> = ({ score }) => {
     <div className="game_result">
       {page === '/single-player' ? (
         <div className="winners_item" style={{ color: 'gold' }}>
-          <h3>{`${username} win the SinglePlayer Game`}</h3>
+          <h3>{`${username ? username : 'Player'} win the SinglePlayer Game`}</h3>
           <h3>{`Score is ${score} points`}</h3>
         </div>
       ) : (

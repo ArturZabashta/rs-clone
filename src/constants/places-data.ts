@@ -20,7 +20,7 @@ export const gameView: Array<IData> = [
     utc: '+1',
     continent: 'Europe',
     picture: [
-      'https://kartinkin.net/uploads/posts/2021-07/1627099879_18-kartinkin-com-p-flag-italii-fon-krasivo-23.jpg',
+      'https://media.istockphoto.com/photos/close-up-of-italys-flag-picture-id511092491?k=20&m=511092491&s=612x612&w=0&h=QqQ36iqd-eiHKajr2tvTLwe45XvPbIT4UfI1M84pzq8=',
     ],
   },
   {
@@ -31,7 +31,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://cutewallpaper.org/21/france-flag-wallpaper/French-Flag-Wallpapers-72+-background-pictures-.jpg'],
+    picture: ['https://ak.picdn.net/shutterstock/videos/1050709000/thumb/1.jpg'],
   },
   {
     city: 'New-York',
@@ -73,7 +73,9 @@ export const gameView: Array<IData> = [
     },
     utc: '0',
     continent: 'Europe',
-    picture: ['https://abali.ru/wp-content/uploads/2013/09/flag-anglii-gryaz.jpg'],
+    picture: [
+      'https://besthqwallpapers.com/Uploads/12-11-2017/28255/flag-of-united-kingdom-4k-grunge-stone-texture-british-flag.jpg',
+    ],
   },
   {
     city: 'Nice',
@@ -83,7 +85,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://cutewallpaper.org/21/france-flag-wallpaper/French-Flag-Wallpapers-72+-background-pictures-.jpg'],
+    picture: ['https://ak.picdn.net/shutterstock/videos/1050709000/thumb/1.jpg'],
   },
   {
     city: 'Rio de Janeiro',
@@ -133,9 +135,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+3',
     continent: 'Europe',
-    picture: [
-      'https://kartinkin.net/uploads/posts/2021-07/1625726671_2-kartinkin-com-p-flag-belarusi-oboi-krasivie-2.jpg',
-    ],
+    picture: ['https://www.worldatlas.com/r/w768/upload/48/ba/20/shutterstock-1451505671.jpg'],
   },
   {
     city: 'St.Petersburg',
@@ -165,9 +165,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+8',
     continent: 'Asia',
-    picture: [
-      'https://kartinkin.net/uploads/posts/2021-07/1625860041_4-kartinkin-com-p-flag-kitaya-oboi-krasivie-4.jpg',
-    ],
+    picture: ['https://ak.picdn.net/shutterstock/videos/1013600777/thumb/1.jpg'],
   },
   {
     city: 'New Delhi',
@@ -177,7 +175,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+5',
     continent: 'Asia',
-    picture: ['https://c.wallhere.com/photos/5c/ca/1920x1200_px_Flag_flags_India_indian-1762009.jpg!d'],
+    picture: ['https://ak.picdn.net/shutterstock/videos/27353794/thumb/1.jpg'],
   },
   {
     city: 'Cape Town',
@@ -197,7 +195,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+4',
     continent: 'Asia',
-    picture: ['https://regnum.ru/uploads/pictures/news/2017/01/11/regnum_picture_1484127413205273_normal.jpg'],
+    picture: ['https://ak.picdn.net/shutterstock/videos/877741/thumb/1.jpg'],
   },
   {
     city: 'Madrid',
@@ -207,7 +205,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://mobimg.b-cdn.net/v3/fetch/fa/fae98cf793972086ff7742e7d4394eba.jpeg'],
+    picture: ['https://st2.depositphotos.com/1244201/9077/i/950/depositphotos_90777306-stock-photo-flag-of-spain.jpg'],
   },
   {
     city: 'Reykjavik',
@@ -217,7 +215,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['http://mobimg.b-cdn.net/v3/fetch/6a/6a4955b4aa8dabf03ba0aff961c3f448.jpeg'],
+    picture: ['https://exoticluxurycat.ru/wp-content/uploads/1/6/3/163b0030a376206f5c89a1f564350a26.jpeg'],
   },
   {
     city: 'San Francisco',
@@ -257,7 +255,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+8',
     continent: 'Asia',
-    picture: ['https://free-images.com/or/fe2f/singapore_flag_national_flag_0.jpg'],
+    picture: ['https://ak.picdn.net/shutterstock/videos/927601/thumb/1.jpg'],
   },
   {
     city: 'Washington',
