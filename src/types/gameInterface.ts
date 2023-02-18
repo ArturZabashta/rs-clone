@@ -9,6 +9,7 @@ export type GameStoreType = {
   round: number;
   isLoosedGame: boolean;
   missedAnswer: boolean;
+  totalScore: number;
 };
 
 export type LatLng = {

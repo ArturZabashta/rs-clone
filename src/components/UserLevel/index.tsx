@@ -11,8 +11,8 @@ interface ILvlData {
 }
 
 const UserLvl: React.FC = () => {
-  const topScores = useAppSelector((state) => state.game.topScores);
-  const totalScore = topScores.reduce((acc, item) => acc + Number(item), 0);
+  const totalScore = useAppSelector((state) => state.game.totalScore);
+  // const totalScore = topScores.reduce((acc, item) => acc + Number(item), 0);
 
   const getLvlData = (score: number): ILvlData => {
     if (score <= 12000) return { title: 'TOURIST', level: '1', min: 0, max: 12000 };

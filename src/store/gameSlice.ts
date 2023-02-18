@@ -13,6 +13,7 @@ const initialState: GameStoreType = {
   round: 1,
   isLoosedGame: false,
   missedAnswer: false,
+  totalScore: 0,
 };
 
 export const gameSlice = createSlice({
@@ -57,6 +58,9 @@ export const gameSlice = createSlice({
     },
     setMissedAnswer: (state, action: PayloadAction<boolean>) => {
       state.missedAnswer = action.payload;
+    },
+    setTotalScore: (state, action: PayloadAction<number>) => {
+      state.totalScore = action.payload;
     },
   },
 });
