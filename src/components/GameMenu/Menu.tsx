@@ -4,7 +4,7 @@ import useSound from 'use-sound';
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundStartGame from '../../sounds/gameOn_sound.mp3';
-import { setIsSettingsOn } from '../../store/uiSlice';
+import { setIsLogin, setIsSettingsOn, setUserToken } from '../../store/uiSlice';
 
 import { ReactComponent as ContactSvg } from './assets/contact.svg';
 import { ReactComponent as SettingsSvg } from './assets/settings.svg';
@@ -14,10 +14,16 @@ interface IMenuProps {
 }
 
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
+  const dispatch = useAppDispatch();
+  // const lsToken = localStorage.getItem('auth_token');
+  // if (lsToken && lsToken !== '') {
+  //   console.log('auth_token from Menu', lsToken);
+  //   dispatch(setUserToken(lsToken));
+  //   dispatch(setIsLogin(true));
+  // }
+
   const { isLogin, isSettingsOn } = useAppSelector((state) => state.ui);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
-
-  const dispatch = useAppDispatch();
 
   const settingsHandler = () => {
     dispatch(setIsSettingsOn(!isSettingsOn));

@@ -5,6 +5,7 @@ export type UiStoreType = {
   isMenuOn: boolean;
   isSettingsOn: boolean;
   popUpMsg: string;
+  userToken: string;
 };
 
 export type Props = {

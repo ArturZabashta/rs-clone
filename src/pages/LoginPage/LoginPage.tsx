@@ -7,12 +7,18 @@ import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundLogIn from '../../sounds/logIn_sound.mp3';
 import { setTopScores } from '../../store/gameSlice';
-import { setCurrentPage, setIsLogin, setPopUpMsg } from '../../store/uiSlice';
+import { setCurrentPage, setIsLogin, setPopUpMsg, setUserToken } from '../../store/uiSlice';
 import { setUsername } from '../../store/uiSlice';
 
 type FormData = {
   username: string;
   password: string;
+};
+
+type LSData = {
+  username: string;
+  token: string;
+  topScores: string[];
 };
 
 const LogInPage: React.FC = () => {
@@ -42,10 +48,17 @@ const LogInPage: React.FC = () => {
     });
     const { message, token, topScores } = await res.json();
     if (res.status === 200) {
+      const storageData: LSData = {
+        username: username,
+        token: token,
+        topScores: topScores,
+      };
+      localStorage.setItem('userData', JSON.stringify(storageData));
+
       dispatch(setTopScores(topScores));
       dispatch(setIsLogin(true));
       dispatch(setUsername(username));
-      sessionStorage.setItem('auth_token', token);
+      dispatch(setUserToken(token));
       dispatch(setCurrentPage('/home'));
       navigate('/home');
     } else {
@@ -137,7 +150,7 @@ export default LogInPage;
 //     if (res.status === 200) {
 //       dispatch(setTopScores(topScores));
 //       dispatch(setIsLogin(true));
-//       sessionStorage.setItem('auth_token', token);
+//       localStorage.setItem('auth_token', token);
 //       //TODO move to home page
 //     } else {
 //       dispatch(setPopUpMsg(message));
