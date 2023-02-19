@@ -51,7 +51,6 @@ const LogInPage: React.FC = () => {
       sessionStorage.setItem('userData', JSON.stringify(storageData));
 
       dispatch(setTotalScore(totalScore));
-      console.log(totalScore);
 
       dispatch(setIsLogin(true));
       dispatch(setUsername(username));

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { HOST_NAME } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { setPopUpMsg } from '../../store/uiSlice';
-import { IBestScore, IUserScores } from '../../types/uiInterface';
+import { IBestScore, IUserScores, LSData } from '../../types/uiInterface';
 
 import BestList from './BestList';
 import ScoreList from './ScoreList';
@@ -22,19 +22,20 @@ const ScorePage: React.FC = () => {
 
   const getScores: IGetScores = async (get = 'score', order = 'DESC') => {
     setUserScores([]);
+    const userData: LSData = await JSON.parse(sessionStorage.getItem('userData') as string);
     const response = await fetch(HOST_NAME + '/score/get', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        AUTHORIZATION: sessionStorage.getItem('auth_token') as string,
+        AUTHORIZATION: userData.token,
       },
       body: JSON.stringify({
         get,
         order,
       }),
     });
+
     const { message, scoreArr } = await response.json();
-    console.log(scoreArr);
     if (response.status === 200) {
       setUserScores(scoreArr.slice(0, 7));
     } else {
