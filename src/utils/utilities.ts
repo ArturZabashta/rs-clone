@@ -1,5 +1,6 @@
+import { HOST_NAME } from '../constants/constants';
 import { LatLng, PointLatLng } from '../types/gameInterface';
-import { ITopScoreResp } from '../types/uiInterface';
+import { IScoreSendResp } from '../types/uiInterface';
 
 export const singlePointsCounter = (distance: number): number => {
   const points = 3000 - distance > 0 ? 3000 - distance : 0;
@@ -30,18 +31,18 @@ export const calculateDistance = (truePoint: PointLatLng, userPoint: PointLatLng
 export const sendUserScore = async (score: number, isLogin: boolean) => {
   if (isLogin) {
     const token = sessionStorage.getItem('auth_token') as string;
-    const request = await fetch('https://rsclone-server.onrender.com/score', {
+    const request = await fetch(HOST_NAME + '/score', {
       method: 'POST',
       headers: {
         Authorization: token,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        date: Date.now(),
         score: score,
       }),
     });
-    const { topScores }: ITopScoreResp = await request.json();
-    console.log(topScores);
-    return topScores;
+    const { totalScore }: IScoreSendResp = await request.json();
+    return totalScore;
   }
 };

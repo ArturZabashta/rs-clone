@@ -1,6 +1,5 @@
 export type GameStoreType = {
   score: number;
-  topScores: string[];
   players: IPlayer[];
   isSoundOn: boolean;
   musicVolume: number;
@@ -9,6 +8,7 @@ export type GameStoreType = {
   round: number;
   isLoosedGame: boolean;
   missedAnswer: boolean;
+  totalScore: number;
 };
 
 export type LatLng = {
