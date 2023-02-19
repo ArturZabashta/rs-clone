@@ -27,3 +27,7 @@ export type LSData = {
   token: string;
   totalScore: number;
 };
+export interface IUserScores {
+  date: number;
+  score: number;
+}

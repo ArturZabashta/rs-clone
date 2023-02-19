@@ -31,7 +31,7 @@ export const calculateDistance = (truePoint: PointLatLng, userPoint: PointLatLng
 export const sendUserScore = async (score: number, isLogin: boolean) => {
   if (isLogin) {
     const token = sessionStorage.getItem('auth_token') as string;
-    const request = await fetch(HOST_NAME + '/score', {
+    const request = await fetch(HOST_NAME + '/score/set', {
       method: 'POST',
       headers: {
         Authorization: token,
