@@ -4,7 +4,8 @@ import useSound from 'use-sound';
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundStartGame from '../../sounds/gameOn_sound.mp3';
-import { setIsLogin, setIsSettingsOn, setUserToken } from '../../store/uiSlice';
+import { setTopScores } from '../../store/gameSlice';
+import { setIsLogin, setIsSettingsOn, setUsername, setUserToken } from '../../store/uiSlice';
 
 import { ReactComponent as ContactSvg } from './assets/contact.svg';
 import { ReactComponent as SettingsSvg } from './assets/settings.svg';
@@ -24,6 +25,14 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   };
 
   const [playGameStart] = useSound(soundStartGame, { volume: effectsVolume });
+
+  const setLogOut = () => {
+    dispatch(setTopScores([]));
+    dispatch(setIsLogin(false));
+    dispatch(setUsername(''));
+    dispatch(setUserToken(''));
+    localStorage.removeItem('userData');
+  };
 
   return (
     <div>
@@ -61,6 +70,9 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           Leader Board
         </MyButton>
       </fieldset>
+      <MyButton className="menu_btn single-player_btn" route="/" onClickButton={setLogOut}>
+        Log Out
+      </MyButton>
       <div className="menu_options options">
         <div className="options_item">
           <div className="options_logo">
