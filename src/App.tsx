@@ -25,7 +25,6 @@ export const App: React.FC = () => {
 
   if (userData) {
     try {
-      console.log('auth_token from Menu', userData);
       const data = JSON.parse(userData);
 
       dispatch(setTopScores(data.topScores));

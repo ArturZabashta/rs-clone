@@ -15,12 +15,6 @@ interface IMenuProps {
 
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   const dispatch = useAppDispatch();
-  // const lsToken = localStorage.getItem('auth_token');
-  // if (lsToken && lsToken !== '') {
-  //   console.log('auth_token from Menu', lsToken);
-  //   dispatch(setUserToken(lsToken));
-  //   dispatch(setIsLogin(true));
-  // }
 
   const { isLogin, isSettingsOn } = useAppSelector((state) => state.ui);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
