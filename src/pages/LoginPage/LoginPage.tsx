@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
 
 import MyButton from '../../components/MyButton/MyButton';
+import { HOST_NAME } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundLogIn from '../../sounds/logIn_sound.mp3';
-import { setTopScores } from '../../store/gameSlice';
+import { setTotalScore } from '../../store/gameSlice';
 import { setCurrentPage, setIsLogin, setPopUpMsg } from '../../store/uiSlice';
 import { setUsername } from '../../store/uiSlice';
 
@@ -30,7 +31,7 @@ const LogInPage: React.FC = () => {
     //e.preventDefault();
     setIsDisabled(true);
     const { username, password } = { ...data };
-    const res = await fetch('https://rsclone-server.onrender.com/auth/login', {
+    const res = await fetch(HOST_NAME + '/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,9 +41,10 @@ const LogInPage: React.FC = () => {
         password,
       }),
     });
-    const { message, token, topScores } = await res.json();
+    const { message, token, totalScore } = await res.json();
     if (res.status === 200) {
-      dispatch(setTopScores(topScores));
+      dispatch(setTotalScore(totalScore));
+      console.log(totalScore);
       dispatch(setIsLogin(true));
       dispatch(setUsername(username));
       sessionStorage.setItem('auth_token', token);
