@@ -4,7 +4,6 @@ import { GameStoreType, IPlayer } from '../types/gameInterface';
 
 const initialState: GameStoreType = {
   score: 0,
-  topScores: [],
   players: [],
   isSoundOn: true,
   musicVolume: 0.6,
@@ -22,9 +21,6 @@ export const gameSlice = createSlice({
   reducers: {
     setScore: (state, action: PayloadAction<number>) => {
       state.score = state.score + action.payload;
-    },
-    setTopScores: (state, action: PayloadAction<Array<string>>) => {
-      state.topScores = action.payload;
     },
     setPlayersTeam: (state, action: PayloadAction<Array<IPlayer>>) => {
       state.players = action.payload;
@@ -67,7 +63,6 @@ export const gameSlice = createSlice({
 
 export const {
   setScore,
-  setTopScores,
   setPlayersTeam,
   setIsSoundOn,
   setEffectsVolume,
@@ -79,6 +74,7 @@ export const {
   resetRound,
   setIsLoosedGame,
   setMissedAnswer,
+  setTotalScore,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

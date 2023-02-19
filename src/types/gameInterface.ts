@@ -1,6 +1,5 @@
 export type GameStoreType = {
   score: number;
-  topScores: string[];
   players: IPlayer[];
   isSoundOn: boolean;
   musicVolume: number;

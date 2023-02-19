@@ -12,9 +12,9 @@ interface ILvlData {
 
 const UserLvl: React.FC = () => {
   const totalScore = useAppSelector((state) => state.game.totalScore);
-  // const totalScore = topScores.reduce((acc, item) => acc + Number(item), 0);
 
   const getLvlData = (score: number): ILvlData => {
+    console.log(score);
     if (score <= 12000) return { title: 'TOURIST', level: '1', min: 0, max: 12000 };
     if (score > 12001 && score <= 35000) return { title: 'ADVENTURER', level: '2', min: 12001, max: 35000 };
     if (score > 35001 && score <= 80000) return { title: 'EXPLORER', level: '3', min: 35001, max: 80000 };
