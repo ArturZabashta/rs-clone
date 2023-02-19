@@ -5,6 +5,7 @@ export type UiStoreType = {
   isMenuOn: boolean;
   isSettingsOn: boolean;
   popUpMsg: string;
+  userToken: string;
 };
 
 export type Props = {
@@ -20,3 +21,9 @@ export interface IBestScore {
 export interface IScoreSendResp {
   totalScore: number;
 }
+
+export type LSData = {
+  username: string;
+  token: string;
+  totalScore: number;
+};

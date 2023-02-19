@@ -8,8 +8,8 @@ import { HOST_NAME } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundLogIn from '../../sounds/logIn_sound.mp3';
 import { setTotalScore } from '../../store/gameSlice';
-import { setCurrentPage, setIsLogin, setPopUpMsg } from '../../store/uiSlice';
-import { setUsername } from '../../store/uiSlice';
+import { setCurrentPage, setIsLogin, setPopUpMsg, setUsername, setUserToken } from '../../store/uiSlice';
+import { LSData } from '../../types/uiInterface';
 
 type FormData = {
   username: string;
@@ -43,11 +43,19 @@ const LogInPage: React.FC = () => {
     });
     const { message, token, totalScore } = await res.json();
     if (res.status === 200) {
+      const storageData: LSData = {
+        username: username,
+        token: token,
+        totalScore: totalScore,
+      };
+      sessionStorage.setItem('userData', JSON.stringify(storageData));
+
       dispatch(setTotalScore(totalScore));
       console.log(totalScore);
+
       dispatch(setIsLogin(true));
       dispatch(setUsername(username));
-      sessionStorage.setItem('auth_token', token);
+      dispatch(setUserToken(token));
       dispatch(setCurrentPage('/home'));
       navigate('/home');
     } else {
@@ -114,54 +122,3 @@ const LogInPage: React.FC = () => {
   );
 };
 export default LogInPage;
-
-// =======
-// const LogInPage: React.FC = () => {
-//   const dispatch = useAppDispatch();
-
-//   const [username, setUsername] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [isDisabled, setIsDisabled] = useState(true);
-
-//   const submitHandler = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     const res = await fetch('https://rsclone-server.onrender.com/auth/login', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         username,
-//         password,
-//       }),
-//     });
-//     const { message, token, topScores } = await res.json();
-//     if (res.status === 200) {
-//       dispatch(setTopScores(topScores));
-//       dispatch(setIsLogin(true));
-//       sessionStorage.setItem('auth_token', token);
-//       //TODO move to home page
-//     } else {
-//       dispatch(setPopUpMsg(message));
-//     }
-//     setUsername('');
-//     setPassword('');
-//   };
-
-//   const formValidator = (...args: string[]) => {
-//     return !args.every((item) => item.length >= 4 && !item.includes(' '));
-//   };
-
-//   useEffect(() => {
-//     setIsDisabled(formValidator(username, password));
-//   }, [username, password]);
-
-//   return (
-//     <section className="login-page">
-//       <form onSubmit={(e) => submitHandler(e)}>
-//         <span>Username</span>
-//         <input type={'text'} onChange={(e) => setUsername(e.target.value)} value={username}></input>
-//         <span>Password</span>
-//         <input type={'password'} onChange={(e) => setPassword(e.target.value)} value={password}></input>
-//         <MyButton className="login_btn btn_blue" disabled={isDisabled}>
-// >>>>>>> 0d3326cce614931b0f695e9487e497c465bb4853

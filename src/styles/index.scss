@@ -327,8 +327,59 @@ h3 {
     }
   }
 
+  @keyframes slider_out {
+    from {
+      width: 0%;
+      opacity:0 
+    }
+    50% {width: 50% }
+    to {width: 100% }
+  }
+  @keyframes slider_in {
+    from {width: 100% }
+    50% {width: 50% }
+    to {
+      width: 0%; 
+      opacity: 0, }
+  }
+
   .header_logo {
+    // position: relative;
     flex-basis: 33%;
+    cursor: pointer;
+  }
+  .header_logo::after{
+    content: 'Back';    
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: 100%;
+    top: 0;
+    right: 0%;
+    border: solid 2px white;
+    border-radius: 0.7rem;
+    font-size: 2rem;
+    background-color: rgba(5, 5, 5, 0.466);        
+    animation: slider_in 0.3s linear;
+    animation-fill-mode:forwards;
+  }
+  .header_logo:hover::after{
+    content: 'Back';    
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: 100%;
+    top: 0;
+    right: 0%;
+    border: solid 2px white;
+    border-radius: 0.7rem;
+    font-size: 2rem;
+    background-color: rgba(5, 5, 5, 0.466);        
+    animation: slider_out 0.3s linear;
+    animation-fill-mode:forwards;
+    
   }
 
   .current-page {
