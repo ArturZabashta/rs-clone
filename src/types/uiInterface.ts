@@ -18,6 +18,12 @@ export interface IBestScore {
   score: number;
 }
 
-export interface ITopScoreResp {
-  topScores: string[];
+export interface IScoreSendResp {
+  totalScore: number;
 }
+
+export type LSData = {
+  username: string;
+  token: string;
+  totalScore: number;
+};

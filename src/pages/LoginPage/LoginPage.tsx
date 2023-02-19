@@ -4,21 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
 
 import MyButton from '../../components/MyButton/MyButton';
+import { HOST_NAME } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundLogIn from '../../sounds/logIn_sound.mp3';
-import { setTopScores } from '../../store/gameSlice';
-import { setCurrentPage, setIsLogin, setPopUpMsg, setUserToken } from '../../store/uiSlice';
-import { setUsername } from '../../store/uiSlice';
+import { setTotalScore } from '../../store/gameSlice';
+import { setCurrentPage, setIsLogin, setPopUpMsg, setUsername, setUserToken } from '../../store/uiSlice';
+import { LSData } from '../../types/uiInterface';
 
 type FormData = {
   username: string;
   password: string;
-};
-
-type LSData = {
-  username: string;
-  token: string;
-  topScores: string[];
 };
 
 const LogInPage: React.FC = () => {
@@ -36,7 +31,7 @@ const LogInPage: React.FC = () => {
     //e.preventDefault();
     setIsDisabled(true);
     const { username, password } = { ...data };
-    const res = await fetch('https://rsclone-server.onrender.com/auth/login', {
+    const res = await fetch(HOST_NAME + '/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -46,16 +41,18 @@ const LogInPage: React.FC = () => {
         password,
       }),
     });
-    const { message, token, topScores } = await res.json();
+    const { message, token, totalScore } = await res.json();
     if (res.status === 200) {
       const storageData: LSData = {
         username: username,
         token: token,
-        topScores: topScores,
+        totalScore: totalScore,
       };
       localStorage.setItem('userData', JSON.stringify(storageData));
 
-      dispatch(setTopScores(topScores));
+      dispatch(setTotalScore(totalScore));
+      console.log(totalScore);
+
       dispatch(setIsLogin(true));
       dispatch(setUsername(username));
       dispatch(setUserToken(token));

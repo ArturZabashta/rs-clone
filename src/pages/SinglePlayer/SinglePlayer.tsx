@@ -8,7 +8,7 @@ import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
-import { setScore, setTopScores } from '../../store/gameSlice';
+import { setScore, setTotalScore } from '../../store/gameSlice';
 import { resetLevel, setLevel } from '../../store/gameSlice';
 import { getDiapasonRandomNum, sendUserScore, singlePointsCounter } from '../../utils/utilities';
 
@@ -42,7 +42,7 @@ const SinglePlayer: React.FC = () => {
     if (level === 9) {
       setIsGameFinished(true);
       sendUserScore(score, isLogin).then((res) => {
-        res && dispatch(setTopScores(res));
+        res && dispatch(setTotalScore(res));
         dispatch(resetLevel());
       });
     }

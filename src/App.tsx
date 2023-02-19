@@ -16,8 +16,9 @@ import ScorePage from './pages/ScorePage/ScorePage';
 import SignUpPage from './pages/SignUpPage/SignUpPage';
 import SinglePlayer from './pages/SinglePlayer/SinglePlayer';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
-import { setTopScores } from './store/gameSlice';
+import { setTotalScore } from './store/gameSlice';
 import { setIsLogin, setUsername, setUserToken } from './store/uiSlice';
+import { LSData } from './types/uiInterface';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,9 +26,9 @@ export const App: React.FC = () => {
 
   if (userData) {
     try {
-      const data = JSON.parse(userData);
+      const data: LSData = JSON.parse(userData);
 
-      dispatch(setTopScores(data.topScores));
+      dispatch(setTotalScore(data.totalScore));
       dispatch(setIsLogin(true));
       dispatch(setUsername(data.username));
       dispatch(setUserToken(data.token));
