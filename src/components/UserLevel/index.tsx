@@ -12,7 +12,6 @@ interface ILvlData {
 
 const UserLvl: React.FC = () => {
   const totalScore = useAppSelector((state) => state.game.totalScore);
-  // const totalScore = topScores.reduce((acc, item) => acc + Number(item), 0);
 
   const getLvlData = (score: number): ILvlData => {
     console.log(score);
