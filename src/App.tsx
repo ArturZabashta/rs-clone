@@ -37,24 +37,6 @@ export const App: React.FC = () => {
     }
   }
 
-  // useEffect(() => {
-  //   const userData = localStorage.getItem('userData');
-
-  //   if (userData) {
-  //     try {
-  //       console.log('auth_token from Menu', userData);
-  //       const data = JSON.parse(userData);
-
-  //       dispatch(setTopScores(data.topScores));
-  //       dispatch(setIsLogin(true));
-  //       dispatch(setUsername(data.username));
-  //       dispatch(setUserToken(data.token));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // }, []);
-
   return (
     <Router>
       <Header />

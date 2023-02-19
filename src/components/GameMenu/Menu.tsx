@@ -69,10 +69,10 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
         >
           Leader Board
         </MyButton>
+        <MyButton className="menu_btn single-player_btn" route="/" onClickButton={setLogOut} isDisabled={!isLogin}>
+          Log Out
+        </MyButton>
       </fieldset>
-      <MyButton className="menu_btn single-player_btn" route="/" onClickButton={setLogOut}>
-        Log Out
-      </MyButton>
       <div className="menu_options options">
         <div className="options_item">
           <div className="options_logo">
