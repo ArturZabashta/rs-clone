@@ -31,7 +31,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
     dispatch(setIsLogin(false));
     dispatch(setUsername(''));
     dispatch(setUserToken(''));
-    localStorage.removeItem('userData');
+    sessionStorage.removeItem('userData');
   };
 
   return (

@@ -22,7 +22,7 @@ import { LSData } from './types/uiInterface';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
-  const userData = localStorage.getItem('userData');
+  const userData = sessionStorage.getItem('userData');
 
   if (userData) {
     try {

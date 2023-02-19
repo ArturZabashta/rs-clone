@@ -48,7 +48,7 @@ const LogInPage: React.FC = () => {
         token: token,
         totalScore: totalScore,
       };
-      localStorage.setItem('userData', JSON.stringify(storageData));
+      sessionStorage.setItem('userData', JSON.stringify(storageData));
 
       dispatch(setTotalScore(totalScore));
       console.log(totalScore);
