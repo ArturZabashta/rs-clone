@@ -10,9 +10,7 @@ interface GameResultProps {
 const GameResult: React.FC<GameResultProps> = ({ score }) => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
-  const { currentPage } = useAppSelector((state) => state.ui);
   const { players } = useAppSelector((state) => state.game);
-  const { level } = useAppSelector((state) => state.game);
   const { isLoosedGame } = useAppSelector((state) => state.game);
 
   const setResetGameLevel = () => {
@@ -21,22 +19,10 @@ const GameResult: React.FC<GameResultProps> = ({ score }) => {
   };
   const page = window.location.pathname;
   return (
-    <div
-      className={'game_result'}
-      style={{
-        position: 'fixed',
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'black',
-        zIndex: '10',
-        top: '0',
-        left: '0',
-        paddingTop: '7rem',
-      }}
-    >
+    <div className="game_result">
       {page === '/single-player' ? (
         <div className="winners_item" style={{ color: 'gold' }}>
-          <h3>{`${username} win the SinglePlayer Game`}</h3>
+          <h3>{`${username ? username : 'Player'} win the SinglePlayer Game`}</h3>
           <h3>{`Score is ${score} points`}</h3>
         </div>
       ) : (
@@ -61,11 +47,11 @@ const GameResult: React.FC<GameResultProps> = ({ score }) => {
       ) : (
         ''
       )}
-      <div>
-        <MyButton className={'settings_btn'} route={'/home'} onClickButton={setResetGameLevel}>
+      <div className="game_result__nav">
+        <MyButton className={'winners_btn'} route={'/home'} onClickButton={setResetGameLevel}>
           Home
         </MyButton>
-        <MyButton className={'settings_btn'} route={'/score'} onClickButton={setResetGameLevel}>
+        <MyButton className={'winners_btn'} route={'/score'} onClickButton={setResetGameLevel}>
           Leader Board
         </MyButton>
       </div>

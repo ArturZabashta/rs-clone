@@ -8,15 +8,16 @@ import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
-import { setScore } from '../../store/gameSlice';
+import { setScore, setTotalScore } from '../../store/gameSlice';
 import { resetLevel, setLevel } from '../../store/gameSlice';
-import { getDiapasonRandomNum, singlePointsCounter } from '../../utils/utilities';
+import { getDiapasonRandomNum, sendUserScore, singlePointsCounter } from '../../utils/utilities';
 
 const SinglePlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { score } = useAppSelector((state) => state.game);
   const { level } = useAppSelector((state) => state.game);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const { isLogin } = useAppSelector((state) => state.ui);
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
@@ -40,7 +41,10 @@ const SinglePlayer: React.FC = () => {
 
     if (level === 9) {
       setIsGameFinished(true);
-      dispatch(resetLevel());
+      sendUserScore(score, isLogin).then((res) => {
+        res && dispatch(setTotalScore(res));
+        dispatch(resetLevel());
+      });
     }
 
     dispatch(setLevel());
@@ -57,24 +61,10 @@ const SinglePlayer: React.FC = () => {
   };
 
   return (
-    <section
-      className="single-player"
-      style={{
-        height: '70vh',
-        width: '100vw',
-      }}
-    >
+    <section className="singleplayer">
       {isGameFinished ? '' : <GameMusic />}
-      <h3>{`Question ${level}`}</h3>
-      <div
-        className="question_wrapper"
-        style={{
-          position: 'relative',
-          height: '60vh',
-          width: '97vw',
-          margin: '1rem',
-        }}
-      >
+      <p className="singleplayer_title">{`Question #${level}`}</p>
+      <div className="singleplayer_wrapper">
         <SingleGameMap
           pointLatLng={gameView[question].latLng}
           onAnswerHandler={onAnswerHandler}
@@ -83,17 +73,7 @@ const SinglePlayer: React.FC = () => {
         />
       </div>
       {isAnswered ? (
-        <div
-          className="next_question"
-          style={{
-            position: 'fixed',
-            top: '33%',
-            left: '33%',
-            backgroundColor: 'black',
-            zIndex: '999 ',
-            textAlign: 'center',
-          }}
-        >
+        <div className="singleplayer_modal">
           <p className="answer_city">{`This is  ${gameView[question].city}`}</p>
           <p className="distance">{`You were wrong by  ${distance} km`}</p>
           <p className="points">{`Your result is  ${answerPoints}  points`}</p>

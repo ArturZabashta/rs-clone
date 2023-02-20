@@ -2,8 +2,6 @@ import styled from 'styled-components';
 
 import { Props } from '../../types/uiInterface';
 
-import '../../styles/index.scss';
-
 const StyledHamburger = styled.button<{ menuOn: boolean }>`
   left: ${({ menuOn }) => (menuOn ? '29vw' : '3vw')};
   div {

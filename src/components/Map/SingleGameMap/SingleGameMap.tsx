@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMapProvider, MapBox, Marker, Polyline, StandaloneStreetView } from '@googlemap-react/core';
+import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 import useSound from 'use-sound';
 
+import { gameView } from '../../../constants/places-data';
 import { useAppSelector } from '../../../hooks/userHooks';
 import soundGuess from '../../../sounds/guess_sound.mp3';
-import { PointLatLng } from '../../../types/gameInterface';
+import { LatLng, PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance } from '../../../utils/utilities';
 import MyButton from '../../MyButton/MyButton';
 
@@ -18,7 +19,6 @@ interface MapProps {
 }
 
 const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerHandler, switchMarker }) => {
-  // const [userDistance, setUserDistance] = useState<number>();
   const [userPoint, setUserPoint] = useState<PointLatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<PointLatLng>(pointLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
@@ -26,23 +26,50 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
 
-  const onClick = (event: google.maps.MapMouseEvent) => {
-    console.log('lat=', event.latLng.lat(), 'lng=', event.latLng.lng());
+  const [center, setCenter] = useState<LatLng>({ lat: 51.4772186, lng: 0.0001 });
+  const [mapSize, setMapSize] = useState('13vw');
 
+  const [showUTS, setShowUTS] = useState(false);
+  const [showContinent, setShowContinent] = useState(false);
+  const [showFlag, setShowFlag] = useState(false);
+
+  const onClick = (event: google.maps.MapMouseEvent) => {
     const lat = Number(event.latLng.lat());
     const lng = Number(event.latLng.lng());
 
     setUserPoint({ lat, lng });
     setIsClicked(true);
+    setMapSize('52vh');
   };
 
   const handleGuess = () => {
     setIsAnswered(true);
-    console.log('userPoint=', userPoint);
     const distance = calculateDistance(answerPoint, userPoint);
-    console.log('distance=', distance + 'km');
     onAnswerHandler(distance);
     isSoundOn && playGuess();
+    setShowUTS(false);
+    setShowContinent(false);
+    setShowFlag(false);
+    setCenter(answerPoint);
+  };
+
+  const handleUTSBtn = () => {
+    setShowUTS(true);
+  };
+  const handleContinentBtn = () => {
+    setShowContinent(true);
+  };
+  const handleFlagBtn = () => {
+    setShowFlag(true);
+  };
+  const onMouseMove = () => {
+    setMapSize('52vh');
+  };
+  const onMouseOut = () => {
+    if (!isClicked) setMapSize('13vh');
+  };
+  const onPovChanged = () => {
+    setMapSize('13vh');
   };
 
   useEffect(() => {
@@ -53,37 +80,63 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
 
   return (
     <GoogleMapProvider>
+      <div className="singleplayer_wrapper__help">
+        {showUTS ? (
+          <div className="singleplayer_question__utc">{`UTS: ${gameView[questionNum].utc}`}</div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleUTSBtn}>
+            Get UTS
+          </MyButton>
+        )}
+        {showContinent ? (
+          <div className="singleplayer_question__continent">{gameView[questionNum].continent}</div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
+            Get Location
+          </MyButton>
+        )}
+        {showFlag ? (
+          <div
+            className="singleplayer_question__flag"
+            style={{ backgroundImage: `url('${gameView[questionNum].picture[0]}')` }}
+          ></div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
+            Get Flag
+          </MyButton>
+        )}
+      </div>
       <MapBox
-        className="question-map"
+        className="singleplayer_wrapper__map"
         opts={{
-          zoom: 7,
-          center: { lat: 51.4772186, lng: 0.0001 },
+          zoom: 3,
+          center: center,
           streetViewControl: false,
           disableDefaultUI: true,
-          zoomControl: true,
+          scrollwheel: true,
+          zoomControl: false,
         }}
         apiKey={REACT_APP_API_KEY}
         style={{
-          height: '33vh',
-          width: '33vh',
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          zIndex: '2',
+          height: mapSize,
+          width: mapSize,
         }}
+        onMouseMove={onMouseMove}
+        onMouseOut={onMouseOut}
         onClick={onClick}
         LoadingComponent={<div>Loading</div>}
         useGeometry
       />
-      <StandaloneStreetView
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
+      <StreetView
+        className="singleplayer_wrapper__streetview"
         opts={{
           position: pointLatLng,
           addressControl: false,
+          showRoadLabels: false,
+          panControl: false,
+          zoomControl: false,
         }}
+        onPovChanged={onPovChanged}
       />
       {isAnswered ? (
         <>
@@ -94,6 +147,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
                 lat: Number(answerPoint?.lat),
                 lng: Number(answerPoint?.lng),
               },
+              icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             }}
           />
           <Polyline

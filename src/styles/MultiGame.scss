@@ -1,0 +1,176 @@
+.multigame{
+  position: relative;
+  font-family: "Montserrat", sans-serif;  
+  margin: 0;  
+  font-variant: small-caps;
+  font-style: italic; 
+
+  &_title{
+    position: absolute;
+    left: calc(50% - 10rem);
+    top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;    
+  }
+
+  &_timer{
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: red;
+  }
+
+  &_wrapper{
+    height: 60vh;
+    width: 100vw;
+    display: flex;
+
+
+    .multigame_question{
+      position: relative;
+      height: 60vh;
+      width: 70vw;
+      margin: 1rem;
+
+
+      &__help{
+        position: absolute;
+        display: flex;
+        top: 0.5rem;
+        left: 0.5rem;
+        font-size: 0.9rem;
+        z-index: 10;
+
+
+        .multigame_question__utc,
+        .multigame_question__continent,
+        .multigame_question__flag,
+        .game_help__button{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 4.5rem;
+          height: 3rem;
+          margin: 0.4rem;
+          padding: 0.1rem;
+          border-radius: 0.3rem;
+          border-color: grey;          
+          background-color:  rgba(0, 0, 0, 0.185);
+          font-size: 0.6rem;
+          opacity: 0.7;
+          transition: all 150ms ease-in-out;          
+        }
+        .multigame_question__utc:hover,
+        .multigame_question__continent:hover,
+        .multigame_question__flag:hover,
+        .game_help__button:hover{          
+          border-color: white;   
+          background-color:  rgba(0, 0, 0, 0.5);
+          scale: 1.4;
+          opacity: 1;
+          transition: all 150ms ease-in-out;
+        }
+        .multigame_question__flag{
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;         
+        }
+        
+      }
+
+      &__map{        
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        border-radius: 0.5rem;
+        z-index: 2;
+        transition: all 150ms;
+      }
+      &__map:hover{
+        transition: all 150ms;
+      }
+
+
+      &__streetview{
+        height: 100%;
+        width: 100%;
+        border-radius: 0.5rem;
+      }
+
+      .guess_btn{
+        position: fixed;
+        bottom: -1rem;
+        left: 40%;
+        z-index: 1000;
+      }
+
+    }
+
+    .multigame_players-list{
+      height: 100%;
+      width: 27vw;
+      position: relative;
+      font-family: "Montserrat", sans-serif;
+
+
+      .multigame_players-item{
+        margin: 2.2vh;
+        padding: 0.2rem 0.3rem;
+        border: solid 1px grey;
+        background-color: rgba(16, 16, 28, 0.8);
+        border-radius: 0.3rem;
+        line-height: 1.2;
+
+
+        &__info{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 1.2rem;
+          text-align: center;
+
+          .multigame_players-item__score{            
+            font-size: 1rem;            
+          }
+        }
+
+        &__modal{
+          text-align: center;
+          font-size: 0.9rem;
+          font-style: normal;
+
+        }
+        &__modal.__hide{
+          color: transparent;
+
+        }
+
+      }
+    }
+
+
+    &__modal{
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;   
+
+      width: 100vw;
+      height: 100vh;      
+      background-color: rgba(0, 0, 0, 0.726);
+      z-index: 1099 ;
+      text-align: center;
+
+      font-size: 2rem;
+      line-height: 1.5;
+    }
+
+  }
+
+  
+}

@@ -4,22 +4,21 @@ import useSound from 'use-sound';
 import MyButton from '../../components/MyButton/MyButton';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundStartGame from '../../sounds/gameOn_sound.mp3';
-import { setIsSettingsOn } from '../../store/uiSlice';
+import { setTotalScore } from '../../store/gameSlice';
+import { setIsLogin, setIsSettingsOn, setUsername, setUserToken } from '../../store/uiSlice';
 
 import { ReactComponent as ContactSvg } from './assets/contact.svg';
 import { ReactComponent as SettingsSvg } from './assets/settings.svg';
 
-import '../../styles/index.scss';
-
 interface IMenuProps {
-  menuHandler(): void;
+  menuHandler?(): void;
 }
 
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
+  const dispatch = useAppDispatch();
+
   const { isLogin, isSettingsOn } = useAppSelector((state) => state.ui);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
-
-  const dispatch = useAppDispatch();
 
   const settingsHandler = () => {
     dispatch(setIsSettingsOn(!isSettingsOn));
@@ -27,13 +26,21 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
 
   const [playGameStart] = useSound(soundStartGame, { volume: effectsVolume });
 
+  const setLogOut = () => {
+    dispatch(setTotalScore(0));
+    dispatch(setIsLogin(false));
+    dispatch(setUsername(''));
+    dispatch(setUserToken(''));
+    sessionStorage.removeItem('userData');
+  };
+
   return (
     <div>
       <MyButton
         className="menu_btn single-player_btn"
         route="/single-player"
         onClickButton={() => {
-          menuHandler();
+          menuHandler && menuHandler();
           isSoundOn && playGameStart();
         }}
       >
@@ -46,7 +53,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           route="/multi-player"
           isDisabled={!isLogin}
           onClickButton={() => {
-            menuHandler();
+            menuHandler && menuHandler();
             isSoundOn && playGameStart();
           }}
         >
@@ -56,9 +63,14 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           className="menu_btn leader-board_btn"
           route="/score"
           isDisabled={!isLogin}
-          onClickButton={() => menuHandler()}
+          onClickButton={() => {
+            menuHandler && menuHandler();
+          }}
         >
           Leader Board
+        </MyButton>
+        <MyButton className="menu_btn single-player_btn" route="/" onClickButton={setLogOut} isDisabled={!isLogin}>
+          Log Out
         </MyButton>
       </fieldset>
       <div className="menu_options options">

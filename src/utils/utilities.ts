@@ -1,4 +1,6 @@
+import { HOST_NAME } from '../constants/constants';
 import { LatLng, PointLatLng } from '../types/gameInterface';
+import { IScoreSendResp, LSData } from '../types/uiInterface';
 
 export const singlePointsCounter = (distance: number): number => {
   const points = 3000 - distance > 0 ? 3000 - distance : 0;
@@ -24,4 +26,23 @@ export const getCoordinates = (latLng: LatLng) => {
 export const calculateDistance = (truePoint: PointLatLng, userPoint: PointLatLng) => {
   const distance = Math.ceil(google.maps.geometry.spherical.computeDistanceBetween(truePoint, userPoint) / 1000);
   return distance;
+};
+
+export const sendUserScore = async (score: number, isLogin: boolean) => {
+  if (isLogin) {
+    const userData: LSData = await JSON.parse(sessionStorage.getItem('userData') as string);
+    const request = await fetch(HOST_NAME + '/score/set', {
+      method: 'POST',
+      headers: {
+        Authorization: userData.token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: Date.now(),
+        score: score,
+      }),
+    });
+    const { totalScore }: IScoreSendResp = await request.json();
+    return totalScore;
+  }
 };

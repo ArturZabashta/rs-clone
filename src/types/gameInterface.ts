@@ -1,6 +1,5 @@
 export type GameStoreType = {
   score: number;
-  topScores: string[];
   players: IPlayer[];
   isSoundOn: boolean;
   musicVolume: number;
@@ -8,6 +7,8 @@ export type GameStoreType = {
   level: number;
   round: number;
   isLoosedGame: boolean;
+  missedAnswer: boolean;
+  totalScore: number;
 };
 
 export type LatLng = {
@@ -18,6 +19,9 @@ export type LatLng = {
 export interface IData {
   city: string;
   latLng: LatLng;
+  utc: string;
+  continent: string;
+  picture: string[];
 }
 
 export type GameDataTransfer = {

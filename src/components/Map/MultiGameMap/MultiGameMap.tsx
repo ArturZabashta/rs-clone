@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 import useSound from 'use-sound';
 
+import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import soundGuess from '../../../sounds/guess_sound.mp3';
-import { setPlayersTeam } from '../../../store/gameSlice';
+import { setMissedAnswer, setPlayersTeam } from '../../../store/gameSlice';
 import { IPlayer, LatLng, PointLatLng } from '../../../types/gameInterface';
 import { calculateDistance, getCoordinates, singlePointsCounter } from '../../../utils/utilities';
 import MyButton from '../../MyButton/MyButton';
@@ -20,13 +21,23 @@ interface MultiGameMapProps {
 
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
+  const { username } = useAppSelector((state) => state.ui);
   const { players } = useAppSelector((state) => state.game);
+
+  const { missedAnswer } = useAppSelector((state) => state.game);
+
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isClicked, setIsClicked] = useState(switchMarker);
+
+  const [center, setCenter] = useState<LatLng>({ lat: 51.4772186, lng: 0.0001 });
+  const [mapSize, setMapSize] = useState('13vw');
+  const [showUTS, setShowUTS] = useState(false);
+  const [showContinent, setShowContinent] = useState(false);
+  const [showFlag, setShowFlag] = useState(false);
 
   const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
 
@@ -36,10 +47,18 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
 
     setUserPoint({ lat: lat, lng: lng });
     setIsClicked(true);
+    setMapSize('56vh');
   };
 
   const handleGuess = () => {
     addOpponentsMarkers();
+
+    setShowUTS(false);
+    setShowContinent(false);
+    setShowFlag(false);
+    setMapSize('56vh');
+    setCenter(answerPoint);
+
     isSoundOn && playGuess();
   };
 
@@ -47,7 +66,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     const copyArray: Array<IPlayer> = JSON.parse(JSON.stringify(players));
     const newCopyPlayers: Array<IPlayer> = copyArray.map((player: IPlayer) => {
       let points: number;
-      if (player.id === 0) {
+      if (missedAnswer && player.id === 0) return player;
+      if (!missedAnswer && player.id === 0) {
         player.latLng = userPoint;
         points = singlePointsCounter(calculateDistance(userPoint, answerPoint));
       } else {
@@ -64,6 +84,27 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
     onAnswerHandler();
+    dispatch(setMissedAnswer(false));
+  };
+
+  const onMouseMove = () => {
+    setMapSize('56vh');
+  };
+  const onMouseOut = () => {
+    if (!isClicked) setMapSize('13vh');
+  };
+  const onPovChanged = () => {
+    setMapSize('13vh');
+  };
+
+  const handleUTSBtn = () => {
+    setShowUTS(true);
+  };
+  const handleContinentBtn = () => {
+    setShowContinent(true);
+  };
+  const handleFlagBtn = () => {
+    setShowFlag(true);
   };
 
   useEffect(() => {
@@ -72,44 +113,77 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     setIsClicked(switchMarker);
   }, [questionNum, switchMarker]);
 
+  useEffect(() => {
+    if (missedAnswer) {
+      setUserPoint(answerPoint);
+      setIsClicked(true);
+      setMapSize('56vh');
+      handleGuess();
+    }
+  }, [missedAnswer]);
+
   return (
     <GoogleMapProvider>
+      <div className="multigame_question__help">
+        {showUTS ? (
+          <div className="multigame_question__utc">{`UTS: ${gameView[questionNum].utc}`}</div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleUTSBtn}>
+            Get UTS
+          </MyButton>
+        )}
+        {showContinent ? (
+          <div className="multigame_question__continent">{gameView[questionNum].continent}</div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
+            Get Location
+          </MyButton>
+        )}
+        {showFlag ? (
+          <div
+            className="multigame_question__flag"
+            style={{ backgroundImage: `url('${gameView[questionNum].picture[0]}')` }}
+          ></div>
+        ) : (
+          <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
+            Get Flag
+          </MyButton>
+        )}
+      </div>
       <MapBox
-        className="question-map"
+        className="multigame_question__map"
         opts={{
-          zoom: 8,
-          center: { lat: 51.4772186, lng: 0.0001 },
+          zoom: 3,
+          center: center,
           streetViewControl: false,
           disableDefaultUI: true,
           scrollwheel: true,
-          zoomControl: true,
+          zoomControl: false,
         }}
         apiKey={REACT_APP_API_KEY}
-        style={{
-          height: '33vh',
-          width: '33vh',
-          position: 'absolute',
-          bottom: '1rem',
-          right: '1rem',
-          zIndex: '2',
-        }}
         onClick={onClick}
         LoadingComponent={<div>Loading</div>}
         LoadedComponent={null}
         useGeometry
         useDrawing
         usePlaces
+        style={{
+          height: mapSize,
+          width: mapSize,
+        }}
+        onMouseMove={onMouseMove}
+        onMouseOut={onMouseOut}
       />
       <StreetView
-        className="streetView"
-        style={{
-          height: '100%',
-          width: '100%',
-        }}
+        className="multigame_question__streetview"
         opts={{
           position: propsLatLng,
           addressControl: false,
+          showRoadLabels: false,
+          panControl: false,
+          zoomControl: false,
         }}
+        onPovChanged={onPovChanged}
       />
       {isAnswered ? (
         <>
@@ -123,28 +197,60 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
               icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
             }}
           />
-          {players.map((player: IPlayer, index: number) => (
-            <Marker
-              id={`marker${player.id}`}
-              key={100 + index}
-              opts={{
-                label: `${player.name}`,
-                position: player.latLng,
-              }}
-            />
-          ))}
-          {players.map((player: IPlayer, index: number) => (
-            <Polyline
-              id={`polyline${player.id}`}
-              key={200 + index}
-              opts={{
-                path: [
-                  { lat: Number(answerPoint?.lat), lng: Number(answerPoint?.lng) },
-                  { lat: Number(player.latLng?.lat), lng: Number(player.latLng?.lng) },
-                ],
-              }}
-            />
-          ))}
+          {players.map((player: IPlayer, index: number) => {
+            if (missedAnswer && player.name === username) return;
+            if (missedAnswer && player.name !== username) {
+              return (
+                <Marker
+                  key={100 + index}
+                  opts={{
+                    label: `${player.name}`,
+                    position: player.latLng,
+                  }}
+                />
+              );
+            }
+            if (!missedAnswer) {
+              return (
+                <Marker
+                  key={100 + index}
+                  opts={{
+                    label: `${player.name}`,
+                    position: player.latLng,
+                  }}
+                />
+              );
+            }
+          })}
+          {players.map((player: IPlayer, index: number) => {
+            if (missedAnswer && player.name === username) return;
+            if (missedAnswer && player.name !== username) {
+              return (
+                <Polyline
+                  key={200 + index}
+                  opts={{
+                    path: [
+                      { lat: Number(answerPoint?.lat), lng: Number(answerPoint?.lng) },
+                      { lat: Number(player.latLng?.lat), lng: Number(player.latLng?.lng) },
+                    ],
+                  }}
+                />
+              );
+            }
+            if (!missedAnswer) {
+              return (
+                <Polyline
+                  key={200 + index}
+                  opts={{
+                    path: [
+                      { lat: Number(answerPoint?.lat), lng: Number(answerPoint?.lng) },
+                      { lat: Number(player.latLng?.lat), lng: Number(player.latLng?.lng) },
+                    ],
+                  }}
+                />
+              );
+            }
+          })}
         </>
       ) : (
         ''

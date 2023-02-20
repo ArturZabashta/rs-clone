@@ -1,6 +1,18 @@
+@mixin score_item {
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+  display: flex;
+  border: 1px solid white;
+  justify-content: space-between;
+  padding: 2px 5px;
+  background-color: rgba(82, 74, 131, 0.5);
+  border-radius: 4px;
+}
+
 .score-page {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 0 auto;
   padding: 20px;
 
@@ -18,13 +30,25 @@
   }
 
   .scores_item {
-    margin: 10px auto;
-    padding: 7px;
-    border: 1px white solid;
-    border-radius: 2px;
-    text-align: center;
-    width: 50%;
-    min-width: fit-content;
+    @include score_item();
+  }
+
+  .score-page_sortBtns {
+    border-radius: 5px;
+    background-color: black;
+    border: 1px solid white;
+  }
+
+  .score-page_sortBtn {
+    display: inline;
+    margin: 0;
+    padding: 4px;
+    border: none;
+    border-radius: 0px;
+  }
+
+  .score-page_sortBtns{
+    margin-bottom: 30px;
   }
 }
 
@@ -40,49 +64,61 @@
     .top3_stand {
       background-color: rgb(32 36 69 / 86%);
       transition: padding 200ms ease-in;
-      overflow: hidden;     
+      overflow: hidden;
     }
+
     @keyframes rise-bar1 {
       from {
         padding-top: 0;
-      } to {
+      }
+
+      to {
         padding-top: 50px;
       }
     }
+
     @keyframes rise-bar2 {
       from {
         padding-top: 0;
-      } to {
+      }
+
+      to {
         padding-top: 30px;
       }
     }
+
     @keyframes rise-bar3 {
       from {
         padding-top: 0;
-      } to {
+      }
+
+      to {
         padding-top: 20px;
       }
     }
-    .top1_stand{            
-      animation: forwards 1s rise-bar1; 
+
+    .top1_stand {
+      animation: forwards 1s rise-bar1;
     }
-    .top2_stand{      
-      animation: forwards 1s rise-bar2; 
+
+    .top2_stand {
+      animation: forwards 1s rise-bar2;
     }
-    .top3_stand{      
-      animation: forwards 1s rise-bar3; 
-    }    
+
+    .top3_stand {
+      animation: forwards 1s rise-bar3;
+    }
   }
-  .best-results_top{
+
+  .best-results_top {
     display: flex;
     width: 100%;
     align-items: flex-end;
     margin-bottom: 30px;
   }
+
   .best-results_rest {
-    align-items: center;
-    margin-bottom: 10px;
-    gap: 10px;
+    @include score_item()
   }
-  
+
 }

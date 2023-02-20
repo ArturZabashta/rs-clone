@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import { setCurrentPage } from '../../store/uiSlice';
 import GameMenu from '../GameMenu/GameMenu';
 import MyButton from '../MyButton/MyButton';
 import UserLvl from '../UserLevel';
@@ -10,6 +11,7 @@ import { ReactComponent as LogoSvg } from './HeaderLogo/logo.svg';
 
 const Header: React.FC = () => {
   const location = useLocation().pathname;
+  const navigate = useNavigate();
   // Global State
   const { currentPage, isMenuOn, isLogin, username } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
@@ -64,9 +66,14 @@ const Header: React.FC = () => {
     setMenuOn(isMenuOn);
   }, [currentPage, isMenuOn]);
 
+  const logoOnClick = () => {
+    dispatch(setCurrentPage(isLogin ? '/home' : '/'));
+    navigate(isLogin ? '/home' : '/');
+  };
+
   return (
     <header className="header" style={{ display: 'flex' }}>
-      <h1 className="header_logo">
+      <h1 className="header_logo" onClick={logoOnClick}>
         <LogoSvg />
       </h1>
       <h2 className="current-page">{pageName}</h2>

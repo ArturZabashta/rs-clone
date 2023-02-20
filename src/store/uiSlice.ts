@@ -9,6 +9,7 @@ const initialState: UiStoreType = {
   isMenuOn: false,
   isSettingsOn: false,
   popUpMsg: '',
+  userToken: '',
 };
 
 export const uiSlice = createSlice({
@@ -33,9 +34,13 @@ export const uiSlice = createSlice({
     setUsername: (state, action: PayloadAction<string>) => {
       state.username = action.payload;
     },
+    setUserToken: (state, action: PayloadAction<string>) => {
+      state.userToken = action.payload;
+    },
   },
 });
 
-export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setPopUpMsg, setUsername } = uiSlice.actions;
+export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setPopUpMsg, setUsername, setUserToken } =
+  uiSlice.actions;
 
 export default uiSlice.reducer;
