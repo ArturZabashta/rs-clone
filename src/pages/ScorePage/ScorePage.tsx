@@ -6,8 +6,6 @@ import { IBestScore } from '../../types/uiInterface';
 import BestList from './BestList';
 import ScoreList from './ScoreList';
 
-import '../../styles/scorePage.scss';
-
 interface IScoreRes {
   results: IBestScore[];
 }

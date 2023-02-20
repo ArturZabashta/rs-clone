@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import BackgroundVideo from '../../components/BackgroundVideo/BackgroundVideo';
 import MyButton from '../../components/MyButton/MyButton';
 
-import '../../styles/WelcomePage.scss';
 const WelcomePage: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
