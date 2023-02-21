@@ -9,7 +9,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://i.artfile.ru/2560x1600_676534_[www.ArtFile.ru].jpg'],
+    picture: 'https://i.artfile.ru/2560x1600_676534_www.ArtFile.ru.jpg',
   },
   {
     city: 'Rome',
@@ -19,9 +19,8 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: [
+    picture:
       'https://media.istockphoto.com/photos/close-up-of-italys-flag-picture-id511092491?k=20&m=511092491&s=612x612&w=0&h=QqQ36iqd-eiHKajr2tvTLwe45XvPbIT4UfI1M84pzq8=',
-    ],
   },
   {
     city: 'Paris',
@@ -31,7 +30,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://ak.picdn.net/shutterstock/videos/1050709000/thumb/1.jpg'],
+    picture: 'https://ak.picdn.net/shutterstock/videos/1050709000/thumb/1.jpg',
   },
   {
     city: 'New-York',
@@ -41,7 +40,7 @@ export const gameView: Array<IData> = [
     },
     utc: '-5',
     continent: 'North America',
-    picture: ['https://wallbox.ru/resize/2560x1600/wallpapers/main/201131/usa-flag-ssha-6a5e2a4.jpg'],
+    picture: 'https://wallbox.ru/resize/2560x1600/wallpapers/main/201131/usa-flag-ssha-6a5e2a4.jpg',
   },
   {
     city: 'Pisa',
@@ -51,9 +50,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: [
-      'https://kartinkin.net/uploads/posts/2021-07/1627099918_27-kartinkin-com-p-flag-italii-fon-krasivo-33.jpg',
-    ],
+    picture: 'https://kartinkin.net/uploads/posts/2021-07/1627099918_27-kartinkin-com-p-flag-italii-fon-krasivo-33.jpg',
   },
   {
     city: 'Sydney',
@@ -63,7 +60,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+11',
     continent: 'Australia',
-    picture: ['http://mobimg.b-cdn.net/v3/fetch/10/106d02419025d4d1f78d57cdeb1f41f0.jpeg'],
+    picture: 'http://mobimg.b-cdn.net/v3/fetch/10/106d02419025d4d1f78d57cdeb1f41f0.jpeg',
   },
   {
     city: 'London',
@@ -73,9 +70,8 @@ export const gameView: Array<IData> = [
     },
     utc: '0',
     continent: 'Europe',
-    picture: [
+    picture:
       'https://besthqwallpapers.com/Uploads/12-11-2017/28255/flag-of-united-kingdom-4k-grunge-stone-texture-british-flag.jpg',
-    ],
   },
   {
     city: 'Nice',
@@ -85,7 +81,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://ak.picdn.net/shutterstock/videos/1050709000/thumb/1.jpg'],
+    picture: 'https://ak.picdn.net/shutterstock/videos/1050709000/thumb/1.jpg',
   },
   {
     city: 'Rio de Janeiro',
@@ -95,7 +91,7 @@ export const gameView: Array<IData> = [
     },
     utc: '-3',
     continent: 'South America',
-    picture: ['https://oir.mobi/uploads/posts/2019-12/1575949570_31-54.jpg'],
+    picture: 'https://oir.mobi/uploads/posts/2019-12/1575949570_31-54.jpg',
   },
   {
     city: 'Tokyo',
@@ -105,7 +101,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+9',
     continent: 'Asia',
-    picture: ['https://klike.net/uploads/posts/2022-11/1669014762_7-8.jpg'],
+    picture: 'https://klike.net/uploads/posts/2022-11/1669014762_7-8.jpg',
   },
   {
     city: 'Prague',
@@ -115,7 +111,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://mobimg.b-cdn.net/v3/fetch/31/31f59810949dc538902cd8d17ba89920.jpeg'],
+    picture: 'https://mobimg.b-cdn.net/v3/fetch/31/31f59810949dc538902cd8d17ba89920.jpeg',
   },
   {
     city: 'Vilnius',
@@ -125,7 +121,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+2',
     continent: 'Europe',
-    picture: ['https://igorka.ru/uploads/2019/11/05/34543.jpg'],
+    picture: 'https://igorka.ru/uploads/2019/11/05/34543.jpg',
   },
   {
     city: 'Minsk',
@@ -135,7 +131,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+3',
     continent: 'Europe',
-    picture: ['https://www.worldatlas.com/r/w768/upload/48/ba/20/shutterstock-1451505671.jpg'],
+    picture: 'https://www.worldatlas.com/r/w768/upload/48/ba/20/shutterstock-1451505671.jpg',
   },
   {
     city: 'St.Petersburg',
@@ -145,7 +141,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+3',
     continent: 'Europe',
-    picture: ['http://museumcomplexnso.ru/images/Foto_materialov/2020/flag_rossii/7.jpg'],
+    picture: 'http://museumcomplexnso.ru/images/Foto_materialov/2020/flag_rossii/7.jpg',
   },
   {
     city: 'Moscow',
@@ -155,7 +151,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+3',
     continent: 'Europe',
-    picture: ['http://museumcomplexnso.ru/images/Foto_materialov/2020/flag_rossii/7.jpg'],
+    picture: 'http://museumcomplexnso.ru/images/Foto_materialov/2020/flag_rossii/7.jpg',
   },
   {
     city: 'Hong Kong',
@@ -165,7 +161,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+8',
     continent: 'Asia',
-    picture: ['https://ak.picdn.net/shutterstock/videos/1013600777/thumb/1.jpg'],
+    picture: 'https://ak.picdn.net/shutterstock/videos/1013600777/thumb/1.jpg',
   },
   {
     city: 'New Delhi',
@@ -175,7 +171,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+5',
     continent: 'Asia',
-    picture: ['https://ak.picdn.net/shutterstock/videos/27353794/thumb/1.jpg'],
+    picture: 'https://ak.picdn.net/shutterstock/videos/27353794/thumb/1.jpg',
   },
   {
     city: 'Cape Town',
@@ -185,7 +181,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+2',
     continent: 'Africa',
-    picture: ['http://satmedia.azureedge.net/satcache/2/f/2/0/a/8/2f20a886bfaf8db4e84acd8f4449e423c1fe66e2.jpg'],
+    picture: 'http://satmedia.azureedge.net/satcache/2/f/2/0/a/8/2f20a886bfaf8db4e84acd8f4449e423c1fe66e2.jpg',
   },
   {
     city: 'Dubai',
@@ -195,7 +191,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+4',
     continent: 'Asia',
-    picture: ['https://ak.picdn.net/shutterstock/videos/877741/thumb/1.jpg'],
+    picture: 'https://ak.picdn.net/shutterstock/videos/877741/thumb/1.jpg',
   },
   {
     city: 'Madrid',
@@ -205,7 +201,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://st2.depositphotos.com/1244201/9077/i/950/depositphotos_90777306-stock-photo-flag-of-spain.jpg'],
+    picture: 'https://st2.depositphotos.com/1244201/9077/i/950/depositphotos_90777306-stock-photo-flag-of-spain.jpg',
   },
   {
     city: 'Reykjavik',
@@ -215,7 +211,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: ['https://exoticluxurycat.ru/wp-content/uploads/1/6/3/163b0030a376206f5c89a1f564350a26.jpeg'],
+    picture: 'https://exoticluxurycat.ru/wp-content/uploads/1/6/3/163b0030a376206f5c89a1f564350a26.jpeg',
   },
   {
     city: 'San Francisco',
@@ -225,7 +221,7 @@ export const gameView: Array<IData> = [
     },
     utc: '-7',
     continent: 'North America',
-    picture: ['https://wallbox.ru/resize/2560x1600/wallpapers/main/201131/usa-flag-ssha-6a5e2a4.jpg'],
+    picture: 'https://wallbox.ru/resize/2560x1600/wallpapers/main/201131/usa-flag-ssha-6a5e2a4.jpg',
   },
   {
     city: 'Giza',
@@ -235,7 +231,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+2',
     continent: 'Africa',
-    picture: ['https://ekec.ru/wp-content/uploads/2017/03/Egipet-flag.jpg'],
+    picture: 'https://ekec.ru/wp-content/uploads/2017/03/Egipet-flag.jpg',
   },
   {
     city: 'Kyiv',
@@ -245,7 +241,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+3',
     continent: 'Europe',
-    picture: ['https://i.pinimg.com/originals/c2/b2/75/c2b2757203f9b9e1b86986aad502d2d5.jpg'],
+    picture: 'https://i.pinimg.com/originals/c2/b2/75/c2b2757203f9b9e1b86986aad502d2d5.jpg',
   },
   {
     city: 'Singapore',
@@ -255,7 +251,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+8',
     continent: 'Asia',
-    picture: ['https://ak.picdn.net/shutterstock/videos/927601/thumb/1.jpg'],
+    picture: 'https://ak.picdn.net/shutterstock/videos/927601/thumb/1.jpg',
   },
   {
     city: 'Washington',
@@ -265,7 +261,7 @@ export const gameView: Array<IData> = [
     },
     utc: '-5',
     continent: 'North America',
-    picture: ['https://wallbox.ru/resize/2560x1600/wallpapers/main/201131/usa-flag-ssha-6a5e2a4.jpg'],
+    picture: 'https://wallbox.ru/resize/2560x1600/wallpapers/main/201131/usa-flag-ssha-6a5e2a4.jpg',
   },
   {
     city: 'Baku',
@@ -275,8 +271,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+4',
     continent: 'Asia',
-    picture: [
+    picture:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Flag_of_Azerbaijan.svg/1600px-Flag_of_Azerbaijan.svg.png',
-    ],
   },
 ];
