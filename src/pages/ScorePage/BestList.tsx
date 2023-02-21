@@ -33,7 +33,10 @@ const BestList: React.FC<IScoreListProps> = ({ scoreList }) => {
       {rest.map((item, ind) => {
         return (
           <div className="best-results_rest" key={ind}>
-            {ind + 4}. Username: {item.username}; score: {item.score}
+            <div className="rest_name">
+              {ind + 4}. Username: {item.username}{' '}
+            </div>
+            <div className="rest_score">score: {item.score}</div>
           </div>
         );
       })}

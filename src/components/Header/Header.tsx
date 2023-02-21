@@ -84,7 +84,7 @@ const Header: React.FC = () => {
             <UserLvl />
           </div>
         ) : (
-          <div>
+          <div className="d-f">
             <MyButton className="login_btn f-bold" route="/login">
               Log In
             </MyButton>

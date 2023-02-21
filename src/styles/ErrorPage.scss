@@ -1,0 +1,15 @@
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .error-title {
+    margin-bottom: 100px !important;
+  
+    font-size: 120px;
+  
+    @media (max-width: 505px) {
+      margin-bottom: 50px !important;
+    }
+  }
+}
