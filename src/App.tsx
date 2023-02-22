@@ -80,6 +80,14 @@ export const App: React.FC = () => {
               </PrivateRoute>
             }
           ></Route>
+          <Route
+            path="/constructor"
+            element={
+              <PrivateRoute route={'/constructor'}>
+                <GameConstructor />
+              </PrivateRoute>
+            }
+          ></Route>
           <Route path="/constructor" element={<GameConstructor />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
