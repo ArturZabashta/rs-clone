@@ -127,8 +127,7 @@ button {
   -webkit-transition: all 150ms ease-in-out;
   transition: all 150ms ease-in-out;
 
-  &:hover,
-  &:focus {
+  &:hover {
     outline: 0;
     box-shadow: 0 0 10px 0 #FFFFFF inset, 0 0 10px 4px #FFFFFF;
   }
@@ -283,7 +282,7 @@ h3 {
       }
 
       @media (max-width: 600px) {
-        width: 100%;
+        width: 90%;
         padding-left: 0;
       }
 
@@ -323,6 +322,22 @@ h3 {
         border-radius: 10px;
         transition: all 0.3s linear;
         transform-origin: 1px;
+      }
+    }
+
+    .menu__container_open {
+      .hamburger {
+        @media (max-width: 1400px) {
+          left: 49vw;
+        }
+  
+        @media (max-width: 900px) {
+          left: 68vw;
+        }
+  
+        @media (max-width: 600px) {
+          left: 87vw;
+        }
       }
     }
   }

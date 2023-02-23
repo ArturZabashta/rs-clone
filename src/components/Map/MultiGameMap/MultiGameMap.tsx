@@ -266,7 +266,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
               },
             }}
           />
-          <MyButton className={'guess_btn'} onClickButton={handleGuess}>
+          <MyButton className={'guess_btn btn_blue'} onClickButton={handleGuess}>
             GUESS
           </MyButton>
         </>

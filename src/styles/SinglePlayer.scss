@@ -1,5 +1,6 @@
 .singleplayer{
   position: relative;
+  padding-top: 60px !important;
   width: 100vw; 
   height: 70vh;
 
@@ -13,12 +14,12 @@
     top: 1.9rem;
     font-size: 2.4rem;
     font-weight: bold;
-    
+    text-shadow: #000000 1px 0 10px;
   }
 
   &_wrapper{
     position: relative;
-    height: 60vh;
+    height: 90%;
     width: 100vw;
     padding: 1rem;
     display: flex;
@@ -26,11 +27,13 @@
     &__help{
       position: absolute;
       display: flex;
-      top: 1.2rem;
-      left: 1.3rem;
-      font-size: 0.9rem;
-      z-index: 10;
+      gap: 15px;
+      top: 2rem;
+      left: 2.4rem;
 
+      font-size: 0.9rem;
+
+      z-index: 10;
 
       .singleplayer_question__utc,
       .singleplayer_question__continent,
@@ -89,8 +92,12 @@
 
     .guess_btn{
       position: fixed;
-      bottom: -1rem;
-      left: 40%;
+      bottom: -30px;
+      left: 50%;
+      width: 300px;
+      display: flex;
+      justify-content: center;
+      transform: translate(-50%, -50%);
       z-index: 1000;
     }
   }
@@ -105,7 +112,7 @@
     align-items: center;   
 
     width: 100vw;
-    height: 100vh;      
+    height: 100%;      
     background-color: rgba(0, 0, 0, 0.726);
     z-index: 1099 ;
     text-align: center;
