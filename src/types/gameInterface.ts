@@ -9,16 +9,17 @@ export type GameStoreType = {
   isLoosedGame: boolean;
   missedAnswer: boolean;
   totalScore: number;
-  usersGames: IQuestionItem[];
+  usersGames: ICustomGamesResp;
   currentGameId: number;
 };
 
-export interface IQuestionItem {
-  id: number;
-  userName: string;
+export interface ICustomGamesResp {
+  createdBy: string;
+  createdDate: number;
   gameTitle: string;
-  likes: number;
-  userQuestions: IData[];
+  gameSet: IData[];
+  _id: string;
+  votes: number;
 }
 
 export type LatLng = {

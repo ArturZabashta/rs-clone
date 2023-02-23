@@ -34,11 +34,3 @@ export interface IUserScores {
   date: number;
   score: number;
 }
-
-export interface ICustomGamesResp {
-  createdBy: string;
-  createdDate: number;
-  gameSet: IData[];
-  _id: string;
-  votes: number;
-}

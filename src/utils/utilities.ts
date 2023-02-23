@@ -1,6 +1,6 @@
 import { HOST_NAME } from '../constants/constants';
-import { IData, LatLng, PointLatLng } from '../types/gameInterface';
-import { ICustomGamesResp, IScoreSendResp, LSData } from '../types/uiInterface';
+import { ICustomGamesResp, IData, LatLng, PointLatLng } from '../types/gameInterface';
+import { IScoreSendResp, LSData } from '../types/uiInterface';
 
 export const singlePointsCounter = (distance: number): number => {
   const points = 3000 - distance > 0 ? 3000 - distance : 0;
@@ -47,11 +47,12 @@ export const sendUserScore = async (score: number, isLogin: boolean) => {
   }
 };
 
-export const setCustomGame = async (gameSet: Array<IData>, userName: string) => {
+export const setCustomGame = async (gameSet: Array<IData>, userName: string, gameTitle: string) => {
   const body = {
     createdBy: userName,
     createdDate: Date.now(),
     gameSet,
+    gameTitle,
   };
   const res = await fetch(HOST_NAME + '/custom', {
     method: 'POST',
