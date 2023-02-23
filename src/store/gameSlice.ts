@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { GameStoreType, IPlayer } from '../types/gameInterface';
+import { DEFAULT_GAMES_ARRAY } from '../constants/constants';
+import { GameStoreType, IPlayer, IQuestionItem } from '../types/gameInterface';
 
 const initialState: GameStoreType = {
   score: 0,
@@ -13,6 +14,8 @@ const initialState: GameStoreType = {
   isLoosedGame: false,
   missedAnswer: false,
   totalScore: 0,
+  usersGames: DEFAULT_GAMES_ARRAY,
+  currentGameId: 0,
 };
 
 export const gameSlice = createSlice({
@@ -58,6 +61,12 @@ export const gameSlice = createSlice({
     setTotalScore: (state, action: PayloadAction<number>) => {
       state.totalScore = action.payload;
     },
+    setUsersGames: (state, action: PayloadAction<IQuestionItem>) => {
+      state.usersGames = [...state.usersGames, action.payload];
+    },
+    setCurrentGameId: (state, action: PayloadAction<number>) => {
+      state.currentGameId = action.payload;
+    },
   },
 });
 
@@ -75,6 +84,8 @@ export const {
   setIsLoosedGame,
   setMissedAnswer,
   setTotalScore,
+  setUsersGames,
+  setCurrentGameId,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

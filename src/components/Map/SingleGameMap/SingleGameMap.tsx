@@ -98,7 +98,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
         {showFlag ? (
           <div
             className="singleplayer_question__flag"
-            style={{ backgroundImage: `url('${gameView[questionNum].picture[0]}')` }}
+            style={{ backgroundImage: `url('${gameView[questionNum].picture}')` }}
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>

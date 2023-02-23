@@ -20,13 +20,13 @@
     flex-wrap: wrap; 
     justify-content: center;    
     width: 100vw; 
-    height: 50vh;
+    height: 20vh;
     margin-bottom: 2rem;
     padding-top: 1rem;
 
     &__item {
       display: flex;
-      flex: 0 0 min(20vh, 20vw);
+      flex: 0 0 min(12vh, 12vw);
       justify-content: center;
       align-items: flex-start;      
       height: min(20vh, 20vw);
@@ -44,7 +44,56 @@
 
   &_nav{
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-around;
+
+
+    .multiplayer_games{
+      display: flex;
+      justify-content: center;
+
+
+      &__item{
+        display: flex;
+        flex-direction: column;
+        height: min(15vh, 15vw);
+        border: solid 1px grey;
+        background-color: rgba(16, 16, 28, 0.8);
+        border-radius: 1rem;
+
+        .multiplayer_games__title,
+        .multiplayer_games__likes{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0.5rem;
+          padding: 0.5rem;
+          font-size: 1rem;
+        }
+
+        .multiplayer_games__likes{          
+          align-items: center;
+          font-size: 1.2rem;
+
+          .likes_count{
+            margin: 0.5rem;
+          }
+
+          .likes_count__btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.2rem;
+            padding: 0.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            
+          }
+        }
+
+
+      }
+    }
   }
 }
