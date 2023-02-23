@@ -1,3 +1,5 @@
+import { IData } from './gameInterface';
+
 export type UiStoreType = {
   username: string;
   currentPage: string;
@@ -27,7 +29,16 @@ export type LSData = {
   token: string;
   totalScore: number;
 };
+
 export interface IUserScores {
   date: number;
   score: number;
+}
+
+export interface ICustomGamesResp {
+  createdBy: string;
+  createdDate: number;
+  gameSet: IData[];
+  _id: string;
+  votes: number;
 }

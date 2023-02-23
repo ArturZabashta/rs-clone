@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import { CustomGames } from '../../components/CustomGames';
 import LikesMaker from '../../components/LikesMaker/LikesMaker';
 import MyButton from '../../components/MyButton/MyButton';
 import { DEFAULT_PLAYER } from '../../constants/constants';
@@ -87,6 +88,7 @@ const MultiPlayer: React.FC = () => {
           Let&apos;s start the Game
         </MyButton>
       </div>
+      <CustomGames />
     </section>
   );
 };
