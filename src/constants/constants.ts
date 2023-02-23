@@ -10,8 +10,8 @@ export const DEFAULT_PLAYER: IPlayer = {
   latLng: { lat: 0, lng: 0 },
 };
 
-// export const HOST_NAME = 'https://rsclone-server.onrender.com';
-export const HOST_NAME = 'http://localhost:4000';
+export const HOST_NAME = 'https://rsclone-server.onrender.com';
+// export const HOST_NAME = 'http://localhost:4000';
 
 export const DEFAULT_GAMES_ARRAY: ICustomGamesResp = {
   _id: '0',
