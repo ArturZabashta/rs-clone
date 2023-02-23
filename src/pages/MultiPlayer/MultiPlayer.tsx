@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { CustomGames } from '../../components/CustomGames';
 import LikesMaker from '../../components/LikesMaker/LikesMaker';
 import MyButton from '../../components/MyButton/MyButton';
 import { DEFAULT_PLAYER } from '../../constants/constants';
@@ -8,7 +7,7 @@ import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { setCurrentGameId, setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer, IQuestionItem } from '../../types/gameInterface';
-import { getDiapasonRandomNum } from '../../utils/utilities';
+import { getCustomGames, getDiapasonRandomNum } from '../../utils/utilities';
 
 const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +31,11 @@ const MultiPlayer: React.FC = () => {
   const handleGameClick = () => {
     dispatch(setCurrentGameId(1));
   };
+
+  //получение кастомных игр
+  useEffect(()=> {
+    getCustomGames().then
+  })
 
   // Запуск автогенерации команды оппонентов
   useEffect(() => {
@@ -88,7 +92,6 @@ const MultiPlayer: React.FC = () => {
           Let&apos;s start the Game
         </MyButton>
       </div>
-      <CustomGames />
     </section>
   );
 };
