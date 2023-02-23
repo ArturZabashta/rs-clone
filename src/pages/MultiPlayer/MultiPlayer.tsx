@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
+import LikesMaker from '../../components/LikesMaker/LikesMaker';
 import MyButton from '../../components/MyButton/MyButton';
-import { DEFAULT_PLAYER } from '../../constants/constants';
+import { DEFAULT_GAMES_ARRAY, DEFAULT_PLAYER } from '../../constants/constants';
 import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import { setPlayersTeam } from '../../store/gameSlice';
-import { IPlayer } from '../../types/gameInterface';
-import { getDiapasonRandomNum } from '../../utils/utilities';
+import { setCurrentGameId, setPlayersTeam, setUsersGames } from '../../store/gameSlice';
+import { ICustomGamesResp, IPlayer } from '../../types/gameInterface';
+import { getCustomGames, getDiapasonRandomNum } from '../../utils/utilities';
 
 const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
+  const { usersGames } = useAppSelector((state) => state.game);
   const [isFindClicked, setIsFindClicked] = useState<boolean>(false);
   const [isGameAvailable, setIsGameAvailable] = useState<boolean>(false);
   const [playersArray, setPlayersArray] = useState<IPlayer[]>([]);
+  const [customGames, setCustomGames] = useState<ICustomGamesResp[]>([DEFAULT_GAMES_ARRAY]);
 
   const setOpponents = () => {
     setPlayersArray([
@@ -25,6 +28,16 @@ const MultiPlayer: React.FC = () => {
   const updateStore = () => {
     dispatch(setPlayersTeam(playersArray));
   };
+
+  const handleGameClick = (ind: number) => {
+    dispatch(setUsersGames(customGames[ind]));
+    console.log(usersGames);
+  };
+
+  //получение кастомных игр
+  useEffect(() => {
+    getCustomGames().then((res) => setCustomGames([...customGames, ...res]));
+  }, []);
 
   // Запуск автогенерации команды оппонентов
   useEffect(() => {
@@ -64,6 +77,15 @@ const MultiPlayer: React.FC = () => {
         <MyButton className="menu_btn game_btn" onClickButton={setOpponents}>
           Find Opponents
         </MyButton>
+        <div className="multiplayer_games">
+          {customGames.map((item, ind) => (
+            <div className="multiplayer_games__item" key={item._id} onClick={() => handleGameClick(ind)}>
+              <p className="multiplayer_games__title">{item.createdBy}</p>
+              <p className="multiplayer_games__title">{item.gameTitle}</p>
+              <LikesMaker likesProp={item.votes}></LikesMaker>
+            </div>
+          ))}
+        </div>
         <MyButton
           className="menu_btn game_btn"
           route={'/game'}

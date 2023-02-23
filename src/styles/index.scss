@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Julee&display=swap');
+
+@import './ErrorPage.scss';
 @import './HomePage.scss';
 @import './App.scss';
 @import './GameResult.scss';
@@ -9,6 +11,8 @@
 @import './Settings.scss';
 @import './WelcomePage.scss';
 @import './SinglePlayer.scss';
+@import './GameConstructor.scss';
+// @import './CustomGames.scss';
 
 *,
 *::before,
@@ -130,6 +134,25 @@ button {
   &:hover {
     outline: 0;
     box-shadow: 0 0 10px 0 #FFFFFF inset, 0 0 10px 4px #FFFFFF;
+  }
+
+  @media (max-width: 755px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 510px) {
+    margin: 5px;
+  }
+
+  @media (max-width: 440px) {
+    min-width: 90px;
+  }
+
+  @media (max-width: 350px) {
+    padding: 7px;
+    min-width: 76px;
+
+    font-size: 14px;
   }
 }
 
@@ -253,11 +276,32 @@ h3 {
 
   background-color: #8baaaa;
 
+  @media (max-width: 620px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 440px) {
+    min-height: 110px;
+  }
+
   .header_nav {
     position: absolute;
     right: 20px;
     display: flex;
     flex-wrap: wrap;
+
+    @media (max-width: 620px) {
+      right: 0;
+    }
+
+    .d-f {
+      display: flex;
+      flex-wrap: wrap;
+
+      @media (max-width: 440px) {
+        flex-direction: column;
+      }
+    }
 
     .menu {
       top: 0;
@@ -310,6 +354,23 @@ h3 {
       outline: none;
       z-index: 99;
 
+      @media (max-width: 620px) {
+        left: 0;
+      }
+
+      @media (max-width: 510px) {
+        top: 17px;
+      }
+
+      @media (max-width: 440px) {
+        top: 33px;
+      }
+
+      @media (max-width: 350px) {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
       &:hover,
       &:focus {
         box-shadow: none;
@@ -322,6 +383,10 @@ h3 {
         border-radius: 10px;
         transition: all 0.3s linear;
         transform-origin: 1px;
+
+        @media (max-width: 350px) {
+          width: 1.5rem;
+        }
       }
     }
 
@@ -362,44 +427,75 @@ h3 {
     // position: relative;
     flex-basis: 33%;
     cursor: pointer;
-  }
-  .header_logo::after{
-    content: 'Back';    
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    height: 100%;
-    top: 0;
-    right: 0%;
-    border: solid 2px white;
-    border-radius: 0.7rem;
-    font-size: 2rem;
-    background-color: rgba(5, 5, 5, 0.466);        
-    animation: slider_in 0.3s linear;
-    animation-fill-mode:forwards;
-  }
-  .header_logo:hover::after{
-    content: 'Back';    
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;    
-    height: 100%;
-    top: 0;
-    right: 0%;
-    border: solid 2px white;
-    border-radius: 0.7rem;
-    font-size: 2rem;
-    background-color: rgba(5, 5, 5, 0.466);        
-    animation: slider_out 0.3s linear;
-    animation-fill-mode:forwards;
-    
+
+    @media (max-width: 620px) {
+      left: 65px;
+    }
+
+    @media (max-width: 460px) {
+      left: 45px;
+    }
+
+    @media (max-width: 350px) {
+      left: 35px;
+    }
+
+    &::after {
+      content: 'Back';    
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;    
+      height: 100%;
+      top: 0;
+      right: 0%;
+      border: solid 2px white;
+      border-radius: 0.7rem;
+      font-size: 2rem;
+      background-color: rgba(5, 5, 5, 0.466);        
+      animation: slider_in 0.3s linear;
+      animation-fill-mode:forwards;
+    }
+
+    &:hover::after {
+      content: 'Back';    
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;    
+      height: 100%;
+      top: 0;
+      right: 0%;
+      border: solid 2px white;
+      border-radius: 0.7rem;
+      font-size: 2rem;
+      background-color: rgba(5, 5, 5, 0.466);        
+      animation: slider_out 0.3s linear;
+      animation-fill-mode:forwards;
+    }
   }
 
   .current-page {
     flex-basis: 33%;
     align-self: center;
+
+    @media (max-width: 1000px) {
+      position: relative;
+      top: 90px;
+      z-index: 1;
+    }
+
+    @media (max-width: 572px) {
+      font-size: 54px;
+    }
+
+    @media (max-width: 486px) {
+      font-size: 44px;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 34px;
+    }
   }
 
   .header_menu {
@@ -440,6 +536,29 @@ h3 {
       color: #fecd19;
       font-weight: 700;
     }
+  }
+}
+
+.text-on-video {
+  font-family: 'Julee', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-shadow: #000000 1px 0 10px;
+
+  @media (max-width: 835px) {
+    font-size: 20px;
+  }
+
+  @media (max-width: 695px) {
+    font-size: 18px;
+  }
+
+  @media (max-width: 627px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 556px) {
+    display: none;
   }
 }
 
@@ -498,13 +617,6 @@ a:hover {
   margin-bottom: 70px;
 }
 
-.text-on-video {
-  font-family: 'Julee', sans-serif;
-  font-weight: 700;
-  font-size: 24px;
-  text-shadow: #000000 1px 0 10px;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
@@ -517,6 +629,11 @@ a:hover {
   padding: 20px;
 
   background-color: #8baaaa;
+
+  @media (max-width: 540px) {
+    flex-direction: column;
+    row-gap: 10px;
+  }
 }
 
 form {
@@ -524,6 +641,18 @@ form {
   flex-direction: column;
   width: 30%;
   margin: 0 auto;
+
+  @media (max-width: 1460px) {
+    width: 50%;
+  }
+
+  @media (max-width: 1000px) {
+    width: 70%;
+  }
+
+  @media (max-width: 540px) {
+    width: 90%;
+  }
 
   input {
     margin-bottom: 30PX;
@@ -558,4 +687,8 @@ form {
 
 .popUp__disabled {
   transform: translate(-50%, -300%);
+}
+
+.f-center {
+  text-align: center;
 }

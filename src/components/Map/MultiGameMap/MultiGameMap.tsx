@@ -142,7 +142,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         {showFlag ? (
           <div
             className="multigame_question__flag"
-            style={{ backgroundImage: `url('${gameView[questionNum].picture[0]}')` }}
+            style={{ backgroundImage: `url('${gameView[questionNum].picture}')` }}
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>

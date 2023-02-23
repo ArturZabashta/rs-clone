@@ -9,7 +9,18 @@ export type GameStoreType = {
   isLoosedGame: boolean;
   missedAnswer: boolean;
   totalScore: number;
+  usersGames: ICustomGamesResp;
+  currentGameId: number;
 };
+
+export interface ICustomGamesResp {
+  createdBy: string;
+  createdDate: number;
+  gameTitle: string;
+  gameSet: IData[];
+  _id: string;
+  votes: number;
+}
 
 export type LatLng = {
   lat: number;
@@ -21,7 +32,7 @@ export interface IData {
   latLng: LatLng;
   utc: string;
   continent: string;
-  picture: string[];
+  picture: string;
 }
 
 export type GameDataTransfer = {

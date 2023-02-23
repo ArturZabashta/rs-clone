@@ -6,8 +6,9 @@ import Header from './components/Header/Header';
 import PopUp from './components/PopUp';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Settings from './components/Settings/Settings';
-import { useAppDispatch, useAppSelector } from './hooks/userHooks';
+import { useAppDispatch } from './hooks/userHooks';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
+import GameConstructor from './pages/GameConstructor/GameConstructor';
 import HomePage from './pages/HomePage/HomePage';
 import LogInPage from './pages/LoginPage/LoginPage';
 import MultiGamePage from './pages/MultiPlayer/MultiGamePage/MultiGamePage';
@@ -79,6 +80,15 @@ export const App: React.FC = () => {
               </PrivateRoute>
             }
           ></Route>
+          <Route
+            path="/constructor"
+            element={
+              <PrivateRoute route={'/constructor'}>
+                <GameConstructor />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route path="/constructor" element={<GameConstructor />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </main>
