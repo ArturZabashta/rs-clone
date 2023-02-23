@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
+import { GoogleMapProvider, MapBox, Marker, StreetView } from '@googlemap-react/core';
 
 import MyButton from '../../components/MyButton/MyButton';
 import isoData, { ISOData } from '../../constants/iso3166';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
+import { setUsersGames } from '../../store/gameSlice';
 import { LatLng, PointLatLng } from '../../types/gameInterface';
 import { IData } from '../../types/gameInterface';
 
@@ -11,7 +12,8 @@ const { REACT_APP_API_KEY } = process.env;
 
 const GameConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLogin } = useAppSelector((state) => state.ui);
+  const { isLogin, username } = useAppSelector((state) => state.ui);
+  const { usersGames } = useAppSelector((state) => state.game);
 
   const [isClicked, setIsClicked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -26,6 +28,7 @@ const GameConstructor: React.FC = () => {
   const [userFlagLink, setUserFlagLink] = useState('');
   const [userContinent, setUserContinent] = useState('');
   const [userUTC, setUserUTC] = useState('');
+  const [gameTitle, setGameTitle] = useState('');
 
   const onClick = async (event: google.maps.MapMouseEvent) => {
     const lat = Number(event.latLng.lat());
@@ -86,10 +89,10 @@ const GameConstructor: React.FC = () => {
     setQuestionArray([...questionArray, ...newQuestion]);
     setIsClicked(false);
 
-    stateReset();
+    stateQuestionReset();
   };
 
-  const stateReset = () => {
+  const stateQuestionReset = () => {
     setUserCity('');
     setUserCountry('');
     setUserFlagLink('');
@@ -100,19 +103,45 @@ const GameConstructor: React.FC = () => {
     // console.log('Массив вопросов обновлен!', questionArray);
   };
 
+  const stateGameReset = () => {
+    stateQuestionReset();
+    setGameTitle('');
+    setQuestionArray([]);
+  };
+
+  const handleSendGameTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setGameTitle(event.target.value);
+  };
+
+  const handleSend = () => {
+    const newGame = {
+      id: 0,
+      userName: username,
+      gameTitle: gameTitle,
+      likes: 1,
+      userQuestions: questionArray,
+    };
+    dispatch(setUsersGames(newGame));
+    stateGameReset();
+  };
+
   useEffect(() => {
-    if (questionArray.length === 9) {
+    if (questionArray.length === 9 && gameTitle !== '') {
       console.log('Блок вопросов готов');
       setIsFull(true);
     }
     console.log('Массив вопросов обновлен!', questionArray);
-  }, [questionArray]);
+  }, [questionArray, gameTitle]);
 
   useEffect(() => {
     if (userCity !== '' && userCountry !== '' && userFlagLink !== '' && userContinent !== '' && userUTC !== '') {
       setIsCorrect(true);
     }
   }, [userCity, userCountry, userFlagLink, userContinent, userUTC]);
+
+  useEffect(() => {
+    console.log('Массив ИГР обновлен!', usersGames);
+  }, [usersGames]);
 
   return (
     <section className="constructor">
@@ -191,7 +220,14 @@ const GameConstructor: React.FC = () => {
         ) : (
           ''
         )}
-        <MyButton className={'guess_btn'} onClickButton={handleAdd} isDisabled={!isFull}>
+        <input
+          className="constructor_input"
+          type="text"
+          placeholder="Add your Game title"
+          value={gameTitle}
+          onChange={handleSendGameTitle}
+        ></input>
+        <MyButton className={'guess_btn'} onClickButton={handleSend} isDisabled={!isFull}>
           Send to server
         </MyButton>
       </GoogleMapProvider>

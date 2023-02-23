@@ -15,6 +15,7 @@ const initialState: GameStoreType = {
   missedAnswer: false,
   totalScore: 0,
   usersGames: DEFAULT_GAMES_ARRAY,
+  currentGameId: 0,
 };
 
 export const gameSlice = createSlice({
@@ -63,6 +64,9 @@ export const gameSlice = createSlice({
     setUsersGames: (state, action: PayloadAction<IQuestionItem>) => {
       state.usersGames = [...state.usersGames, action.payload];
     },
+    setCurrentGameId: (state, action: PayloadAction<number>) => {
+      state.currentGameId = action.payload;
+    },
   },
 });
 
@@ -81,6 +85,7 @@ export const {
   setMissedAnswer,
   setTotalScore,
   setUsersGames,
+  setCurrentGameId,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

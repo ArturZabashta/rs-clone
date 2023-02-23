@@ -15,6 +15,7 @@ export const HOST_NAME = 'https://rsclone-server.onrender.com';
 
 export const DEFAULT_GAMES_ARRAY: IQuestionItem[] = [
   {
+    id: 0,
     userName: 'Developers',
     gameTitle: 'DevGame',
     likes: 1,

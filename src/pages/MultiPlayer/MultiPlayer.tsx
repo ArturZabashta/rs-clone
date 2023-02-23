@@ -5,7 +5,7 @@ import MyButton from '../../components/MyButton/MyButton';
 import { DEFAULT_PLAYER } from '../../constants/constants';
 import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import { setPlayersTeam } from '../../store/gameSlice';
+import { setCurrentGameId, setPlayersTeam } from '../../store/gameSlice';
 import { IPlayer, IQuestionItem } from '../../types/gameInterface';
 import { getDiapasonRandomNum } from '../../utils/utilities';
 
@@ -26,6 +26,10 @@ const MultiPlayer: React.FC = () => {
 
   const updateStore = () => {
     dispatch(setPlayersTeam(playersArray));
+  };
+
+  const handleGameClick = () => {
+    dispatch(setCurrentGameId(1));
   };
 
   // Запуск автогенерации команды оппонентов
@@ -68,7 +72,7 @@ const MultiPlayer: React.FC = () => {
         </MyButton>
         <div className="multiplayer_games">
           {usersGames.map((game: IQuestionItem, index: number) => (
-            <div className="multiplayer_games__item" key={index}>
+            <div className="multiplayer_games__item" key={index} onClick={handleGameClick}>
               <p className="multiplayer_games__title">{game.gameTitle}</p>
               <LikesMaker likesProp={game.likes}></LikesMaker>
             </div>

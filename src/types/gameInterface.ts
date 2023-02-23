@@ -10,9 +10,11 @@ export type GameStoreType = {
   missedAnswer: boolean;
   totalScore: number;
   usersGames: IQuestionItem[];
+  currentGameId: number;
 };
 
 export interface IQuestionItem {
+  id: number;
   userName: string;
   gameTitle: string;
   likes: number;

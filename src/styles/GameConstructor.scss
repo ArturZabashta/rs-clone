@@ -2,6 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   &_count{
     position: absolute;
@@ -53,6 +54,19 @@
       border-radius: 1rem;    
       background-position: center;
       background-size: cover;
-}
+    }
   }
+
+  &_input{
+    width: 30%;
+    border-radius: 0.3rem;
+    text-align: center;    
+    background-color: transparent;
+  }
+  &_input:focus{
+    color: white;
+    background-color: rgba(16, 16, 28, 0.8);
+
+  }
+
 }
