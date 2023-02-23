@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { DEFAULT_GAMES_ARRAY } from '../constants/constants';
-import { GameStoreType, IPlayer, IQuestionItem } from '../types/gameInterface';
+import { GameStoreType, ICustomGamesResp, IPlayer } from '../types/gameInterface';
 
 const initialState: GameStoreType = {
   score: 0,
@@ -61,8 +61,8 @@ export const gameSlice = createSlice({
     setTotalScore: (state, action: PayloadAction<number>) => {
       state.totalScore = action.payload;
     },
-    setUsersGames: (state, action: PayloadAction<IQuestionItem>) => {
-      state.usersGames = [...state.usersGames, action.payload];
+    setUsersGames: (state, action: PayloadAction<ICustomGamesResp>) => {
+      state.usersGames = action.payload;
     },
     setCurrentGameId: (state, action: PayloadAction<number>) => {
       state.currentGameId = action.payload;
