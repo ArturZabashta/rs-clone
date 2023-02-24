@@ -26,7 +26,7 @@ const GameMenu: React.FC = () => {
   useOnClickOutside(node, () => setMenuOn(false));
 
   return (
-    <div ref={node}>
+    <div ref={node} className={menuOn ? 'menu__container_open' : ''}>
       <StyledMenu className="menu" menuOn={menuOn}>
         <Menu menuHandler={menuHandler} />
       </StyledMenu>

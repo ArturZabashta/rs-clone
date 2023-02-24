@@ -4,9 +4,11 @@ import { GoogleMapProvider, MapBox, Marker, StreetView } from '@googlemap-react/
 import MyButton from '../../components/MyButton/MyButton';
 import isoData, { ISOData } from '../../constants/iso3166';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import { setUsersGames } from '../../store/gameSlice';
+// import { setUsersGames } from '../../store/gameSlice';
+import { setPopUpMsg } from '../../store/uiSlice';
 import { LatLng, PointLatLng } from '../../types/gameInterface';
 import { IData } from '../../types/gameInterface';
+import { setCustomGame } from '../../utils/utilities';
 
 const { REACT_APP_API_KEY } = process.env;
 
@@ -119,14 +121,7 @@ const GameConstructor: React.FC = () => {
   };
 
   const handleSend = () => {
-    const newGame = {
-      id: 0,
-      userName: username,
-      gameTitle: gameTitle,
-      likes: 1,
-      userQuestions: questionArray,
-    };
-    dispatch(setUsersGames(newGame));
+    setCustomGame(questionArray, username, gameTitle).then((res) => dispatch(setPopUpMsg(res)));
     stateGameReset();
   };
 

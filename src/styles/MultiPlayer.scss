@@ -11,7 +11,7 @@
     top: 1.5rem;
     font-size: 2.4rem;
     font-weight: bold;
-    
+    text-shadow: #000000 1px 0 10px;
   }
 
   &_players{
@@ -28,7 +28,8 @@
       display: flex;
       flex: 0 0 min(12vh, 12vw);
       justify-content: center;
-      align-items: flex-start;      
+      align-items: center;
+      gap: 10px;      
       height: min(20vh, 20vw);
       border: solid 1px grey;
       background-color: rgba(16, 16, 28, 0.8);
@@ -48,10 +49,30 @@
     flex-wrap: wrap;
     justify-content: space-around;
 
+    .game_btn {
+      text-shadow: #000000 1px 0 10px;
+
+      &:not(:disabled) {
+        -webkit-animation: blink1 3s linear infinite;
+        animation: blink 3s linear infinite;
+      }
+    }
+
+    @-webkit-keyframes blink {
+      0% { color: rgb(255, 255, 255); }
+      50% { color: rgba(255, 255, 255, 0); }
+      100% { color: rgba(255, 255, 255, 1); }
+    }
+    @keyframes blink {
+      0% { color: rgba(255, 255, 255, 1); }
+      50% { color: rgba(255, 255, 255, 0); }
+      100% { color: rgba(255, 255, 255, 1); }
+    }
 
     .multiplayer_games{
       display: flex;
       justify-content: center;
+      gap: 20px;
 
 
       &__item{
@@ -61,21 +82,27 @@
         border: solid 1px grey;
         background-color: rgba(16, 16, 28, 0.8);
         border-radius: 1rem;
+        padding: 0.5rem;
+        min-width: 100px;
+        align-items: center;
+        justify-content: space-between;
 
-        .multiplayer_games__title,
-        .multiplayer_games__likes{
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin: 0.5rem;
-          padding: 0.5rem;
-          font-size: 1rem;
+        .multiplayer_game-select{
+          border: 1px solid rgb(214, 205, 208);
+          padding: 0 5px;
+          cursor: pointer;
+          
+          &__active {
+            border: 1px solid rgb(189, 18, 75);
+            color: rgb(189, 18, 75);
+          }
         }
 
         .multiplayer_games__likes{          
           align-items: center;
           font-size: 1.2rem;
-
+          display: flex;
+          
           .likes_count{
             margin: 0.5rem;
           }

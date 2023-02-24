@@ -71,7 +71,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
         </MyButton>
         <MyButton
           className="menu_btn leader-board_btn"
-          route="/constructor"
+          route="/score"
           isDisabled={!isLogin}
           onClickButton={() => {
             menuHandler && menuHandler();
