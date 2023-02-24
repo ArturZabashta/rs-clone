@@ -9,7 +9,7 @@ export type GameStoreType = {
   isLoosedGame: boolean;
   missedAnswer: boolean;
   totalScore: number;
-  usersGames: ICustomGamesResp;
+  usersGames: ICustomGamesResp[];
   currentGameId: number;
 };
 

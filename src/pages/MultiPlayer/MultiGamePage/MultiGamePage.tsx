@@ -8,7 +8,6 @@ import GameResult from '../../../components/GameResult/GameResult';
 import KilledPlayers from '../../../components/KilledPlayers/KilledPlayers';
 import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
-import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import soundNextQuestion from '../../../sounds/nextQuestion_sound.mp3';
 import {
@@ -25,13 +24,13 @@ import { getDiapasonRandomNum, sendUserScore } from '../../../utils/utilities';
 
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { players } = useAppSelector((state) => state.game);
-  const { level } = useAppSelector((state) => state.game);
-  const { round } = useAppSelector((state) => state.game);
-  const { isLoosedGame } = useAppSelector((state) => state.game);
-  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const { players, level, round, isLoosedGame, isSoundOn, effectsVolume, usersGames, currentGameId } = useAppSelector(
+    (state) => state.game
+  );
 
-  const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
+  const [question, setQuestion] = useState<number>(
+    getDiapasonRandomNum(0, usersGames[currentGameId].gameSet.length - 1)
+  );
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
 
   const [isAnswered, setIsAnswered] = useState(false);
@@ -43,28 +42,30 @@ const MultiGamePage: React.FC = () => {
   //  Следующий произвольный вопрос из списка
   const setNextQuestion = () => {
     let nextQuestion: number;
-    do {
-      nextQuestion = getDiapasonRandomNum(0, gameView.length - 1);
-    } while (questionArray.indexOf(nextQuestion) !== -1);
 
-    setQuestion(nextQuestion);
-    setQuestionArray([...questionArray, nextQuestion]);
-    setIsAnswered(false);
+    if (questionArray.length < 9) {
+      do {
+        nextQuestion = getDiapasonRandomNum(0, usersGames[currentGameId].gameSet.length - 1);
+      } while (questionArray.indexOf(nextQuestion) !== -1);
 
-    dispatch(setLevel());
+      setQuestion(nextQuestion);
+      setQuestionArray([...questionArray, nextQuestion]);
+      setIsAnswered(false);
+      dispatch(setLevel());
+    }
 
     if (level === 3 && round < 3) {
       setIsRoundFinished(true);
       dispatch(setRound());
       dispatch(resetLevel());
     }
-    if (round === 3 && level === 3) {
-      setIsGameFinished(true);
-      const score = players.find((item) => item.id === 0)?.playerScore as number;
-      sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
-      dispatch(resetLevel());
-      dispatch(resetRound());
-    }
+    // if (round === 3 && level === 3) {
+    //   setIsGameFinished(true);
+    //   const score = players.find((item) => item.id === 0)?.playerScore as number;
+    //   sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
+    //   dispatch(resetLevel());
+    //   dispatch(resetRound());
+    // }
 
     isSoundOn && playNextQuestion();
   };
@@ -72,6 +73,15 @@ const MultiGamePage: React.FC = () => {
   const onAnswerHandler = () => {
     setSorted();
     setIsAnswered(true);
+    if (questionArray.length === 9) {
+      setTimeout(() => {
+        setIsGameFinished(true);
+        const score = players.find((item) => item.id === 0)?.playerScore as number;
+        sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
+        dispatch(resetLevel());
+        dispatch(resetRound());
+      }, 3500);
+    }
   };
 
   function setSorted() {
@@ -96,7 +106,7 @@ const MultiGamePage: React.FC = () => {
   return (
     <section className="multigame">
       {isGameFinished || isLoosedGame ? '' : <GameMusic />}
-      <p className="multigame_title">{`Round ${round}. Question ${level}`}</p>
+      <p className="multigame_title">{`Round ${round}. Question ${level} gameID ${currentGameId};`}</p>
       {isAnswered || isLoosedGame || isGameFinished || isRoundFinished ? (
         ''
       ) : (
@@ -106,7 +116,7 @@ const MultiGamePage: React.FC = () => {
       <div className="multigame_wrapper">
         <div className="multigame_question">
           <MultiGameMap
-            propsLatLng={gameView[question].latLng}
+            propsLatLng={usersGames[currentGameId].gameSet[question].latLng}
             onAnswerHandler={onAnswerHandler}
             questionNum={question}
             switchMarker={false}
@@ -130,10 +140,14 @@ const MultiGamePage: React.FC = () => {
       {isAnswered ? (
         <div className="multigame_wrapper__modal">
           <p className="city_name">This place is in</p>
-          <p className="city_name">{gameView[question].city}</p>
-          <MyButton className="next_question" onClickButton={setNextQuestion}>
-            Next question
-          </MyButton>
+          <p className="city_name">{usersGames[currentGameId].gameSet[question].city}</p>
+          {questionArray.length !== 9 ? (
+            <MyButton className="next_question" onClickButton={setNextQuestion}>
+              Next question
+            </MyButton>
+          ) : (
+            ''
+          )}
         </div>
       ) : (
         ''

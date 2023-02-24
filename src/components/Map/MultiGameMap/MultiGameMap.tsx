@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 import useSound from 'use-sound';
 
-import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import soundGuess from '../../../sounds/guess_sound.mp3';
 import { setMissedAnswer, setPlayersTeam } from '../../../store/gameSlice';
@@ -22,7 +21,7 @@ interface MultiGameMapProps {
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
-  const { players } = useAppSelector((state) => state.game);
+  const { players, usersGames, currentGameId } = useAppSelector((state) => state.game);
 
   const { missedAnswer } = useAppSelector((state) => state.game);
 
@@ -97,7 +96,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     setMapSize('13vh');
   };
 
-  const handleUTSBtn = () => {
+  const handleUTCBtn = () => {
     setShowUTS(true);
   };
   const handleContinentBtn = () => {
@@ -126,14 +125,16 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     <GoogleMapProvider>
       <div className="multigame_question__help">
         {showUTS ? (
-          <div className="multigame_question__utc">{`UTS: ${gameView[questionNum].utc}`}</div>
+          <div className="multigame_question__utc">{`UTS: ${usersGames[currentGameId].gameSet[questionNum].utc}`}</div>
         ) : (
-          <MyButton className="game_help__button" onClickButton={handleUTSBtn}>
+          <MyButton className="game_help__button" onClickButton={handleUTCBtn}>
             Get UTS
           </MyButton>
         )}
         {showContinent ? (
-          <div className="multigame_question__continent">{gameView[questionNum].continent}</div>
+          <div className="multigame_question__continent">
+            {usersGames[currentGameId].gameSet[questionNum].continent}
+          </div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
             Get Location
@@ -142,7 +143,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         {showFlag ? (
           <div
             className="multigame_question__flag"
-            style={{ backgroundImage: `url('${gameView[questionNum].picture}')` }}
+            style={{ backgroundImage: `url('${usersGames[currentGameId].gameSet[questionNum].picture}')` }}
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
