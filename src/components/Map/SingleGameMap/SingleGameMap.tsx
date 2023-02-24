@@ -174,7 +174,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
               },
             }}
           />
-          <MyButton className={'guess_btn'} onClickButton={handleGuess}>
+          <MyButton className={'guess_btn btn_blue'} onClickButton={handleGuess}>
             GUESS
           </MyButton>
         </>

@@ -7,10 +7,16 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   padding-top: 3rem;
   background-color: rgba(0, 0, 0, 0.87);
   z-index: 1999;
+
+  h2 {
+    margin-bottom: 20px;
+
+    font-size: 44px;
+  }
 
   .winners_list{
     display: flex;
@@ -29,5 +35,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    .winners_btn {
+      min-width: 223px;
+      display: flex;
+      justify-content: center;
+    }
   }
 }

@@ -2,6 +2,7 @@
   position: relative;
   font-family: "Montserrat", sans-serif;  
   margin: 0;  
+  padding-top: 60px !important;
   font-variant: small-caps;
   font-style: italic; 
 
@@ -10,30 +11,45 @@
     left: calc(50% - 10rem);
     top: 1.5rem;
     font-size: 2rem;
-    font-weight: bold;    
+    font-weight: bold;
+    text-shadow: #000000 1px 0 10px;
+
+    @media (max-width: 520px) {
+      left: 100px;
+
+      font-size: 20px;
+    }
   }
 
   &_timer{
     position: absolute;
     top: 1.5rem;
     left: 2rem;;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     font-weight: bold;
     color: red;
+    text-shadow: #000000 1px 0 10px;
   }
 
   &_wrapper{
-    height: 60vh;
+    height: 90%;
     width: 100vw;
     display: flex;
 
+    @media (max-width: 790px) {
+      flex-direction: column;
+    }
 
     .multigame_question{
       position: relative;
-      height: 60vh;
       width: 70vw;
       margin: 1rem;
 
+      @media (max-width: 790px) {
+        margin: 0 auto;
+        width: 94%;
+        height: 100%;
+      }
 
       &__help{
         position: absolute;
@@ -84,6 +100,8 @@
         position: absolute;
         bottom: 1rem;
         right: 1rem;
+        max-width: 90%;
+        max-height: 90%;
         border-radius: 0.5rem;
         z-index: 2;
         transition: all 150ms;
@@ -101,28 +119,45 @@
 
       .guess_btn{
         position: fixed;
-        bottom: -1rem;
-        left: 40%;
+        bottom: -30px;
+        left: 50%;
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        transform: translate(-50%, -50%);
         z-index: 1000;
       }
 
     }
 
     .multigame_players-list{
-      height: 100%;
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      gap: 20px;
+      flex-wrap: wrap;
       width: 27vw;
+      height: max-content;
       position: relative;
       font-family: "Montserrat", sans-serif;
 
+      @media (max-width: 790px) {        
+        width: 97%;
+        flex-direction: row;
+        gap: 10px;        
+      }
 
       .multigame_players-item{
-        margin: 2.2vh;
-        padding: 0.2rem 0.3rem;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: max-content;
         border: solid 1px grey;
         background-color: rgba(16, 16, 28, 0.8);
         border-radius: 0.3rem;
         line-height: 1.2;
-
 
         &__info{
           display: flex;
@@ -158,10 +193,10 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: start;   
+      align-items: center;   
 
       width: 100vw;
-      height: 100vh;      
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.726);
       z-index: 1099 ;
       text-align: center;
