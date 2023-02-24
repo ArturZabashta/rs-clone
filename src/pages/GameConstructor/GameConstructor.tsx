@@ -42,7 +42,7 @@ const GameConstructor: React.FC = () => {
     setIsClicked(true);
 
     const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${REACT_APP_API_KEY}`
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&key=${REACT_APP_API_KEY}`
     );
     const request = await response.json();
     console.log('response.status=', response.status);
@@ -52,11 +52,11 @@ const GameConstructor: React.FC = () => {
       const cityData = googleRequestArray.shift();
       const cityBeginPos = cityData.indexOf(' ');
       const cityName = [cityData.slice(cityBeginPos).trim(), ...googleRequestArray].join(', ');
-      // console.log('request', request);
-      // console.log('request.plus_code.compound_code', request.plus_code.compound_code);
-      // console.log('userPoint', userPoint);
-      // console.log('city', cityName);
-      // console.log('country', countryName);
+      console.log('request', request);
+      console.log('request.plus_code.compound_code', request.plus_code.compound_code);
+      console.log('userPoint', userPoint);
+      console.log('city', cityName);
+      console.log('country', countryName);
 
       const isoCountry = isoData.find(
         (data: ISOData) => Object.keys(data).find((key) => data[key] === `${countryName}`) !== undefined
