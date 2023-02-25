@@ -4,6 +4,17 @@
   flex-direction: column;
   align-items: center;
 
+  &_modal{
+    position: fixed;
+    top: 40%;
+    left: calc(50% - 8rem);
+    font-size: 3rem;
+    text-align: center;
+    color: rgba(255, 0, 0, 0.5);
+    z-index: 10;
+  }
+
+
   &_count{
     position: absolute;
     left: calc(50% - 9rem);

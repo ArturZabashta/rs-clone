@@ -21,9 +21,7 @@ interface MultiGameMapProps {
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
-  const { players, gamesArray, currentGameId } = useAppSelector((state) => state.game);
-
-  const { missedAnswer } = useAppSelector((state) => state.game);
+  const { players, gamesArray, currentGameId, missedAnswer } = useAppSelector((state) => state.game);
 
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 

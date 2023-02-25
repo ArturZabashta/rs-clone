@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import soundNextQuestion from '../../../sounds/nextQuestion_sound.mp3';
 import {
   resetLevel,
+  resetPlayersTeam,
   resetRound,
   setLevel,
   setMissedAnswer,
@@ -27,6 +28,7 @@ const MultiGamePage: React.FC = () => {
   const { players, level, round, isLoosedGame, isSoundOn, effectsVolume, gamesArray, currentGameId } = useAppSelector(
     (state) => state.game
   );
+  const { currentPage } = useAppSelector((state) => state.ui);
 
   const [question, setQuestion] = useState<number>(
     getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1)
@@ -102,6 +104,15 @@ const MultiGamePage: React.FC = () => {
     console.log('missedAnswer!!!!');
     dispatch(setMissedAnswer(true));
   };
+
+  // При  Unmount компонента
+  useEffect(() => {
+    return () => {
+      dispatch(resetPlayersTeam());
+      dispatch(resetLevel());
+      dispatch(resetRound());
+    };
+  }, []);
 
   return (
     <section className="multigame">

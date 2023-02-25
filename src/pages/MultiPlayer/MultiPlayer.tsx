@@ -33,17 +33,13 @@ const MultiPlayer: React.FC = () => {
 
   const handleGameClick = (ind: number) => {
     dispatch(setCurrentGameId(ind));
-    console.warn('Выбрана игра N=', ind);
-    console.warn('currentGameId=', currentGameId);
+    // console.warn('Выбрана игра N=', ind);
+    // console.warn('currentGameId=', currentGameId);
   };
 
   //получение кастомных игр
   const renderCustomGames = () => {
     getCustomGames().then((res) => dispatch(setGamesArray([DEFAULT_GAMES_ARRAY, ...res])));
-    // .then(() => {
-    //   dispatch(setUsersGames(customGames[0]));
-    //   setChosen(0);
-    // });
   };
 
   useEffect(() => {

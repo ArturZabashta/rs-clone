@@ -25,8 +25,14 @@ export const gameSlice = createSlice({
     setScore: (state, action: PayloadAction<number>) => {
       state.score = state.score + action.payload;
     },
+    resetScore: (state) => {
+      state.score = 0;
+    },
     setPlayersTeam: (state, action: PayloadAction<Array<IPlayer>>) => {
       state.players = action.payload;
+    },
+    resetPlayersTeam: (state) => {
+      state.players = [];
     },
     setIsSoundOn: (state, action: PayloadAction<boolean>) => {
       state.isSoundOn = action.payload;
@@ -72,7 +78,9 @@ export const gameSlice = createSlice({
 
 export const {
   setScore,
+  resetScore,
   setPlayersTeam,
+  resetPlayersTeam,
   setIsSoundOn,
   setEffectsVolume,
   setMusicVolume,
