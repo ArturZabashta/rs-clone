@@ -21,7 +21,7 @@ interface MultiGameMapProps {
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
-  const { players, usersGames, currentGameId } = useAppSelector((state) => state.game);
+  const { players, gamesArray, currentGameId } = useAppSelector((state) => state.game);
 
   const { missedAnswer } = useAppSelector((state) => state.game);
 
@@ -125,7 +125,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     <GoogleMapProvider>
       <div className="multigame_question__help">
         {showUTS ? (
-          <div className="multigame_question__utc">{`UTS: ${usersGames[currentGameId].gameSet[questionNum].utc}`}</div>
+          <div className="multigame_question__utc">{`UTS: ${gamesArray[currentGameId].gameSet[questionNum].utc}`}</div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleUTCBtn}>
             Get UTS
@@ -133,7 +133,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         )}
         {showContinent ? (
           <div className="multigame_question__continent">
-            {usersGames[currentGameId].gameSet[questionNum].continent}
+            {gamesArray[currentGameId].gameSet[questionNum].continent}
           </div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
@@ -143,7 +143,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         {showFlag ? (
           <div
             className="multigame_question__flag"
-            style={{ backgroundImage: `url('${usersGames[currentGameId].gameSet[questionNum].picture}')` }}
+            style={{ backgroundImage: `url('${gamesArray[currentGameId].gameSet[questionNum].picture}')` }}
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>

@@ -14,7 +14,7 @@ const initialState: GameStoreType = {
   isLoosedGame: false,
   missedAnswer: false,
   totalScore: 0,
-  usersGames: [DEFAULT_GAMES_ARRAY],
+  gamesArray: [DEFAULT_GAMES_ARRAY],
   currentGameId: 0,
 };
 
@@ -61,8 +61,8 @@ export const gameSlice = createSlice({
     setTotalScore: (state, action: PayloadAction<number>) => {
       state.totalScore = action.payload;
     },
-    setUsersGames: (state, action: PayloadAction<ICustomGamesResp[]>) => {
-      state.usersGames = action.payload;
+    setGamesArray: (state, action: PayloadAction<ICustomGamesResp[]>) => {
+      state.gamesArray = action.payload;
     },
     setCurrentGameId: (state, action: PayloadAction<number>) => {
       state.currentGameId = action.payload;
@@ -84,7 +84,7 @@ export const {
   setIsLoosedGame,
   setMissedAnswer,
   setTotalScore,
-  setUsersGames,
+  setGamesArray,
   setCurrentGameId,
 } = gameSlice.actions;
 

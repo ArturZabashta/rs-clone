@@ -24,12 +24,12 @@ import { getDiapasonRandomNum, sendUserScore } from '../../../utils/utilities';
 
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { players, level, round, isLoosedGame, isSoundOn, effectsVolume, usersGames, currentGameId } = useAppSelector(
+  const { players, level, round, isLoosedGame, isSoundOn, effectsVolume, gamesArray, currentGameId } = useAppSelector(
     (state) => state.game
   );
 
   const [question, setQuestion] = useState<number>(
-    getDiapasonRandomNum(0, usersGames[currentGameId].gameSet.length - 1)
+    getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1)
   );
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
 
@@ -45,7 +45,7 @@ const MultiGamePage: React.FC = () => {
 
     if (questionArray.length < 9) {
       do {
-        nextQuestion = getDiapasonRandomNum(0, usersGames[currentGameId].gameSet.length - 1);
+        nextQuestion = getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1);
       } while (questionArray.indexOf(nextQuestion) !== -1);
 
       setQuestion(nextQuestion);
@@ -116,7 +116,7 @@ const MultiGamePage: React.FC = () => {
       <div className="multigame_wrapper">
         <div className="multigame_question">
           <MultiGameMap
-            propsLatLng={usersGames[currentGameId].gameSet[question].latLng}
+            propsLatLng={gamesArray[currentGameId].gameSet[question].latLng}
             onAnswerHandler={onAnswerHandler}
             questionNum={question}
             switchMarker={false}
@@ -140,7 +140,7 @@ const MultiGamePage: React.FC = () => {
       {isAnswered ? (
         <div className="multigame_wrapper__modal">
           <p className="city_name">This place is in</p>
-          <p className="city_name">{usersGames[currentGameId].gameSet[question].city}</p>
+          <p className="city_name">{gamesArray[currentGameId].gameSet[question].city}</p>
           {questionArray.length !== 9 ? (
             <MyButton className="next_question" onClickButton={setNextQuestion}>
               Next question
