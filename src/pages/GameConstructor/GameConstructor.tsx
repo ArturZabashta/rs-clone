@@ -5,7 +5,7 @@ import MyButton from '../../components/MyButton/MyButton';
 import isoData, { ISOData } from '../../constants/iso3166';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 // import { setUsersGames } from '../../store/gameSlice';
-import { setPopUpMsg } from '../../store/uiSlice';
+import { setIsLogin, setPopUpMsg } from '../../store/uiSlice';
 import { LatLng, PointLatLng } from '../../types/gameInterface';
 import { IData } from '../../types/gameInterface';
 import { setCustomGame } from '../../utils/utilities';
@@ -16,7 +16,7 @@ const GameConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { isLogin, username } = useAppSelector((state) => state.ui);
-  const { usersGames } = useAppSelector((state) => state.game);
+  const { gamesArray } = useAppSelector((state) => state.game);
 
   const [isClicked, setIsClicked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -34,6 +34,7 @@ const GameConstructor: React.FC = () => {
   const [userUTC, setUserUTC] = useState('');
 
   const [gameTitle, setGameTitle] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async (event: google.maps.MapMouseEvent) => {
     const lat = Number(event.latLng.lat());
@@ -42,44 +43,54 @@ const GameConstructor: React.FC = () => {
     setUserPoint({ lat, lng });
 
     setIsClicked(true);
-
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&key=${REACT_APP_API_KEY}`
-    );
-    const request = await response.json();
-    console.log('response.status=', response.status);
-    if (response.status === 200) {
-      const googleRequestArray = request.plus_code.compound_code.split(',');
-      const countryName = googleRequestArray.pop().trim();
-      const cityData = googleRequestArray.shift();
-      const cityBeginPos = cityData.indexOf(' ');
-      const cityName = [cityData.slice(cityBeginPos).trim(), ...googleRequestArray].join(', ');
-      // console.log('request', request);
-      // console.log('request.plus_code.compound_code', request.plus_code.compound_code);
-      // console.log('userPoint', userPoint);
-      // console.log('city', cityName);
-      // console.log('country', countryName);
-
-      const isoCountry = isoData.find(
-        (data: ISOData) => Object.keys(data).find((key) => data[key] === `${countryName}`) !== undefined
-      );
-      if (isoCountry) {
-        const continent = String(isoCountry[`Time Zone in Capital`]).slice(
-          0,
-          String(isoCountry[`Time Zone in Capital`]).indexOf('/')
+    if (questionArray.length < 9) {
+      try {
+        const response = await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&key=${REACT_APP_API_KEY}`
         );
-        console.log('isoCountry', isoCountry.ISO2);
-        setUserFlagLink(`https://flagcdn.com/256x192/${isoCountry.ISO2}.png`);
-        setUserContinent(continent);
-        const responseUTC = await fetch(`https://worldtimeapi.org/api/timezone/${continent}/${isoCountry.Capital}`);
-        const requestUTC = await responseUTC.json();
+        const request = await response.json();
+        console.log('response googleapis.status=', response.status);
+        if (response.status === 200) {
+          const googleRequestArray = request.plus_code.compound_code.split(',');
+          const countryName = googleRequestArray.pop().trim();
+          const cityData = googleRequestArray.shift();
+          const cityBeginPos = cityData.indexOf(' ');
+          const cityName = [cityData.slice(cityBeginPos).trim(), ...googleRequestArray].join(', ');
+          console.log('request googleapis', request);
+          console.log('request.plus_code.compound_code', request.plus_code.compound_code);
+          console.log('city', cityName);
+          console.log('country', countryName);
 
-        // console.log('requestUTC', requestUTC.utc_offset);
-        setUserUTC(requestUTC.utc_offset);
+          setUserCity(cityName);
+          setUserCountry(countryName);
+
+          const isoCountry = isoData.find(
+            (data: ISOData) => Object.keys(data).find((key) => data[key] === `${countryName}`) !== undefined
+          );
+          if (isoCountry) {
+            const continent = String(isoCountry.Time_Zone).slice(0, String(isoCountry.Time_Zone).indexOf('/'));
+            console.log('isoCountry', isoCountry.ISO2);
+            setUserFlagLink(`https://flagcdn.com/256x192/${String(isoCountry.ISO2).toLowerCase()}.png`);
+            setUserContinent(continent);
+            const responseUTC = await fetch(`https://worldtimeapi.org/api/timezone/${isoCountry.Time_Zone}`);
+            setIsLoading(true);
+            setTimeout(async function getUTC() {
+              if (isoCountry) {
+                const requestUTC = await responseUTC.json();
+                console.log('requestUTC', requestUTC);
+                console.log('requestUTC.status', requestUTC.status);
+                if (requestUTC) {
+                  console.log('requestUTC', requestUTC.utc_offset);
+                  setUserUTC(requestUTC.utc_offset);
+                }
+                setIsLoading(false);
+              }
+            }, 5000);
+          }
+        }
+      } catch (err) {
+        console.log(err);
       }
-
-      setUserCity(cityName);
-      setUserCountry(countryName);
     }
   };
 
@@ -140,8 +151,8 @@ const GameConstructor: React.FC = () => {
   }, [userCity, userCountry, userFlagLink, userContinent, userUTC]);
 
   useEffect(() => {
-    console.log('Массив ИГР обновлен!', usersGames);
-  }, [usersGames]);
+    console.log('Массив ИГР обновлен!', gamesArray);
+  }, [gamesArray]);
 
   return (
     <section className="constructor">
@@ -154,6 +165,7 @@ const GameConstructor: React.FC = () => {
               zoom: 3,
               center: center,
               streetViewControl: true,
+              zoomControl: true,
             }}
             apiKey={REACT_APP_API_KEY}
             style={{
@@ -231,7 +243,8 @@ const GameConstructor: React.FC = () => {
           Send to server
         </MyButton>
       </GoogleMapProvider>
+      {isLoading ? <div className="constructor_modal">Getting data...</div> : ''}
     </section>
   );
 };
-export default React.memo(GameConstructor);
+export default GameConstructor;

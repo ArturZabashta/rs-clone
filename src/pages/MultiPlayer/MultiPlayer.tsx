@@ -5,18 +5,19 @@ import MyButton from '../../components/MyButton/MyButton';
 import { DEFAULT_GAMES_ARRAY, DEFAULT_PLAYER } from '../../constants/constants';
 import { opponents } from '../../constants/opponents';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import { setPlayersTeam, setUsersGames } from '../../store/gameSlice';
+import { setCurrentGameId, setGamesArray, setPlayersTeam } from '../../store/gameSlice';
 import { ICustomGamesResp, IPlayer } from '../../types/gameInterface';
 import { getCustomGames, getDiapasonRandomNum } from '../../utils/utilities';
 
 const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
-  const { usersGames } = useAppSelector((state) => state.game);
+  const { gamesArray, currentGameId } = useAppSelector((state) => state.game);
+
   const [isFindClicked, setIsFindClicked] = useState<boolean>(false);
   const [isGameAvailable, setIsGameAvailable] = useState<boolean>(false);
   const [playersArray, setPlayersArray] = useState<IPlayer[]>([]);
-  const [customGames, setCustomGames] = useState<ICustomGamesResp[]>([]);
+  // const [customGames, setCustomGames] = useState<ICustomGamesResp[]>(usersGames);
   const [chosen, setChosen] = useState<number>(0);
 
   const setOpponents = () => {
@@ -31,21 +32,19 @@ const MultiPlayer: React.FC = () => {
   };
 
   const handleGameClick = (ind: number) => {
-    dispatch(setUsersGames(customGames[ind]));
+    dispatch(setCurrentGameId(ind));
+    // console.warn('Выбрана игра N=', ind);
+    // console.warn('currentGameId=', currentGameId);
   };
 
   //получение кастомных игр
   const renderCustomGames = () => {
-    getCustomGames()
-      .then((res) => setCustomGames([DEFAULT_GAMES_ARRAY, ...res]))
-      .then(() => {
-        dispatch(setUsersGames(customGames[0]));
-        setChosen(0);
-      });
+    getCustomGames().then((res) => dispatch(setGamesArray([DEFAULT_GAMES_ARRAY, ...res])));
   };
+
   useEffect(() => {
     renderCustomGames();
-  }, []);
+  }, [gamesArray]);
 
   // Запуск автогенерации команды оппонентов
   useEffect(() => {
@@ -86,7 +85,7 @@ const MultiPlayer: React.FC = () => {
           Find Opponents
         </MyButton>
         <div className="multiplayer_games">
-          {customGames.map((item, ind) => (
+          {gamesArray.map((item, ind) => (
             <CustomGame
               key={item._id}
               game={item}

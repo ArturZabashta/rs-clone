@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 
 import GameMusic from '../../components/GameMusic/GameMusic';
@@ -8,7 +8,7 @@ import MyButton from '../../components/MyButton/MyButton';
 import { gameView } from '../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundNextQuestion from '../../sounds/nextQuestion_sound.mp3';
-import { setScore, setTotalScore } from '../../store/gameSlice';
+import { resetScore, setScore, setTotalScore } from '../../store/gameSlice';
 import { resetLevel, setLevel } from '../../store/gameSlice';
 import { getDiapasonRandomNum, sendUserScore, singlePointsCounter } from '../../utils/utilities';
 
@@ -60,10 +60,23 @@ const SinglePlayer: React.FC = () => {
     dispatch(setScore(points));
   };
 
+  // При  Unmount компонента
+  useEffect(() => {
+    return () => {
+      dispatch(resetLevel());
+      dispatch(resetScore());
+      setQuestionArray([]);
+      setAnswerPoints(0);
+    };
+  }, []);
+
   return (
     <section className="singleplayer">
       {isGameFinished ? '' : <GameMusic />}
-      <p className="singleplayer_title">{`Question #${level}`}</p>
+      <p className="singleplayer_title">
+        <span>{`Question #${level}`}</span>
+        <span>{`Score:${score}`}</span>
+      </p>
       <div className="singleplayer_wrapper">
         <SingleGameMap
           pointLatLng={gameView[question].latLng}
