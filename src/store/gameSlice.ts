@@ -14,7 +14,7 @@ const initialState: GameStoreType = {
   isLoosedGame: false,
   missedAnswer: false,
   totalScore: 0,
-  usersGames: DEFAULT_GAMES_ARRAY,
+  gamesArray: [DEFAULT_GAMES_ARRAY],
   currentGameId: 0,
 };
 
@@ -25,8 +25,14 @@ export const gameSlice = createSlice({
     setScore: (state, action: PayloadAction<number>) => {
       state.score = state.score + action.payload;
     },
+    resetScore: (state) => {
+      state.score = 0;
+    },
     setPlayersTeam: (state, action: PayloadAction<Array<IPlayer>>) => {
       state.players = action.payload;
+    },
+    resetPlayersTeam: (state) => {
+      state.players = [];
     },
     setIsSoundOn: (state, action: PayloadAction<boolean>) => {
       state.isSoundOn = action.payload;
@@ -61,8 +67,8 @@ export const gameSlice = createSlice({
     setTotalScore: (state, action: PayloadAction<number>) => {
       state.totalScore = action.payload;
     },
-    setUsersGames: (state, action: PayloadAction<ICustomGamesResp>) => {
-      state.usersGames = action.payload;
+    setGamesArray: (state, action: PayloadAction<ICustomGamesResp[]>) => {
+      state.gamesArray = action.payload;
     },
     setCurrentGameId: (state, action: PayloadAction<number>) => {
       state.currentGameId = action.payload;
@@ -72,7 +78,9 @@ export const gameSlice = createSlice({
 
 export const {
   setScore,
+  resetScore,
   setPlayersTeam,
+  resetPlayersTeam,
   setIsSoundOn,
   setEffectsVolume,
   setMusicVolume,
@@ -84,7 +92,7 @@ export const {
   setIsLoosedGame,
   setMissedAnswer,
   setTotalScore,
-  setUsersGames,
+  setGamesArray,
   setCurrentGameId,
 } = gameSlice.actions;
 

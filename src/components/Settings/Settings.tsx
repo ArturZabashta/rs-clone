@@ -4,7 +4,7 @@ import useSound from 'use-sound';
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import soundSettingsOn from '../../sounds/settingsOn_sound.mp3';
 import { setEffectsVolume, setIsSoundOn, setMusicVolume } from '../../store/gameSlice';
-import { setIsSettingsOn } from '../../store/uiSlice';
+import { setIsSettingsOn, setLanguage } from '../../store/uiSlice';
 import MyButton from '../MyButton/MyButton';
 import MySwitch from '../MySwitch';
 
@@ -14,7 +14,7 @@ import { ReactComponent as SoundSvg } from './assets/sound.svg';
 import { ReactComponent as EffectsSvg } from './assets/volume.svg';
 
 const Settings: React.FC = () => {
-  const { isSettingsOn } = useAppSelector((state) => state.ui);
+  const { isSettingsOn, language } = useAppSelector((state) => state.ui);
   const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
   const [isFullscreenOn, setIsFullscreenOn] = useState(false);
@@ -36,6 +36,9 @@ const Settings: React.FC = () => {
     } else {
       document.exitFullscreen();
     }
+  };
+  const languageHandler = (e: React.MouseEvent<Element, MouseEvent>) => {
+    dispatch(setLanguage(e.currentTarget.id));
   };
 
   return (
@@ -90,6 +93,24 @@ const Settings: React.FC = () => {
               fullscreen
             </MySwitch>
           </div>
+        </div>
+        <div className="settings_deliner"></div>
+        <div className="settings_language">
+          <p className="settings_language__title">Language:</p>
+          <p
+            className={`settings_language__item ${language === 'en' ? '__chosen' : ''}`}
+            id={'en'}
+            onClick={languageHandler}
+          >
+            Eanglish
+          </p>
+          <p
+            className={`settings_language__item ${language === 'ru' ? '__chosen' : ''}`}
+            id={'ru'}
+            onClick={languageHandler}
+          >
+            Russian
+          </p>
         </div>
         <div className="settings_deliner"></div>
         <MyButton className="settings_btn" onClickButton={closeSettingsHandler}>

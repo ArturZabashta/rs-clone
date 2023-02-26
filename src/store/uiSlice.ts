@@ -10,6 +10,7 @@ const initialState: UiStoreType = {
   isSettingsOn: false,
   popUpMsg: '',
   userToken: '',
+  language: 'en',
 };
 
 export const uiSlice = createSlice({
@@ -37,10 +38,21 @@ export const uiSlice = createSlice({
     setUserToken: (state, action: PayloadAction<string>) => {
       state.userToken = action.payload;
     },
+    setLanguage: (state, action: PayloadAction<string>) => {
+      state.language = action.payload;
+    },
   },
 });
 
-export const { setCurrentPage, setIsLogin, setIsMenuOn, setIsSettingsOn, setPopUpMsg, setUsername, setUserToken } =
-  uiSlice.actions;
+export const {
+  setCurrentPage,
+  setIsLogin,
+  setIsMenuOn,
+  setIsSettingsOn,
+  setPopUpMsg,
+  setUsername,
+  setUserToken,
+  setLanguage,
+} = uiSlice.actions;
 
 export default uiSlice.reducer;

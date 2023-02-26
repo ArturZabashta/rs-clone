@@ -8,6 +8,7 @@ export type UiStoreType = {
   isSettingsOn: boolean;
   popUpMsg: string;
   userToken: string;
+  language: string;
 };
 
 export type Props = {
