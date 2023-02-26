@@ -247,4 +247,4 @@ const GameConstructor: React.FC = () => {
     </section>
   );
 };
-export default React.memo(GameConstructor);
+export default GameConstructor;
