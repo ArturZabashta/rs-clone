@@ -565,6 +565,10 @@ h3 {
 }
 
 .text-on-video {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 100vw;
   font-family: 'Julee', sans-serif;
   font-weight: 700;
   font-size: 24px;

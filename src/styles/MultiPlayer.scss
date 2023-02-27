@@ -87,6 +87,7 @@
 
       &__item{
         display: flex;
+        flex: 0 0 10vw;
         flex-direction: column;
         height: min(15vh, 15vw);
         border: solid 1px grey;
@@ -97,19 +98,33 @@
         align-items: center;
         justify-content: space-between;
 
+        .custom-game__title{
+          width: 100%;
+          height: 2rem;
+          overflow: hidden;
+          text-align: center;
+          font-size: 0.8rem;
+        }
+
         @media (max-width: 780px) {        
           height: max-content;
         }
 
         .multiplayer_game-select{
           border: 1px solid rgb(214, 205, 208);
+          border-radius: 0.3rem;
           padding: 0 5px;
           cursor: pointer;
+          transition: all 0.3s;
           
           &__active {
             border: 1px solid rgb(189, 18, 75);
             color: rgb(189, 18, 75);
           }
+        }
+        .multiplayer_game-select:hover{
+          box-shadow: 0 0 40px 40px #adafb177 inset, 0 0 0 0 #a4a8aa;
+          transition: all 0.3s;
         }
 
         .multiplayer_games__likes{          
@@ -127,12 +142,37 @@
             justify-content: center;
             margin: 0.2rem;
             padding: 0.5rem;
-            width: 1.5rem;
-            height: 1.5rem;
+            width: 1.6rem;
+            height: 1.6rem;            
+            border-color: transparent;
+            border-radius: 50%;
+            background-image: url('../../public/like.jpg');
+            background-repeat: no-repeat;
+            background-size: 320%;
+            filter: blur(0.5px);
+            opacity: 0.5;
 
             @media (max-width: 440px) {        
               min-width: max-content;
             }
+          }
+
+          .likes_count__btn.__liked{
+            background-position: 82% 51%;
+          }
+
+          .likes_count__btn.__disliked{            
+            background-position: 19% 51%;
+          }
+          .likes_count__btn.__liked:hover,
+          .likes_count__btn.__disliked:hover{
+            opacity: 1;
+            transition: all 0.3s;
+          }
+          .likes_count__btn.__liked:active,
+          .likes_count__btn.__disliked:active{
+            scale: 0.97;
+            transition: all 0.3s;
           }
         }
       }

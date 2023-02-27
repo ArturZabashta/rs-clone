@@ -83,7 +83,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
     onAnswerHandler();
-    dispatch(setMissedAnswer(false));
+    // dispatch(setMissedAnswer(false));
   };
 
   const onMouseMove = () => {
@@ -113,6 +113,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   }, [questionNum, switchMarker]);
 
   useEffect(() => {
+    console.log('missedAnswer=', missedAnswer);
     if (missedAnswer) {
       setUserPoint(answerPoint);
       setIsClicked(true);
@@ -199,8 +200,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
             }}
           />
           {players.map((player: IPlayer, index: number) => {
-            if (missedAnswer && player.name === username) return;
-            if (missedAnswer && player.name !== username) {
+            if (missedAnswer && player.id === 0) return;
+            if (missedAnswer && player.id !== 0) {
               return (
                 <Marker
                   key={100 + index}
@@ -224,8 +225,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
             }
           })}
           {players.map((player: IPlayer, index: number) => {
-            if (missedAnswer && player.name === username) return;
-            if (missedAnswer && player.name !== username) {
+            if (missedAnswer && player.id === 0) return;
+            if (missedAnswer && player.id !== 0) {
               return (
                 <Polyline
                   key={200 + index}

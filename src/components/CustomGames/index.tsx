@@ -18,7 +18,7 @@ export const CustomGame: React.FC<ICustomGame> = ({ game, gameHandler, gamesRend
   return (
     <div className="multiplayer_games__item">
       <p>{game.createdBy}</p>
-      <p>{game.gameTitle}</p>
+      <p className="custom-game__title">{game.gameTitle}</p>
       <div
         onClick={() => {
           gameHandler();
