@@ -1,6 +1,5 @@
 .singleplayer{
   position: relative;
-  padding-top: 60px !important;
   width: 100vw; 
   height: 70vh;
 
@@ -19,6 +18,17 @@
     font-size: 2.4rem;
     font-weight: bold;
     text-shadow: #000000 1px 0 10px;
+
+    @media (max-width: 680px) {
+      flex-direction: column;
+      gap: 20px;
+
+      font-size: 23px;
+    }
+
+    @media (max-width: 450px) {
+      font-size: 18px;
+    }
   }
 
   &_wrapper{
@@ -27,6 +37,10 @@
     width: 100vw;
     padding: 1rem;
     display: flex;
+
+    @media (max-width: 540px) {
+      height: 80%;
+    }
 
     &__help{
       position: absolute;
@@ -85,6 +99,10 @@
     }
     &__map:hover{
       transition: all 150ms;
+
+      @media (max-width: 670px) {
+        width: 80% !important;
+      }
     }
 
 
@@ -103,6 +121,10 @@
       justify-content: center;
       transform: translate(-50%, -50%);
       z-index: 1000;
+
+      @media (max-width: 540px) {
+        bottom: 50px;
+      }
     }
   }
 
