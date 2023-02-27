@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
+import { useTranslation } from 'react-i18next';
 import useSound from 'use-sound';
 
 import CustomCountdown from '../../../components/CustomCountdown/CustomCountdown';
@@ -8,11 +9,11 @@ import GameResult from '../../../components/GameResult/GameResult';
 import KilledPlayers from '../../../components/KilledPlayers/KilledPlayers';
 import MultiGameMap from '../../../components/Map/MultiGameMap';
 import MyButton from '../../../components/MyButton/MyButton';
-import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import soundNextQuestion from '../../../sounds/nextQuestion_sound.mp3';
 import {
   resetLevel,
+  resetPlayersTeam,
   resetRound,
   setLevel,
   setMissedAnswer,
@@ -25,13 +26,16 @@ import { getDiapasonRandomNum, sendUserScore } from '../../../utils/utilities';
 
 const MultiGamePage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { players } = useAppSelector((state) => state.game);
-  const { level } = useAppSelector((state) => state.game);
-  const { round } = useAppSelector((state) => state.game);
-  const { isLoosedGame } = useAppSelector((state) => state.game);
-  const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const { players, level, round, isLoosedGame, isSoundOn, effectsVolume, gamesArray, currentGameId } = useAppSelector(
+    (state) => state.game
+  );
+  const { currentPage } = useAppSelector((state) => state.ui);
 
-  const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
+  const { t } = useTranslation();
+
+  const [question, setQuestion] = useState<number>(
+    getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1)
+  );
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
 
   const [isAnswered, setIsAnswered] = useState(false);
@@ -43,35 +47,39 @@ const MultiGamePage: React.FC = () => {
   //  Следующий произвольный вопрос из списка
   const setNextQuestion = () => {
     let nextQuestion: number;
-    do {
-      nextQuestion = getDiapasonRandomNum(0, gameView.length - 1);
-    } while (questionArray.indexOf(nextQuestion) !== -1);
 
-    setQuestion(nextQuestion);
-    setQuestionArray([...questionArray, nextQuestion]);
-    setIsAnswered(false);
+    if (questionArray.length < 9) {
+      do {
+        nextQuestion = getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1);
+      } while (questionArray.indexOf(nextQuestion) !== -1);
 
-    dispatch(setLevel());
+      setQuestion(nextQuestion);
+      setQuestionArray([...questionArray, nextQuestion]);
+      setIsAnswered(false);
+      dispatch(setLevel());
+    }
 
     if (level === 3 && round < 3) {
       setIsRoundFinished(true);
       dispatch(setRound());
       dispatch(resetLevel());
     }
-    if (round === 3 && level === 3) {
-      setIsGameFinished(true);
-      const score = players.find((item) => item.id === 0)?.playerScore as number;
-      sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
-      dispatch(resetLevel());
-      dispatch(resetRound());
-    }
-
     isSoundOn && playNextQuestion();
+    dispatch(setMissedAnswer(false));
   };
 
   const onAnswerHandler = () => {
     setSorted();
     setIsAnswered(true);
+    if (questionArray.length === 9) {
+      setTimeout(() => {
+        setIsGameFinished(true);
+        const score = players.find((item) => item.id === 0)?.playerScore as number;
+        sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
+        dispatch(resetLevel());
+        dispatch(resetRound());
+      }, 3500);
+    }
   };
 
   function setSorted() {
@@ -93,20 +101,29 @@ const MultiGamePage: React.FC = () => {
     dispatch(setMissedAnswer(true));
   };
 
+  // При  Unmount компонента
+  useEffect(() => {
+    return () => {
+      dispatch(resetPlayersTeam());
+      dispatch(resetLevel());
+      dispatch(resetRound());
+    };
+  }, []);
+
   return (
     <section className="multigame">
       {isGameFinished || isLoosedGame ? '' : <GameMusic />}
-      <p className="multigame_title">{`Round ${round}. Question ${level}`}</p>
+      <p className="multigame_title">{t('multiplayer.title_round', { round: round, level: level })}</p>
       {isAnswered || isLoosedGame || isGameFinished || isRoundFinished ? (
         ''
       ) : (
-        <Countdown date={Date.now() + 30000} autoStart={true} renderer={CustomCountdown} onComplete={onComplete} />
+        <Countdown date={Date.now() + 60000} autoStart={true} renderer={CustomCountdown} onComplete={onComplete} />
       )}
 
       <div className="multigame_wrapper">
         <div className="multigame_question">
           <MultiGameMap
-            propsLatLng={gameView[question].latLng}
+            propsLatLng={gamesArray[currentGameId].gameSet[question].latLng}
             onAnswerHandler={onAnswerHandler}
             questionNum={question}
             switchMarker={false}
@@ -119,9 +136,9 @@ const MultiGamePage: React.FC = () => {
                 <span>{`${player.name}`}</span>
                 <span className="multigame_players-item__score">{`${player.playerScore}`}</span>
               </p>
-              <p
-                className={isAnswered ? 'multigame_players-item__modal' : 'multigame_players-item__modal  __hide'}
-              >{`Earned ${player.points} points`}</p>
+              <p className={isAnswered ? 'multigame_players-item__modal' : 'multigame_players-item__modal  __hide'}>
+                {t('multiplayer.earned_points', { points: player.points })}
+              </p>
             </div>
           ))}
         </div>
@@ -129,11 +146,15 @@ const MultiGamePage: React.FC = () => {
 
       {isAnswered ? (
         <div className="multigame_wrapper__modal">
-          <p className="city_name">This place is in</p>
-          <p className="city_name">{gameView[question].city}</p>
-          <MyButton className="next_question" onClickButton={setNextQuestion}>
-            Next question
-          </MyButton>
+          <p className="city_name">{t('multiplayer.place')}</p>
+          <p className="city_name">{gamesArray[currentGameId].gameSet[question].city}</p>
+          {questionArray.length !== 9 ? (
+            <MyButton className="next_question" onClickButton={setNextQuestion}>
+              {t('game.next_question')}
+            </MyButton>
+          ) : (
+            ''
+          )}
         </div>
       ) : (
         ''

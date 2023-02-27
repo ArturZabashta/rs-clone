@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { setIsLoosedGame, setPlayersTeam } from '../../store/gameSlice';
@@ -11,6 +12,8 @@ interface GameResultProps {
 const KilledPlayers: React.FC<GameResultProps> = ({ onContinueHandler }) => {
   const { players } = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
   const setKillPlayers = () => {
     const copyArray: IPlayer[] = JSON.parse(JSON.stringify(players));
     const killedPlayers = copyArray.splice(copyArray.length - 2);
@@ -25,7 +28,7 @@ const KilledPlayers: React.FC<GameResultProps> = ({ onContinueHandler }) => {
 
   return (
     <div className={'game_result'}>
-      <h2>{`Someone has to leave`}</h2>
+      <h2> {t('killed.title')}</h2>
 
       <div className="winners_list" style={{ textAlign: 'center' }}>
         {players.map((player: IPlayer, index: number) =>
@@ -41,7 +44,7 @@ const KilledPlayers: React.FC<GameResultProps> = ({ onContinueHandler }) => {
 
       <div>
         <MyButton className={'settings_btn'} onClickButton={setKillPlayers}>
-          Continue
+          {t('killed.continue_btn')}
         </MyButton>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { IBestScore } from '../../types/uiInterface';
 
@@ -7,6 +8,8 @@ interface IScoreListProps {
 }
 
 const BestList: React.FC<IScoreListProps> = ({ scoreList }) => {
+  const { t } = useTranslation();
+
   const rest = scoreList.slice(3);
   return (
     <div className="best-results">
@@ -33,10 +36,8 @@ const BestList: React.FC<IScoreListProps> = ({ scoreList }) => {
       {rest.map((item, ind) => {
         return (
           <div className="best-results_rest" key={ind}>
-            <div className="rest_name">
-              {ind + 4}. Username: {item.username}{' '}
-            </div>
-            <div className="rest_score">score: {item.score}</div>
+            <div className="rest_name">{t('score.best_username', { index: ind + 4, name: item.username })}</div>
+            <div className="rest_score">{t('score.item_score', { score: item.score })}</div>
           </div>
         );
       })}

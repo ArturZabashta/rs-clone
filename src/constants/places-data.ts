@@ -9,7 +9,8 @@ export const gameView: Array<IData> = [
     },
     utc: '+1',
     continent: 'Europe',
-    picture: 'https://i.artfile.ru/2560x1600_676534_www.ArtFile.ru.jpg',
+    picture:
+      'https://static.vecteezy.com/ti/gratis-vector/p1/2417815-vectorial-illustratie-van-de-duitsland-vlag-gratis-vector.jpg',
   },
   {
     city: 'Rome',
@@ -161,7 +162,7 @@ export const gameView: Array<IData> = [
     },
     utc: '+8',
     continent: 'Asia',
-    picture: 'https://ak.picdn.net/shutterstock/videos/1013600777/thumb/1.jpg',
+    picture: 'https://ak.picdn.net/shutterstock/videos/17717977/thumb/1.jpg',
   },
   {
     city: 'New Delhi',

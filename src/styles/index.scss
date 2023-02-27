@@ -217,6 +217,10 @@ button[disabled] {
       color: #a4a8aa;
     }
   }
+
+  @media (max-width: 377px) {
+    font-size: 26px;
+  }
 }
 
 .multi-player_btn {
@@ -280,7 +284,7 @@ h3 {
     padding: 10px;
   }
 
-  @media (max-width: 440px) {
+  @media (max-width: 535px) {
     min-height: 110px;
   }
 
@@ -479,22 +483,26 @@ h3 {
     flex-basis: 33%;
     align-self: center;
 
-    @media (max-width: 1000px) {
+    @media (max-width: 1150px) {
       position: relative;
       top: 90px;
       z-index: 1;
     }
 
-    @media (max-width: 572px) {
+    @media (max-width: 1083px) {
       font-size: 54px;
     }
 
-    @media (max-width: 486px) {
+    @media (max-width: 920px) {
       font-size: 44px;
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 758px) {
       font-size: 34px;
+    }
+
+    @media (max-width: 574px) {
+      font-size: 23px;
     }
   }
 
@@ -515,6 +523,15 @@ h3 {
     border: 2px solid #FFFFFF;
     border-radius: 0.6em;
 
+    @media (max-width: 535px) {
+      flex-direction: column;
+      gap: 0;
+      margin: 0 5px 0 0;
+      width: 80px;
+
+      font-size: 12px;
+    }
+
     .header_username {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
@@ -525,11 +542,19 @@ h3 {
 
     .lvl {
       width: 110px;
+
+      @media (max-width: 535px) {
+        width: 70px;
+      }
     }
 
     .lvl_bar {
       border-radius: 2px;
       transform: skewX(341deg);
+
+      @media (max-width: 535px) {
+        width: 60px;
+      }
     }
 
     .lvl_level {
@@ -540,6 +565,11 @@ h3 {
 }
 
 .text-on-video {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  width: 100vw;
   font-family: 'Julee', sans-serif;
   font-weight: 700;
   font-size: 24px;
@@ -565,9 +595,14 @@ h3 {
 .options {
   display: flex;
   justify-content: space-around;
+  gap: 10px;
   width: 50%;
   margin-left: 20px;
   margin-top: 40px;
+
+  @media (max-width: 401px) {
+    width: 67%;
+  }
 
   .options_item {
     color: #f7f7f7;
@@ -630,9 +665,30 @@ a:hover {
 
   background-color: #8baaaa;
 
+  @media (max-width: 360px) {
+    font-size: 14px;
+  }
+
   @media (max-width: 540px) {
     flex-direction: column;
     row-gap: 10px;
+  }
+
+  div {
+    width: 30%;
+    display: flex;
+
+    @media (max-width: 1109px) {
+      width: max-content;
+    }
+
+    &:nth-child(2) {
+      justify-content: center;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+    }
   }
 }
 

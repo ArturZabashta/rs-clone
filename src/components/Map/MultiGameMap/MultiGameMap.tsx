@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 import useSound from 'use-sound';
 
-import { gameView } from '../../../constants/places-data';
 import { useAppDispatch, useAppSelector } from '../../../hooks/userHooks';
 import soundGuess from '../../../sounds/guess_sound.mp3';
 import { setMissedAnswer, setPlayersTeam } from '../../../store/gameSlice';
@@ -22,11 +22,10 @@ interface MultiGameMapProps {
 const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, onAnswerHandler, switchMarker }) => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
-  const { players } = useAppSelector((state) => state.game);
-
-  const { missedAnswer } = useAppSelector((state) => state.game);
+  const { players, gamesArray, currentGameId, missedAnswer } = useAppSelector((state) => state.game);
 
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const { t } = useTranslation();
 
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
@@ -84,7 +83,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     dispatch(setPlayersTeam(newCopyPlayers));
     setIsAnswered(true);
     onAnswerHandler();
-    dispatch(setMissedAnswer(false));
+    // dispatch(setMissedAnswer(false));
   };
 
   const onMouseMove = () => {
@@ -97,7 +96,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     setMapSize('13vh');
   };
 
-  const handleUTSBtn = () => {
+  const handleUTCBtn = () => {
     setShowUTS(true);
   };
   const handleContinentBtn = () => {
@@ -114,6 +113,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   }, [questionNum, switchMarker]);
 
   useEffect(() => {
+    console.log('missedAnswer=', missedAnswer);
     if (missedAnswer) {
       setUserPoint(answerPoint);
       setIsClicked(true);
@@ -126,27 +126,29 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
     <GoogleMapProvider>
       <div className="multigame_question__help">
         {showUTS ? (
-          <div className="multigame_question__utc">{`UTS: ${gameView[questionNum].utc}`}</div>
+          <div className="multigame_question__utc">{`UTS: ${gamesArray[currentGameId].gameSet[questionNum].utc}`}</div>
         ) : (
-          <MyButton className="game_help__button" onClickButton={handleUTSBtn}>
-            Get UTS
+          <MyButton className="game_help__button" onClickButton={handleUTCBtn}>
+            {t('game.help_utc')}
           </MyButton>
         )}
         {showContinent ? (
-          <div className="multigame_question__continent">{gameView[questionNum].continent}</div>
+          <div className="multigame_question__continent">
+            {gamesArray[currentGameId].gameSet[questionNum].continent}
+          </div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
-            Get Location
+            {t('game.help_location')}
           </MyButton>
         )}
         {showFlag ? (
           <div
             className="multigame_question__flag"
-            style={{ backgroundImage: `url('${gameView[questionNum].picture}')` }}
+            style={{ backgroundImage: `url('${gamesArray[currentGameId].gameSet[questionNum].picture}')` }}
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
-            Get Flag
+            {t('game.help_flag')}
           </MyButton>
         )}
       </div>
@@ -162,7 +164,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         }}
         apiKey={REACT_APP_API_KEY}
         onClick={onClick}
-        LoadingComponent={<div>Loading</div>}
+        LoadingComponent={<div>{t('game.loading')}</div>}
         LoadedComponent={null}
         useGeometry
         useDrawing
@@ -198,8 +200,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
             }}
           />
           {players.map((player: IPlayer, index: number) => {
-            if (missedAnswer && player.name === username) return;
-            if (missedAnswer && player.name !== username) {
+            if (missedAnswer && player.id === 0) return;
+            if (missedAnswer && player.id !== 0) {
               return (
                 <Marker
                   key={100 + index}
@@ -223,8 +225,8 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
             }
           })}
           {players.map((player: IPlayer, index: number) => {
-            if (missedAnswer && player.name === username) return;
-            if (missedAnswer && player.name !== username) {
+            if (missedAnswer && player.id === 0) return;
+            if (missedAnswer && player.id !== 0) {
               return (
                 <Polyline
                   key={200 + index}
@@ -267,7 +269,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
             }}
           />
           <MyButton className={'guess_btn btn_blue'} onClickButton={handleGuess}>
-            GUESS
+            {t('game.guess')}
           </MyButton>
         </>
       ) : (

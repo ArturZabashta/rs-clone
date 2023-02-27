@@ -9,7 +9,7 @@ interface CustomCountdownProps {
 const CustomCountdown: React.FC<CustomCountdownProps> = ({ minutes, seconds, completed }) => {
   if (completed) {
     // Render a completed state
-    return <span className="multigame_timer">2:00</span>;
+    return <span className="multigame_timer">1:00</span>;
   } else {
     // Render a countdown
     return (

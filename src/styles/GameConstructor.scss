@@ -1,8 +1,21 @@
 .constructor{
+  padding-top: 150px !important;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  &_modal{
+    position: fixed;
+    top: 40%;
+    left: calc(50% - 2rem);
+    font-size: 3rem;
+    text-align: center;
+    border-color: rgba(255, 0, 0, 0.5);
+
+    z-index: 10;
+  }
+
 
   &_count{
     position: absolute;
@@ -11,6 +24,9 @@
     font-size: 2rem;
     font-weight: bold;
 
+    @media (max-width: 1150px) {        
+      top: 5.5rem;
+    }
   }
 
   &_wrapper{
@@ -21,6 +37,10 @@
     top: -2.5rem;
     border-radius: 1rem;
     padding: 1rem;
+
+    @media (max-width: 540px) {        
+      height: 67%;
+    }
 
     &__map{
       border-radius: 0.7rem 0 0 0.7rem;
@@ -36,6 +56,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
 
     &__item{
       display: flex;
@@ -54,6 +75,11 @@
       border-radius: 1rem;    
       background-position: center;
       background-size: cover;
+
+      @media (max-width: 540px) {        
+        width: 70px;
+        height: 50px;
+      }
     }
   }
 
