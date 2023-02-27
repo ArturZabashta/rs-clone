@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { ReactComponent as Minus } from './assets/icon-minus.svg';
 import { ReactComponent as Plus } from './assets/icon-plus.svg';

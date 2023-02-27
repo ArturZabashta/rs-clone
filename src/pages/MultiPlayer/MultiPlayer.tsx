@@ -40,7 +40,9 @@ const MultiPlayer: React.FC = () => {
 
   //получение кастомных игр
   const renderCustomGames = () => {
-    getCustomGames().then((res) => dispatch(setGamesArray([DEFAULT_GAMES_ARRAY, ...res])));
+    getCustomGames().then((res) =>
+      dispatch(setGamesArray([DEFAULT_GAMES_ARRAY, ...res.sort((a, b) => b.createdDate - a.createdDate).slice(0, 7)]))
+    );
   };
 
   useEffect(() => {
