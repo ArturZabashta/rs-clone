@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
@@ -13,11 +14,13 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, route }): JSX.Ele
   const dispatch = useAppDispatch();
   const { isLogin } = useAppSelector((state) => state.ui);
 
-  if (isLogin) {
-    dispatch(setCurrentPage(route));
-  }
+  useEffect(() => {
+    if (isLogin) {
+      dispatch(setCurrentPage(route));
+    }
+  }, [isLogin, route]);
 
-  return <>{isLogin ? children : <Navigate to="/" />}</>;
+  return <>{isLogin ? <>{children}</> : <Navigate to="/" />}</>;
 };
 
 export default PrivateRoute;

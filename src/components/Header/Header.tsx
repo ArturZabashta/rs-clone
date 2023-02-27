@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
-import { setCurrentPage } from '../../store/uiSlice';
+import { setCurrentPage, setLanguage } from '../../store/uiSlice';
 import GameMenu from '../GameMenu/GameMenu';
 import MyButton from '../MyButton/MyButton';
 import UserLvl from '../UserLevel';
@@ -12,57 +13,79 @@ import { ReactComponent as LogoSvg } from './HeaderLogo/logo.svg';
 const Header: React.FC = () => {
   const location = useLocation().pathname;
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
   // Global State
-  const { currentPage, isMenuOn, isLogin, username } = useAppSelector((state) => state.ui);
+  const { currentPage, isMenuOn, isLogin, username, language } = useAppSelector((state) => state.ui);
   const dispatch = useAppDispatch();
   // Local State
   const [path, setPath] = useState(currentPage ?? location);
   const [pageName, setPageName] = useState('');
   const [menuOn, setMenuOn] = useState(isMenuOn);
 
-  useEffect(() => {
+  const setHeaderTitle = () => {
     switch (currentPage) {
       case '': {
-        setPath('/');
+        // setPath('/');
         setPageName('');
         break;
       }
       case '/': {
-        setPath('/');
+        // setPath('/');
         setPageName('');
         break;
       }
       case '/login': {
-        setPath('/');
-        setPageName('LOG IN');
+        // setPath('/');
+        setPageName(language === 'en' ? 'LOG IN' : 'Авторизация');
         break;
       }
       case '/signup': {
-        setPath('/');
-        setPageName('SIGN UP');
+        // setPath('/');
+        setPageName(language === 'en' ? 'SIGN UP' : 'Регистрация');
         break;
       }
       case '/single-player': {
-        setPath('/home');
-        setPageName('SINGLE PLAYER');
+        // setPath('/home');
+        setPageName(language === 'en' ? 'SINGLE PLAYER' : 'Одиночная игра');
         break;
       }
       case '/multi-player': {
-        setPath('/home');
-        setPageName('MULTI PLAYER');
+        // setPath('/home');
+        setPageName(language === 'en' ? 'MULTI PLAYER' : 'Мультиплэйер');
+        break;
+      }
+      case '/constructor': {
+        // setPath('/home');
+        setPageName(language === 'en' ? 'Constructor' : 'Конструктор');
         break;
       }
       case '/score': {
-        setPath('/home');
-        setPageName('LEADER BOARD');
+        // setPath('/home');
+        setPageName(language === 'en' ? 'LEADER BOARD' : 'Победители');
         break;
       }
       case '/home': {
-        setPath('/home');
+        // setPath('/home');
         setPageName('');
         break;
       }
     }
+  };
+
+  // useEffect(() => {
+  //   console.log('language from HEADER', language);
+  //   if (sessionStorage.getItem('lng')) {
+  //     dispatch(setLanguage(String(sessionStorage.getItem('lng'))));
+  //     i18n.changeLanguage(language);
+  //     setHeaderTitle();
+  //   } else {
+  //     dispatch(setLanguage('en'));
+  //     sessionStorage.setItem('lng', 'en');
+  //   }
+  // }, [language]);
+
+  useEffect(() => {
+    setHeaderTitle();
     setMenuOn(isMenuOn);
   }, [currentPage, isMenuOn]);
 
@@ -86,10 +109,10 @@ const Header: React.FC = () => {
         ) : (
           <div className="d-f">
             <MyButton className="login_btn f-bold" route="/login">
-              Log In
+              {t('header.login_btn')}
             </MyButton>
             <MyButton className="login_btn f-bold btn_blue" route="/signup">
-              Sign Up
+              {t('header.signup_btn')}
             </MyButton>
           </div>
         )}

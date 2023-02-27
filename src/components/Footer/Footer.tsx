@@ -1,12 +1,15 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 // import { ReactComponent as LogoSvg } from './HeaderLogo/logo.svg';
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer">
       <div className="footer_developers">
-        Developers:{' '}
+        {t('footer.developers')}{' '}
         <a href="https://github.com/ArturZabashta" className="f-black">
           ArturZabashta
         </a>

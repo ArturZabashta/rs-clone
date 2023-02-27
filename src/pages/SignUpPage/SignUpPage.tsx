@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import MyButton from '../../components/MyButton/MyButton';
@@ -15,6 +16,7 @@ type FormData = {
 const SignUpPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const [isDisabled, setIsDisabled] = useState(true);
   const {
@@ -62,10 +64,10 @@ const SignUpPage: React.FC = () => {
 
   return (
     <section className="signup-page">
-      <h3>Create an account</h3>
+      <h3>{t('authorization.create_account')}</h3>
 
       <form onSubmit={onSubmit}>
-        <span>User name</span>
+        <span>{t('authorization.username')}</span>
         <input
           type={'text'}
           id="username"
@@ -84,7 +86,7 @@ const SignUpPage: React.FC = () => {
               'Input your Email. Example user@mail.com. You can use latin characters and digitals'}
           </span>
         )}
-        <span>Password</span>
+        <span>{t('authorization.password')}</span>
         <input
           type={'password'}
           {...register('password', {
@@ -102,7 +104,7 @@ const SignUpPage: React.FC = () => {
           </span>
         )}
         <MyButton className="signup_btn btn_blue" onClickButton={onSubmit} isDisabled={isDisabled}>
-          sign up
+          {t('authorization.sign_up')}
         </MyButton>
       </form>
     </section>

@@ -1,0 +1,123 @@
+{
+  "header": {
+    "login_btn": "Вход",
+    "signup_btn": "Регистрация",
+    "prestige_level": "уровень {{level}}",
+    "prestige_tourist": "ТУРИСТ",
+    "prestige_adventurer": "АВАНТЮРИСТ",
+    "prestige_explorer": "ИССЛЕДОВАТЕЛЬ",
+    "prestige_pathfinder": "СЛЕДОПЫТ",
+    "prestige_columbus": "КОЛУМБ"
+  },
+
+  "welcome": {
+    "welcome_title": "ОТКРОЙ МИР!",
+    "welcome_text": "Найдите подсказки и угадайте, где вы находитесь в мире. Присоединяйтесь к другим игрокам по всему миру",
+    "welcome_play": "ПОЕХАЛИ !)"
+  },
+
+  "authorization": {
+    "create_account": "Создать аккаунт",
+    "username": "Имя пользователя",
+    "password": "Пароль",    
+    "log_in": "Войти",
+    "sign_up": "Зарегистрироваться"
+  },
+
+  "game": {
+    "title_question_count": "Вопрос #{{value}}",
+    "title_score": "Баллы: {{value}}",
+    "next_question": "Следующий вопрос",
+    "help_utc": "Узнать часовой пояс",
+    "help_location": "Узнать регион",    
+    "help_flag": "Увидеть флаг",
+    "answer_city": "Это {{value}}",
+    "answer_distance": "Вы промахнулись на {{value}} км",
+    "answer_points": "Ваш результат {{value}} баллов",
+    "guess": "Проверить",
+    "loading": "Загрузка данных..."    
+  },
+
+  "multiplayer": {
+    "title_players": "Список участников",
+    "find_opponents_btn": "Найти соперников",
+    "start_game_btn": "Начать игру",
+    "title_round": "Раунд #{{round}}.  Вопрос #{{level}}",
+    "earned_points": "Заработано {{points}} баллов",
+    "place": "Это место в ",
+    "select_game": "выбрать"
+  },
+
+  "constructor": {
+    "questions_count": "Добавлено вопросов #{{count}}",
+    "place": "Место:",
+    "country": "Страна:",
+    "location": "Регион:",
+    "UTC": "Часовой пояс:",
+    "add_data": "Добавить вопрос",
+    "send_data": "Отправить на сервер"    
+  },
+
+  "killed": {
+    "title": "Нас покидают...",
+    "continue_btn": "Продолжить"
+  },
+
+  "results": {
+    "home": "На главную страницу",
+    "winner_name": "{{value}} выиграл Одиночную игру",
+    "winner_score": "Ваш результат {{value}} баллов",
+    "firs_winner_name": "Победитель {{value}}",
+    "second_winner_name": "Второе место у {{value}}",
+    "third_winner_name": "И, наконец, последний {{value}}",
+    "looser": "Вы проиграли :("           
+  },
+
+  "menu": {
+    "registered_only": "Только для авторизованных",
+    "singleplayer": "Одиночная игра",
+    "multiplayer": "Мультиплэйер",
+    "constructor": "Конструктор",
+    "leader_board": "Победители",
+    "log_out": "Выйти",
+    "contact_us": "контакты",
+    "settings": "настройки"      
+  },
+
+  "settings": {
+    "settings_title": "Настройки",
+    "music_volume": "Громкость музыки",
+    "effect_volume": "Громкость эффектов",
+    "sound": "звук",
+    "fullscreen": "на весь экран",
+    "language": "Язык: ",
+    "english": "Английский",
+    "russian": "Русский",
+    "close": "Выход"    
+  },
+
+  "score": {
+    "best_scores": "Лучшие результаты",
+    "player_highs_cores": "Достижения {{username}}:",
+    "best": "Лучшие",
+    "worst": "Худшие",
+    "newest": "Новые",
+    "oldest": "Старые ",
+    "no_results": "Пока нет достижений",
+    "item_score": "Баллы: {{score}}",
+    "item_date": "Дата {{date}}",
+    "best_username": "{{index}}. Никнэйм: {{name}}"
+  },
+
+  "footer": {
+    "developers": "Разработчики:"   
+  },
+
+  "error": {
+    "error_title": "# 404",
+    "error_subtitle": "Страница не найдена",
+    "error_text": "Хм, кажется, эта страница отсутствует...",
+    "error_home_btn": "На Главную",
+    "error_welcome_btn": "На Стартовую"
+  }
+}

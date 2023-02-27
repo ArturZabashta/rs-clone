@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
 import { resetLevel, setIsLoosedGame } from '../../store/gameSlice';
@@ -9,9 +10,10 @@ interface GameResultProps {
 }
 const GameResult: React.FC<GameResultProps> = ({ score }) => {
   const dispatch = useAppDispatch();
-  const { username } = useAppSelector((state) => state.ui);
+  const { username, language } = useAppSelector((state) => state.ui);
   const { players } = useAppSelector((state) => state.game);
   const { isLoosedGame } = useAppSelector((state) => state.game);
+  const { t } = useTranslation();
 
   const setResetGameLevel = () => {
     dispatch(resetLevel());
@@ -22,8 +24,8 @@ const GameResult: React.FC<GameResultProps> = ({ score }) => {
     <div className="game_result">
       {page === '/single-player' ? (
         <div className="winners_item" style={{ color: 'gold' }}>
-          <h3>{`${username ? username : 'Player'} win the SinglePlayer Game`}</h3>
-          <h3>{`Score is ${score} points`}</h3>
+          <h3>{t('results.winner_name', { value: username ? username : language === 'en' ? 'Player' : 'Игрок' })}</h3>
+          <h3>{t('results.winner_score', { value: score })}</h3>
         </div>
       ) : (
         ''
@@ -32,16 +34,16 @@ const GameResult: React.FC<GameResultProps> = ({ score }) => {
       {page === '/game' && !isLoosedGame ? (
         <div className="winners_list" style={{ textAlign: 'center' }}>
           <div className="winners_item" style={{ color: 'gold' }}>
-            <h3>{`The Winner is ${players[0].name} `}</h3>
-            <p>{`Score ${players[0].playerScore} points`}</p>
+            <h3>{t('results.firs_winner_name', { value: players[0].name })}</h3>
+            <p>{t('results.winner_score', { value: players[0].playerScore })}</p>
           </div>
           <div className="winners_item" style={{ color: 'silver' }}>
-            <h3>{`The Second is ${players[1].name} `}</h3>
-            <p>{`Score ${players[1].playerScore} points`}</p>
+            <h3>{t('results.second_winner_name', { value: players[1].name })}</h3>
+            <p>{t('results.winner_score', { value: players[1].playerScore })}</p>
           </div>
           <div className="winners_item" style={{ color: 'sandybrown' }}>
-            <h3>{`The Last is ${players[2].name} `}</h3>
-            <p>{`Score ${players[2].playerScore} points`}</p>
+            <h3>{t('results.third_winner_name', { value: players[2].name })}</h3>
+            <p>{t('results.winner_score', { value: players[2].playerScore })}</p>
           </div>
         </div>
       ) : (
@@ -49,10 +51,10 @@ const GameResult: React.FC<GameResultProps> = ({ score }) => {
       )}
       <div className="game_result__nav">
         <MyButton className={'winners_btn'} route={'/home'} onClickButton={setResetGameLevel}>
-          Home
+          {t('results.home')}
         </MyButton>
         <MyButton className={'winners_btn'} route={'/score'} onClickButton={setResetGameLevel}>
-          Leader Board
+          {t('menu.leader_board')}
         </MyButton>
       </div>
     </div>

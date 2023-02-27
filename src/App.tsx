@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Footer from './components/Footer/Footer';
@@ -6,7 +7,7 @@ import Header from './components/Header/Header';
 import PopUp from './components/PopUp';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Settings from './components/Settings/Settings';
-import { useAppDispatch } from './hooks/userHooks';
+import { useAppDispatch, useAppSelector } from './hooks/userHooks';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import GameConstructor from './pages/GameConstructor/GameConstructor';
 import HomePage from './pages/HomePage/HomePage';
@@ -18,25 +19,47 @@ import SignUpPage from './pages/SignUpPage/SignUpPage';
 import SinglePlayer from './pages/SinglePlayer/SinglePlayer';
 import WelcomePage from './pages/WelcomePage/WelcomePage';
 import { setTotalScore } from './store/gameSlice';
-import { setIsLogin, setUsername, setUserToken } from './store/uiSlice';
+import { setIsLogin, setLanguage, setUsername, setUserToken } from './store/uiSlice';
 import { LSData } from './types/uiInterface';
 
 export const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const userData = sessionStorage.getItem('userData');
+  const { t, i18n } = useTranslation();
+  const { language } = useAppSelector((state) => state.ui);
 
-  if (userData) {
-    try {
-      const data: LSData = JSON.parse(userData);
+  useEffect(() => {
+    if (userData) {
+      try {
+        const data: LSData = JSON.parse(userData);
 
-      dispatch(setTotalScore(data.totalScore));
-      dispatch(setIsLogin(true));
-      dispatch(setUsername(data.username));
-      dispatch(setUserToken(data.token));
-    } catch (error) {
-      console.log(error);
+        dispatch(setTotalScore(data.totalScore));
+        dispatch(setIsLogin(true));
+        dispatch(setUsername(data.username));
+        dispatch(setUserToken(data.token));
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  }, []);
+
+  useEffect(() => {
+    // When Render component
+    if (sessionStorage.getItem('lng') && sessionStorage.getItem('lng') !== '') {
+      dispatch(setLanguage(String(sessionStorage.getItem('lng'))));
+      i18n.changeLanguage(String(sessionStorage.getItem('lng')));
+      // console.log('Установлен язык', sessionStorage.getItem('lng'));
+    } else {
+      dispatch(setLanguage('en'));
+      sessionStorage.setItem('lng', 'en');
+      i18n.changeLanguage('en');
+      // console.log('Установлен en по умолчанию');
+    }
+    // When Unmount component
+    return () => {
+      sessionStorage.setItem('lng', language);
+    };
+  }, []);
 
   return (
     <Router>
@@ -88,7 +111,6 @@ export const App: React.FC = () => {
               </PrivateRoute>
             }
           ></Route>
-          <Route path="/constructor" element={<GameConstructor />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </main>

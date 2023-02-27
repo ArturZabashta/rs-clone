@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSound from 'use-sound';
 
 import GameMusic from '../../components/GameMusic/GameMusic';
@@ -18,6 +19,7 @@ const SinglePlayer: React.FC = () => {
   const { level } = useAppSelector((state) => state.game);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const { isLogin } = useAppSelector((state) => state.ui);
+  const { t } = useTranslation();
 
   const [question, setQuestion] = useState<number>(getDiapasonRandomNum(0, gameView.length - 1));
   const [questionArray, setQuestionArray] = useState<number[]>([question]);
@@ -74,8 +76,8 @@ const SinglePlayer: React.FC = () => {
     <section className="singleplayer">
       {isGameFinished ? '' : <GameMusic />}
       <p className="singleplayer_title">
-        <span>{`Question #${level}`}</span>
-        <span>{`Score:${score}`}</span>
+        <span>{t('game.title_question_count', { value: level })}</span>
+        <span>{t('game.title_score', { value: score })}</span>
       </p>
       <div className="singleplayer_wrapper">
         <SingleGameMap
@@ -87,11 +89,11 @@ const SinglePlayer: React.FC = () => {
       </div>
       {isAnswered ? (
         <div className="singleplayer_modal">
-          <p className="answer_city">{`This is  ${gameView[question].city}`}</p>
-          <p className="distance">{`You were wrong by  ${distance} km`}</p>
-          <p className="points">{`Your result is  ${answerPoints}  points`}</p>
+          <p className="answer_city">{t('game.answer_city', { value: gameView[question].city })}</p>
+          <p className="distance">{t('game.answer_distance', { value: distance })}</p>
+          <p className="points">{t('game.answer_points', { value: answerPoints })}</p>
           <MyButton className="login_btn f-bold" onClickButton={setNextLevel}>
-            Next question
+            {t('game.next_question')}
           </MyButton>
         </div>
       ) : (

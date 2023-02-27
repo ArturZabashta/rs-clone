@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 import useSound from 'use-sound';
 
@@ -25,6 +26,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
   const [isClicked, setIsClicked] = useState(switchMarker);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const [playGuess] = useSound(soundGuess, { volume: effectsVolume });
+  const { t } = useTranslation();
 
   const [center, setCenter] = useState<LatLng>({ lat: 51.4772186, lng: 0.0001 });
   const [mapSize, setMapSize] = useState('13vw');
@@ -85,14 +87,14 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
           <div className="singleplayer_question__utc">{`UTS: ${gameView[questionNum].utc}`}</div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleUTSBtn}>
-            Get UTS
+            {t('game.help_utc')}
           </MyButton>
         )}
         {showContinent ? (
           <div className="singleplayer_question__continent">{gameView[questionNum].continent}</div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
-            Get Location
+            {t('game.help_location')}
           </MyButton>
         )}
         {showFlag ? (
@@ -102,7 +104,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
-            Get Flag
+            {t('game.help_flag')}
           </MyButton>
         )}
       </div>
@@ -124,7 +126,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
         onMouseMove={onMouseMove}
         onMouseOut={onMouseOut}
         onClick={onClick}
-        LoadingComponent={<div>Loading</div>}
+        LoadingComponent={<div>{t('game.loading')}</div>}
         useGeometry
       />
       <StreetView
@@ -175,7 +177,7 @@ const SingleGameMap: React.FC<MapProps> = ({ questionNum, pointLatLng, onAnswerH
             }}
           />
           <MyButton className={'guess_btn btn_blue'} onClickButton={handleGuess}>
-            GUESS
+            {t('game.guess')}
           </MyButton>
         </>
       ) : (

@@ -1,0 +1,123 @@
+{
+  "header": {
+    "login_btn": "Log In",
+    "signup_btn": "Sign Up",
+    "prestige_level": "lvl {{level}}",
+    "prestige_tourist": "TOURIST",
+    "prestige_adventurer": "ADVENTURER",
+    "prestige_explorer": "EXPLORER",
+    "prestige_pathfinder": "PATHFINDER",
+    "prestige_columbus": "COLUMBUS"
+
+  },
+
+  "welcome": {
+    "welcome_title": "EXPLORE THE WORLD!",
+    "welcome_text": "Find clues and guess where you are in the world. Join other players around the world",
+    "welcome_play": "Let's Start !)"
+  },
+
+  "authorization": {
+    "create_account": "Create an account",
+    "username": "User name",
+    "password": "Password",    
+    "log_in": "Log in",
+    "sign_up": "Sign up"
+  },
+
+  "game": {
+    "title_question_count": "Question #{{value}}",
+    "title_score": "Score: {{value}}",
+    "next_question": "Next question",
+    "help_utc": "Get UTS",
+    "help_location": "Get Location",    
+    "help_flag": "Get Flag",
+    "answer_city": "This is {{value}}",
+    "answer_distance": "You were wrong by  {{value}} km",
+    "answer_points": "Your result is  {{value}}  points",
+    "guess": "GUESS",
+    "loading": "Loading data..."
+  },
+
+  "multiplayer": {
+    "title_players": "List of Opponents",
+    "find_opponents_btn": "Find Opponents",
+    "start_game_btn": "Let's start the Game",
+    "title_round": "Round #{{round}}.  Question #{{level}}",
+    "earned_points": "Earned {{points}} points",
+    "place": "This place is in",
+    "select_game": "select"
+  },
+  "constructor": {
+    "questions_count": "Count questions #{{count}}",
+    "place": "Place:",
+    "country": "Country:",
+    "location": "Location:",
+    "UTC": "UTC:",
+    "add_data": "Add question",
+    "send_data": "Send to server"    
+  },
+
+  "killed": {
+    "title": "Someone has to leave...",
+    "continue_btn": "Continue"
+  },
+
+  "results": {
+    "home": "Home",
+    "winner_name": "{{value}} win the SinglePlayer Game",
+    "winner_score": "Score is {{value}} points",
+    "firs_winner_name": "The Winner is {{value}}",
+    "second_winner_name": "The Second is {{value}}",
+    "third_winner_name": "The Last is {{value}}",
+    "looser": "You Lose :("
+  },
+
+  "menu": {
+    "registered_only": "For registered users only",
+    "singleplayer": "SinglePlayer",
+    "multiplayer": "MultiPlayer",
+    "constructor": "Constructor",
+    "leader_board": "Leader Board",
+    "log_out": "Log Out",
+    "contact_us": "contact us",
+    "settings": "settings"      
+  },
+
+  "settings": {
+    "settings_title": "Settings",
+    "music_volume": "Music volume",
+    "effect_volume": "Effect volume",
+    "sound": "sound",
+    "fullscreen": "fullscreen",
+    "language": "Language: ",
+    "english": "English",
+    "russian": "Russian",
+    "close": "Close"    
+  },
+
+  "score": {
+    "best_scores": "Best Scores",
+    "player_highs_cores": "{{username}}'s high scores:",
+    "best": "Best",
+    "worst": "Worst",
+    "newest": "Newest",
+    "oldest": "Oldest ",
+    "no_results": "There is no results yet",
+    "item_score": "Score: {{score}}",
+    "item_date": "Date {{date}}",
+    "best_username": "{{index}}. Username: {{name}}"       
+  },
+
+  "footer": {
+    "developers": "Developers:"   
+  },  
+
+  "error": {
+    "error_title": "# 404",
+    "error_subtitle": "Page not found",
+    "error_text": "Hmm, this page seems to be missing...",
+    "error_home_btn": "Home",
+    "error_welcome_btn": "Welcome Page"
+  }
+}
