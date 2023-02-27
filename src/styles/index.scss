@@ -566,6 +566,7 @@ h3 {
 
 .text-on-video {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   text-align: center;
   width: 100vw;
@@ -664,9 +665,30 @@ a:hover {
 
   background-color: #8baaaa;
 
+  @media (max-width: 360px) {
+    font-size: 14px;
+  }
+
   @media (max-width: 540px) {
     flex-direction: column;
     row-gap: 10px;
+  }
+
+  div {
+    width: 30%;
+    display: flex;
+
+    @media (max-width: 1109px) {
+      width: max-content;
+    }
+
+    &:nth-child(2) {
+      justify-content: center;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+    }
   }
 }
 
