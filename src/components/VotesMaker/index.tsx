@@ -46,11 +46,11 @@ const VotesMaker: React.FC<VotesMakerProps> = ({ votes, id, gamesRender }) => {
 
   return (
     <div className="multiplayer_games__likes">
-      <MyButton className="likes_count__btn" onClickButton={() => setVotes(false)} isDisabled={disableBtn}>
+      <MyButton className="likes_count__btn __liked" onClickButton={() => setVotes(false)} isDisabled={disableBtn}>
         -
       </MyButton>
       <span className="likes_count">{votesCount}</span>
-      <MyButton className="likes_count__btn" onClickButton={() => setVotes(true)} isDisabled={disableBtn}>
+      <MyButton className="likes_count__btn __disliked" onClickButton={() => setVotes(true)} isDisabled={disableBtn}>
         +
       </MyButton>
     </div>

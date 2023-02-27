@@ -7,7 +7,9 @@ import { useAppSelector } from '../../hooks/userHooks';
 
 const HomePage: React.FC = () => {
   const { language } = useAppSelector((state) => state.ui);
+
   const [spread, setSpread] = useState(0);
+
   return (
     <section className="home-page">
       <Menu />

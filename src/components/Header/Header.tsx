@@ -87,7 +87,11 @@ const Header: React.FC = () => {
   useEffect(() => {
     setHeaderTitle();
     setMenuOn(isMenuOn);
-  }, [currentPage, isMenuOn]);
+    const html = document.querySelector('html') as HTMLElement;
+    if (language === 'ru') {
+      html.style.fontSize = '14px';
+    } else html.style.fontSize = '16px';
+  }, [currentPage, isMenuOn, language]);
 
   const logoOnClick = () => {
     dispatch(setCurrentPage(isLogin ? '/home' : '/'));

@@ -16,8 +16,12 @@ export const gameRules = [
     body: 'You will compete with 6 more players, game has 3 rounds with 3 locations to guess in each. After each round two players with the worst score leave the game. Before game starts choose the map set: either created by developers(default) or by our users.',
   },
   {
-    title: 'How does the point system works?',
+    title: 'How does the point system work?',
     body: 'You can get up to 3000 points for an exactly given location. For each kilometer of error in the answer, points will be deducted. If you make a mistake of more than 3000km, no points are awarded',
+  },
+  {
+    title: 'Create your own game with game constructor',
+    body: 'Pick up the point you want to add on the map using RIGHT mouse button and check info that appears below: if it is right press ADD, in case if no data is provided, or it is wrong, pick up another location. You have to use Pegman to see either the streetView is available at your location. Every user can vote for your map set. If it reaches 0 votes it will be deleted from supplied game sets',
   },
   {
     title: 'Create your own game with game constructor',
@@ -47,7 +51,7 @@ export const gameRulesRus = [
     body: 'Вы можете получить до 3000 очков за точно отгаданное местоположение. За каждый километр погрешности в ответе будут снижаться баллы. Если вы допустите ошибку более чем на 3000км, очки не начислятся',
   },
   {
-    title: 'Create your own game with game constructor',
-    body: 'Pick up the point you want to add on the map using RIGHT mouse button and check info that appears below: if it is right press ADD, in case if no data is provided, or it is wrong, pick up another location. You have to use Pegman to see either the streetView is available at your location. Every user can vote for your map set. If it reaches 0 votes it will be deleted from supplied game sets',
+    title: 'Создание собственной игры с помощью Конструктора',
+    body: 'Выберите точку, которую вы хотите добавить на карту. С помощью правой кнопки мыши и проверьте информацию, которая появляется в полях ниже: если она правильная, нажмите ДОБАВИТЬ. В случае, если данные не предоставлены или они неверны, отсутствует панорама по данному адресу - выберите другое местоположение. Вы должны использовать Pegman, чтобы увидеть, доступен ли StreetView в вашем регионе. Каждый пользователь может проголосовать за ваш набор карт. Если он наберет 0 голосов, он будет удален из прилагаемых игровых наборов',
   },
 ];

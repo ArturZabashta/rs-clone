@@ -48,12 +48,10 @@ export const App: React.FC = () => {
     if (sessionStorage.getItem('lng') && sessionStorage.getItem('lng') !== '') {
       dispatch(setLanguage(String(sessionStorage.getItem('lng'))));
       i18n.changeLanguage(String(sessionStorage.getItem('lng')));
-      // console.log('Установлен язык', sessionStorage.getItem('lng'));
     } else {
       dispatch(setLanguage('en'));
       sessionStorage.setItem('lng', 'en');
       i18n.changeLanguage('en');
-      // console.log('Установлен en по умолчанию');
     }
     // When Unmount component
     return () => {

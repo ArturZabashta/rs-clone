@@ -65,6 +65,7 @@ const MultiGamePage: React.FC = () => {
       dispatch(resetLevel());
     }
     isSoundOn && playNextQuestion();
+    dispatch(setMissedAnswer(false));
   };
 
   const onAnswerHandler = () => {
@@ -116,7 +117,7 @@ const MultiGamePage: React.FC = () => {
       {isAnswered || isLoosedGame || isGameFinished || isRoundFinished ? (
         ''
       ) : (
-        <Countdown date={Date.now() + 30000} autoStart={true} renderer={CustomCountdown} onComplete={onComplete} />
+        <Countdown date={Date.now() + 60000} autoStart={true} renderer={CustomCountdown} onComplete={onComplete} />
       )}
 
       <div className="multigame_wrapper">
