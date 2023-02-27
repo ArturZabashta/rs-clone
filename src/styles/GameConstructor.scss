@@ -33,6 +33,10 @@
     border-radius: 1rem;
     padding: 1rem;
 
+    @media (max-width: 540px) {        
+      height: 67%;
+    }
+
     &__map{
       border-radius: 0.7rem 0 0 0.7rem;
 
@@ -47,6 +51,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    flex-wrap: wrap;
 
     &__item{
       display: flex;
@@ -65,6 +70,11 @@
       border-radius: 1rem;    
       background-position: center;
       background-size: cover;
+
+      @media (max-width: 540px) {        
+        width: 70px;
+        height: 50px;
+      }
     }
   }
 

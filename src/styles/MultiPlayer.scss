@@ -12,6 +12,16 @@
     font-size: 2.4rem;
     font-weight: bold;
     text-shadow: #000000 1px 0 10px;
+
+    @media (max-width: 1150px) {        
+      top: 100px;
+    }
+
+    @media (max-width: 353px) {        
+      left: 10px;
+
+      font-size: 30px;
+    }
   }
 
   &_players{
@@ -20,7 +30,7 @@
     flex-wrap: wrap; 
     justify-content: center;    
     width: 100vw; 
-    height: 20vh;
+    height: max-content;
     margin-bottom: 2rem;
     padding-top: 1rem;
 
@@ -73,7 +83,7 @@
       display: flex;
       justify-content: center;
       gap: 20px;
-
+      flex-wrap: wrap;
 
       &__item{
         display: flex;
@@ -86,6 +96,10 @@
         min-width: 100px;
         align-items: center;
         justify-content: space-between;
+
+        @media (max-width: 780px) {        
+          height: max-content;
+        }
 
         .multiplayer_game-select{
           border: 1px solid rgb(214, 205, 208);
@@ -115,11 +129,12 @@
             padding: 0.5rem;
             width: 1.5rem;
             height: 1.5rem;
-            
+
+            @media (max-width: 440px) {        
+              min-width: max-content;
+            }
           }
         }
-
-
       }
     }
   }
