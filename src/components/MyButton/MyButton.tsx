@@ -23,13 +23,13 @@ const MyButton: React.FC<MyButtonProps> = ({ children, className, route, isDisab
       dispatch(setCurrentPage(route));
       navigate(route);
     }
-    if (onClickButton) onClickButton();
+    onClickButton && onClickButton();
 
     isSoundOn && playMyButton();
   };
 
   return (
-    <button className={className} disabled={isDisabled} onClick={() => handleClick()}>
+    <button className={className} disabled={isDisabled} onClick={handleClick}>
       {children}
     </button>
   );

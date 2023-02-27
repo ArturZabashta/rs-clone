@@ -78,12 +78,12 @@ const GameConstructor: React.FC = () => {
                 const requestUTC = await responseUTC.json();
 
                 if (requestUTC) {
-                  console.log('requestUTC', requestUTC.utc_offset);
+                  // console.log('requestUTC', requestUTC.utc_offset);
                   setUserUTC(requestUTC.utc_offset);
                 }
                 setIsLoading(false);
               }
-            }, 5000);
+            }, 3500);
           }
         }
       } catch (err) {
@@ -147,10 +147,6 @@ const GameConstructor: React.FC = () => {
       setIsCorrect(true);
     }
   }, [userCity, userCountry, userFlagLink, userContinent, userUTC]);
-
-  // useEffect(() => {
-  // console.log('Массив ИГР обновлен!', gamesArray);
-  // }, [gamesArray]);
 
   return (
     <section className="constructor">

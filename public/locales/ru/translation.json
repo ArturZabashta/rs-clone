@@ -74,12 +74,13 @@
   },
 
   "menu": {
+    "registered_only": "Только для авторизованных",
     "singleplayer": "Одиночная игра",
     "multiplayer": "Мультиплэйер",
     "constructor": "Конструктор",
     "leader_board": "Победители",
     "log_out": "Выйти",
-    "contact_us": "Контакты",
+    "contact_us": "контакты",
     "settings": "настройки"      
   },
 

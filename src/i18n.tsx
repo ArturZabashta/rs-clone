@@ -19,6 +19,7 @@ i18n
   .use(initReactI18next)
   .init({
     // Стандартный язык
+    lng: 'en',
     fallbackLng: 'en',
     debug: false,
     // Распознавание и кэширование языковых кук

@@ -11,9 +11,7 @@ import './styles/index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <Suspense fallback={<div>Loading...</div>}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </Suspense>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );

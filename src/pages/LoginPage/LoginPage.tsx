@@ -68,7 +68,7 @@ const LogInPage: React.FC = () => {
   const [playLogIn] = useSound(soundLogIn, { volume: effectsVolume });
 
   const onSubmit = handleSubmit((data: FormData) => {
-    console.log('onSubmit data = ', data);
+    // console.log('onSubmit data = ', data);
     authorization(data);
     isSoundOn && playLogIn();
   });

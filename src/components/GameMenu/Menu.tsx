@@ -25,7 +25,13 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   const settingsHandler = () => {
     dispatch(setIsSettingsOn(!isSettingsOn));
   };
-
+  const gameHandler = () => {
+    menuHandler && menuHandler();
+    isSoundOn && playGameStart();
+  };
+  const noGameHandler = () => {
+    menuHandler && menuHandler();
+  };
   const [playGameStart] = useSound(soundStartGame, { volume: effectsVolume });
 
   const setLogOut = () => {
@@ -38,26 +44,16 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
 
   return (
     <div>
-      <MyButton
-        className="menu_btn single-player_btn"
-        route="/single-player"
-        onClickButton={() => {
-          menuHandler && menuHandler();
-          isSoundOn && playGameStart();
-        }}
-      >
+      <MyButton className="menu_btn single-player_btn" route="/single-player" onClickButton={gameHandler}>
         {t('menu.singleplayer')}
       </MyButton>
       <fieldset className={isLogin ? 'menu_login-block__able' : 'menu_login-block'}>
-        <legend className={isLogin ? 'menu_disclaimer__hide' : 'menu_disclaimer'}>For registered users only</legend>
+        <legend className={isLogin ? 'menu_disclaimer__hide' : 'menu_disclaimer'}>{t('menu.registered_only')}</legend>
         <MyButton
           className="menu_btn multi-player_btn"
           route="/multi-player"
           isDisabled={!isLogin}
-          onClickButton={() => {
-            menuHandler && menuHandler();
-            isSoundOn && playGameStart();
-          }}
+          onClickButton={gameHandler}
         >
           {t('menu.multiplayer')}
         </MyButton>
@@ -65,9 +61,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           className="menu_btn leader-board_btn"
           route="/constructor"
           isDisabled={!isLogin}
-          onClickButton={() => {
-            menuHandler && menuHandler();
-          }}
+          onClickButton={noGameHandler}
         >
           {t('menu.constructor')}
         </MyButton>
@@ -75,9 +69,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           className="menu_btn leader-board_btn"
           route="/score"
           isDisabled={!isLogin}
-          onClickButton={() => {
-            menuHandler && menuHandler();
-          }}
+          onClickButton={noGameHandler}
         >
           {t('menu.leader_board')}
         </MyButton>
@@ -92,7 +84,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           </div>
           <div className="options_title">{t('menu.contact_us')}</div>
         </div>
-        <div className="options_item settings__button" onClick={() => settingsHandler()}>
+        <div className="options_item settings__button" onClick={settingsHandler}>
           <div className="options_logo">
             <SettingsSvg />
           </div>
@@ -103,4 +95,4 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   );
 };
 
-export default React.memo(Menu);
+export default Menu;

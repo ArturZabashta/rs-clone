@@ -28,28 +28,32 @@ export const App: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { language } = useAppSelector((state) => state.ui);
 
-  if (userData) {
-    try {
-      const data: LSData = JSON.parse(userData);
+  useEffect(() => {
+    if (userData) {
+      try {
+        const data: LSData = JSON.parse(userData);
 
-      dispatch(setTotalScore(data.totalScore));
-      dispatch(setIsLogin(true));
-      dispatch(setUsername(data.username));
-      dispatch(setUserToken(data.token));
-    } catch (error) {
-      console.log(error);
+        dispatch(setTotalScore(data.totalScore));
+        dispatch(setIsLogin(true));
+        dispatch(setUsername(data.username));
+        dispatch(setUserToken(data.token));
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  }, []);
 
   useEffect(() => {
     // When Render component
-    if (sessionStorage.getItem('lng') !== '') {
+    if (sessionStorage.getItem('lng') && sessionStorage.getItem('lng') !== '') {
       dispatch(setLanguage(String(sessionStorage.getItem('lng'))));
       i18n.changeLanguage(String(sessionStorage.getItem('lng')));
+      // console.log('Установлен язык', sessionStorage.getItem('lng'));
     } else {
       dispatch(setLanguage('en'));
       sessionStorage.setItem('lng', 'en');
       i18n.changeLanguage('en');
+      // console.log('Установлен en по умолчанию');
     }
     // When Unmount component
     return () => {
@@ -107,7 +111,6 @@ export const App: React.FC = () => {
               </PrivateRoute>
             }
           ></Route>
-          <Route path="/constructor" element={<GameConstructor />}></Route>
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
       </main>

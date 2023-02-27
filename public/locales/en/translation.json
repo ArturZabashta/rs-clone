@@ -74,6 +74,7 @@
   },
 
   "menu": {
+    "registered_only": "For registered users only",
     "singleplayer": "SinglePlayer",
     "multiplayer": "MultiPlayer",
     "constructor": "Constructor",

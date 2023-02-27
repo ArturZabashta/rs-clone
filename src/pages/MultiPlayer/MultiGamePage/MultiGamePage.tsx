@@ -30,10 +30,8 @@ const MultiGamePage: React.FC = () => {
     (state) => state.game
   );
   const { currentPage } = useAppSelector((state) => state.ui);
-<<<<<<< HEAD
+
   const { t } = useTranslation();
-=======
->>>>>>> c497c79c96b1b39c29c581ca63872d62e11197b3
 
   const [question, setQuestion] = useState<number>(
     getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1)
@@ -66,17 +64,6 @@ const MultiGamePage: React.FC = () => {
       dispatch(setRound());
       dispatch(resetLevel());
     }
-<<<<<<< HEAD
-=======
-    // if (round === 3 && level === 3) {
-    //   setIsGameFinished(true);
-    //   const score = players.find((item) => item.id === 0)?.playerScore as number;
-    //   sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
-    //   dispatch(resetLevel());
-    //   dispatch(resetRound());
-    // }
-
->>>>>>> c497c79c96b1b39c29c581ca63872d62e11197b3
     isSoundOn && playNextQuestion();
   };
 
@@ -125,11 +112,7 @@ const MultiGamePage: React.FC = () => {
   return (
     <section className="multigame">
       {isGameFinished || isLoosedGame ? '' : <GameMusic />}
-<<<<<<< HEAD
       <p className="multigame_title">{t('multiplayer.title_round', { round: round, level: level })}</p>
-=======
-      <p className="multigame_title">{`Round ${round}. Question ${level} gameID ${currentGameId};`}</p>
->>>>>>> c497c79c96b1b39c29c581ca63872d62e11197b3
       {isAnswered || isLoosedGame || isGameFinished || isRoundFinished ? (
         ''
       ) : (
@@ -162,19 +145,11 @@ const MultiGamePage: React.FC = () => {
 
       {isAnswered ? (
         <div className="multigame_wrapper__modal">
-<<<<<<< HEAD
           <p className="city_name">{t('multiplayer.place')}</p>
           <p className="city_name">{gamesArray[currentGameId].gameSet[question].city}</p>
           {questionArray.length !== 9 ? (
             <MyButton className="next_question" onClickButton={setNextQuestion}>
               {t('game.next_question')}
-=======
-          <p className="city_name">This place is in</p>
-          <p className="city_name">{gamesArray[currentGameId].gameSet[question].city}</p>
-          {questionArray.length !== 9 ? (
-            <MyButton className="next_question" onClickButton={setNextQuestion}>
-              Next question
->>>>>>> c497c79c96b1b39c29c581ca63872d62e11197b3
             </MyButton>
           ) : (
             ''
