@@ -14,6 +14,7 @@ const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
   const { gamesArray, currentGameId } = useAppSelector((state) => state.game);
+
   const { t } = useTranslation();
 
   const [isFindClicked, setIsFindClicked] = useState<boolean>(false);
@@ -35,8 +36,6 @@ const MultiPlayer: React.FC = () => {
 
   const handleGameClick = (ind: number) => {
     dispatch(setCurrentGameId(ind));
-    // console.warn('Выбрана игра N=', ind);
-    // console.warn('currentGameId=', currentGameId);
   };
 
   //получение кастомных игр

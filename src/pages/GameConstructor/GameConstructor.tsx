@@ -18,6 +18,7 @@ const GameConstructor: React.FC = () => {
 
   const { isLogin, username } = useAppSelector((state) => state.ui);
   const { gamesArray } = useAppSelector((state) => state.game);
+
   const { t } = useTranslation();
 
   const [isClicked, setIsClicked] = useState(false);
@@ -51,17 +52,13 @@ const GameConstructor: React.FC = () => {
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&key=${REACT_APP_API_KEY}`
         );
         const request = await response.json();
-        // console.log('response googleapis.status=', response.status);
+
         if (response.status === 200) {
           const googleRequestArray = request.plus_code.compound_code.split(',');
           const countryName = googleRequestArray.pop().trim();
           const cityData = googleRequestArray.shift();
           const cityBeginPos = cityData.indexOf(' ');
           const cityName = [cityData.slice(cityBeginPos).trim(), ...googleRequestArray].join(', ');
-          // console.log('request googleapis', request);
-          // console.log('request.plus_code.compound_code', request.plus_code.compound_code);
-          // console.log('city', cityName);
-          // console.log('country', countryName);
 
           setUserCity(cityName);
           setUserCountry(countryName);
@@ -71,7 +68,7 @@ const GameConstructor: React.FC = () => {
           );
           if (isoCountry) {
             const continent = String(isoCountry.Time_Zone).slice(0, String(isoCountry.Time_Zone).indexOf('/'));
-            // console.log('isoCountry', isoCountry.ISO2);
+
             setUserFlagLink(`https://flagcdn.com/256x192/${String(isoCountry.ISO2).toLowerCase()}.png`);
             setUserContinent(continent);
             const responseUTC = await fetch(`https://worldtimeapi.org/api/timezone/${isoCountry.Time_Zone}`);
@@ -79,8 +76,7 @@ const GameConstructor: React.FC = () => {
             setTimeout(async function getUTC() {
               if (isoCountry) {
                 const requestUTC = await responseUTC.json();
-                // console.log('requestUTC', requestUTC);
-                // console.log('requestUTC.status', requestUTC.status);
+
                 if (requestUTC) {
                   console.log('requestUTC', requestUTC.utc_offset);
                   setUserUTC(requestUTC.utc_offset);
