@@ -85,36 +85,31 @@ const LogInPage: React.FC = () => {
           type={'text'}
           id="username"
           {...register('username', {
-            required: 'The field is required',
+            required: `${t('authorization.required_field')}`,
             minLength: {
               value: 5,
-              message: 'Minimum 5 characters',
+              message: `${t('authorization.length_msg')}`,
             },
             pattern: /[a-zA-Z0-9]{5,}/,
           })}
         />
         {errors.username && (
-          <span className={'email-error'}>
-            {errors.username.message ||
-              'Input your Email. Example user@mail.com. You can use latin characters and digitals'}
-          </span>
+          <span className={'username-error'}>{errors.username.message || `${t('authorization.username_msg')}`}</span>
         )}
         <span>{t('authorization.password')}</span>
         <input
           type={'password'}
           {...register('password', {
-            required: 'The field is required',
+            required: `${t('authorization.required_field')}`,
             minLength: {
               value: 5,
-              message: 'Minimum 5 characters',
+              message: `${t('authorization.length_msg')}`,
             },
             pattern: /[\d\wА-я]{5,}/,
           })}
         />
         {errors.password && (
-          <span className={'password-error'}>
-            {errors.password.message || 'Input your Password. You can use latin characters and digitals'}
-          </span>
+          <span className={'password-error'}>{errors.password.message || `${t('authorization.password_msg')}`}</span>
         )}
         <MyButton className="login_btn btn_blue" onClickButton={onSubmit} isDisabled={isDisabled}>
           {t('authorization.log_in')}

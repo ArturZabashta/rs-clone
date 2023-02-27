@@ -113,7 +113,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   }, [questionNum, switchMarker]);
 
   useEffect(() => {
-    console.log('missedAnswer=', missedAnswer);
+    // console.log('missedAnswer=', missedAnswer);
     if (missedAnswer) {
       setUserPoint(answerPoint);
       setIsClicked(true);

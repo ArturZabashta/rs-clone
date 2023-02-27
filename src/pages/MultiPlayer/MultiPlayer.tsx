@@ -84,7 +84,7 @@ const MultiPlayer: React.FC = () => {
         ))}
       </div>
       <div className="multiplayer_nav">
-        <MyButton className="menu_btn game_btn" onClickButton={setOpponents}>
+        <MyButton className="menu_btn game_btn" onClickButton={setOpponents} isDisabled={isFindClicked}>
           {t('multiplayer.find_opponents_btn')}
         </MyButton>
         <div className="multiplayer_games">
