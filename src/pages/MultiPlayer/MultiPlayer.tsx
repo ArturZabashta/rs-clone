@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { CustomGame } from '../../components/CustomGames';
 import MyButton from '../../components/MyButton/MyButton';
@@ -13,6 +14,7 @@ const MultiPlayer: React.FC = () => {
   const dispatch = useAppDispatch();
   const { username } = useAppSelector((state) => state.ui);
   const { gamesArray, currentGameId } = useAppSelector((state) => state.game);
+  const { t } = useTranslation();
 
   const [isFindClicked, setIsFindClicked] = useState<boolean>(false);
   const [isGameAvailable, setIsGameAvailable] = useState<boolean>(false);
@@ -72,7 +74,7 @@ const MultiPlayer: React.FC = () => {
 
   return (
     <section className="multiplayer">
-      <p className="multiplayer_title">List of Opponents</p>
+      <p className="multiplayer_title">{t('multiplayer.title_players')}</p>
       <div className="multiplayer_players">
         {playersArray.map((player: IPlayer) => (
           <div className="multiplayer_players__item" key={player.id}>
@@ -82,7 +84,7 @@ const MultiPlayer: React.FC = () => {
       </div>
       <div className="multiplayer_nav">
         <MyButton className="menu_btn game_btn" onClickButton={setOpponents}>
-          Find Opponents
+          {t('multiplayer.find_opponents_btn')}
         </MyButton>
         <div className="multiplayer_games">
           {gamesArray.map((item, ind) => (
@@ -104,7 +106,7 @@ const MultiPlayer: React.FC = () => {
           isDisabled={isGameAvailable ? false : true}
           onClickButton={updateStore}
         >
-          Let&apos;s start the Game
+          {t('multiplayer.start_game_btn')}
         </MyButton>
       </div>
     </section>

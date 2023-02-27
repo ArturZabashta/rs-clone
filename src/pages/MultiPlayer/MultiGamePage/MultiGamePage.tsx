@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
+import { useTranslation } from 'react-i18next';
 import useSound from 'use-sound';
 
 import CustomCountdown from '../../../components/CustomCountdown/CustomCountdown';
@@ -29,6 +30,7 @@ const MultiGamePage: React.FC = () => {
     (state) => state.game
   );
   const { currentPage } = useAppSelector((state) => state.ui);
+  const { t } = useTranslation();
 
   const [question, setQuestion] = useState<number>(
     getDiapasonRandomNum(0, gamesArray[currentGameId].gameSet.length - 1)
@@ -61,14 +63,6 @@ const MultiGamePage: React.FC = () => {
       dispatch(setRound());
       dispatch(resetLevel());
     }
-    // if (round === 3 && level === 3) {
-    //   setIsGameFinished(true);
-    //   const score = players.find((item) => item.id === 0)?.playerScore as number;
-    //   sendUserScore(score, true).then((res) => res && dispatch(setTotalScore(res)));
-    //   dispatch(resetLevel());
-    //   dispatch(resetRound());
-    // }
-
     isSoundOn && playNextQuestion();
   };
 
@@ -117,7 +111,7 @@ const MultiGamePage: React.FC = () => {
   return (
     <section className="multigame">
       {isGameFinished || isLoosedGame ? '' : <GameMusic />}
-      <p className="multigame_title">{`Round ${round}. Question ${level} gameID ${currentGameId};`}</p>
+      <p className="multigame_title">{t('multiplayer.title_round', { round: round, level: level })}</p>
       {isAnswered || isLoosedGame || isGameFinished || isRoundFinished ? (
         ''
       ) : (
@@ -140,9 +134,9 @@ const MultiGamePage: React.FC = () => {
                 <span>{`${player.name}`}</span>
                 <span className="multigame_players-item__score">{`${player.playerScore}`}</span>
               </p>
-              <p
-                className={isAnswered ? 'multigame_players-item__modal' : 'multigame_players-item__modal  __hide'}
-              >{`Earned ${player.points} points`}</p>
+              <p className={isAnswered ? 'multigame_players-item__modal' : 'multigame_players-item__modal  __hide'}>
+                {t('multiplayer.earned_points', { points: player.points })}
+              </p>
             </div>
           ))}
         </div>
@@ -150,11 +144,11 @@ const MultiGamePage: React.FC = () => {
 
       {isAnswered ? (
         <div className="multigame_wrapper__modal">
-          <p className="city_name">This place is in</p>
+          <p className="city_name">{t('multiplayer.place')}</p>
           <p className="city_name">{gamesArray[currentGameId].gameSet[question].city}</p>
           {questionArray.length !== 9 ? (
             <MyButton className="next_question" onClickButton={setNextQuestion}>
-              Next question
+              {t('game.next_question')}
             </MyButton>
           ) : (
             ''

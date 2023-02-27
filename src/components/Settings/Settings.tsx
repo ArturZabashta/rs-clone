@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import useSound from 'use-sound';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/userHooks';
@@ -17,6 +18,8 @@ const Settings: React.FC = () => {
   const { isSettingsOn, language } = useAppSelector((state) => state.ui);
   const { isSoundOn, musicVolume, effectsVolume } = useAppSelector((state) => state.game);
   const dispatch = useAppDispatch();
+  const { t, i18n } = useTranslation();
+
   const [isFullscreenOn, setIsFullscreenOn] = useState(false);
 
   const closeSettingsHandler = () => {
@@ -37,16 +40,20 @@ const Settings: React.FC = () => {
       document.exitFullscreen();
     }
   };
+
   const languageHandler = (e: React.MouseEvent<Element, MouseEvent>) => {
+    e.preventDefault();
     dispatch(setLanguage(e.currentTarget.id));
+    sessionStorage.setItem('lng', e.currentTarget.id);
+    i18n.changeLanguage(e.currentTarget.id);
   };
 
   return (
     <section className={isSettingsOn ? 'settings-container settings-container__active' : 'settings-container'}>
       <div className="settings">
-        <h2 className="settings_title">Settings</h2>
+        <h2 className="settings_title">{t('settings.settings_title')}</h2>
         <label className="settings_label" htmlFor="music">
-          Music volume
+          {t('settings.music_volume')}
         </label>
         <div className="settings_sound">
           <MusicSvg />
@@ -62,7 +69,7 @@ const Settings: React.FC = () => {
           ></input>
         </div>
         <label className="settings_label" htmlFor="effect">
-          Effect volume
+          {t('settings.effect_volume')}
         </label>
         <div className="settings_sound">
           <EffectsSvg />
@@ -84,37 +91,37 @@ const Settings: React.FC = () => {
               <SoundSvg />
             </div>
             <MySwitch checked={isSoundOn} handleChange={volumeSwitcher}>
-              sound
+              {t('settings.sound')}
             </MySwitch>
           </div>
           <div className="settings_switcher">
             <FullscreenSvg />
             <MySwitch checked={isFullscreenOn} handleChange={fullscreenSwitcher}>
-              fullscreen
+              {t('settings.fullscreen')}
             </MySwitch>
           </div>
         </div>
         <div className="settings_deliner"></div>
         <div className="settings_language">
-          <p className="settings_language__title">Language:</p>
+          <p className="settings_language__title">{t('settings.language')}</p>
           <p
             className={`settings_language__item ${language === 'en' ? '__chosen' : ''}`}
             id={'en'}
             onClick={languageHandler}
           >
-            Eanglish
+            {t('settings.english')}
           </p>
           <p
             className={`settings_language__item ${language === 'ru' ? '__chosen' : ''}`}
             id={'ru'}
             onClick={languageHandler}
           >
-            Russian
+            {t('settings.russian')}
           </p>
         </div>
         <div className="settings_deliner"></div>
         <MyButton className="settings_btn" onClickButton={closeSettingsHandler}>
-          Close
+          {t('settings.close')}
         </MyButton>
       </div>
     </section>

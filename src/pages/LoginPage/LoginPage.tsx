@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import useSound from 'use-sound';
 
@@ -19,6 +20,8 @@ type FormData = {
 const LogInPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
   const [isDisabled, setIsDisabled] = useState(true);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
   const {
@@ -77,7 +80,7 @@ const LogInPage: React.FC = () => {
   return (
     <section className="login-page">
       <form onSubmit={onSubmit}>
-        <span>Username</span>
+        <span>{t('authorization.username')}</span>
         <input
           type={'text'}
           id="username"
@@ -96,7 +99,7 @@ const LogInPage: React.FC = () => {
               'Input your Email. Example user@mail.com. You can use latin characters and digitals'}
           </span>
         )}
-        <span>Password</span>
+        <span>{t('authorization.password')}</span>
         <input
           type={'password'}
           {...register('password', {
@@ -114,7 +117,7 @@ const LogInPage: React.FC = () => {
           </span>
         )}
         <MyButton className="login_btn btn_blue" onClickButton={onSubmit} isDisabled={isDisabled}>
-          log in
+          {t('authorization.log_in')}
         </MyButton>
       </form>
     </section>

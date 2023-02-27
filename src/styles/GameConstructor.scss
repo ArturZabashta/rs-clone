@@ -7,10 +7,10 @@
   &_modal{
     position: fixed;
     top: 40%;
-    left: calc(50% - 8rem);
+    left: calc(50% - 2rem);
     font-size: 3rem;
     text-align: center;
-    color: rgba(255, 0, 0, 0.5);
+    border-color: rgba(255, 0, 0, 0.5);
     z-index: 10;
   }
 

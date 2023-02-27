@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import useSound from 'use-sound';
 
 import MyButton from '../../components/MyButton/MyButton';
@@ -17,6 +18,7 @@ interface IMenuProps {
 const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
   const dispatch = useAppDispatch();
 
+  const { t } = useTranslation();
   const { isLogin, isSettingsOn } = useAppSelector((state) => state.ui);
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
 
@@ -44,7 +46,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           isSoundOn && playGameStart();
         }}
       >
-        SinglePlayer
+        {t('menu.singleplayer')}
       </MyButton>
       <fieldset className={isLogin ? 'menu_login-block__able' : 'menu_login-block'}>
         <legend className={isLogin ? 'menu_disclaimer__hide' : 'menu_disclaimer'}>For registered users only</legend>
@@ -57,7 +59,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
             isSoundOn && playGameStart();
           }}
         >
-          MultiPlayer
+          {t('menu.multiplayer')}
         </MyButton>
         <MyButton
           className="menu_btn leader-board_btn"
@@ -67,7 +69,7 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
             menuHandler && menuHandler();
           }}
         >
-          Constructor
+          {t('menu.constructor')}
         </MyButton>
         <MyButton
           className="menu_btn leader-board_btn"
@@ -77,10 +79,10 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
             menuHandler && menuHandler();
           }}
         >
-          Leader Board
+          {t('menu.leader_board')}
         </MyButton>
         <MyButton className="menu_btn single-player_btn" route="/" onClickButton={setLogOut} isDisabled={!isLogin}>
-          Log Out
+          {t('menu.log_out')}
         </MyButton>
       </fieldset>
       <div className="menu_options options">
@@ -88,17 +90,17 @@ const Menu: React.FC<IMenuProps> = ({ menuHandler }) => {
           <div className="options_logo">
             <ContactSvg />
           </div>
-          <div className="options_title">contact us</div>
+          <div className="options_title">{t('menu.contact_us')}</div>
         </div>
         <div className="options_item settings__button" onClick={() => settingsHandler()}>
           <div className="options_logo">
             <SettingsSvg />
           </div>
-          <div className="options_title">settings</div>
+          <div className="options_title">{t('menu.settings')}</div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Menu;
+export default React.memo(Menu);

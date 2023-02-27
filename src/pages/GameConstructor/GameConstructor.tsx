@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GoogleMapProvider, MapBox, Marker, StreetView } from '@googlemap-react/core';
 
 import MyButton from '../../components/MyButton/MyButton';
@@ -17,6 +18,7 @@ const GameConstructor: React.FC = () => {
 
   const { isLogin, username } = useAppSelector((state) => state.ui);
   const { gamesArray } = useAppSelector((state) => state.game);
+  const { t } = useTranslation();
 
   const [isClicked, setIsClicked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -49,17 +51,17 @@ const GameConstructor: React.FC = () => {
           `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&key=${REACT_APP_API_KEY}`
         );
         const request = await response.json();
-        console.log('response googleapis.status=', response.status);
+        // console.log('response googleapis.status=', response.status);
         if (response.status === 200) {
           const googleRequestArray = request.plus_code.compound_code.split(',');
           const countryName = googleRequestArray.pop().trim();
           const cityData = googleRequestArray.shift();
           const cityBeginPos = cityData.indexOf(' ');
           const cityName = [cityData.slice(cityBeginPos).trim(), ...googleRequestArray].join(', ');
-          console.log('request googleapis', request);
-          console.log('request.plus_code.compound_code', request.plus_code.compound_code);
-          console.log('city', cityName);
-          console.log('country', countryName);
+          // console.log('request googleapis', request);
+          // console.log('request.plus_code.compound_code', request.plus_code.compound_code);
+          // console.log('city', cityName);
+          // console.log('country', countryName);
 
           setUserCity(cityName);
           setUserCountry(countryName);
@@ -69,7 +71,7 @@ const GameConstructor: React.FC = () => {
           );
           if (isoCountry) {
             const continent = String(isoCountry.Time_Zone).slice(0, String(isoCountry.Time_Zone).indexOf('/'));
-            console.log('isoCountry', isoCountry.ISO2);
+            // console.log('isoCountry', isoCountry.ISO2);
             setUserFlagLink(`https://flagcdn.com/256x192/${String(isoCountry.ISO2).toLowerCase()}.png`);
             setUserContinent(continent);
             const responseUTC = await fetch(`https://worldtimeapi.org/api/timezone/${isoCountry.Time_Zone}`);
@@ -77,8 +79,8 @@ const GameConstructor: React.FC = () => {
             setTimeout(async function getUTC() {
               if (isoCountry) {
                 const requestUTC = await responseUTC.json();
-                console.log('requestUTC', requestUTC);
-                console.log('requestUTC.status', requestUTC.status);
+                // console.log('requestUTC', requestUTC);
+                // console.log('requestUTC.status', requestUTC.status);
                 if (requestUTC) {
                   console.log('requestUTC', requestUTC.utc_offset);
                   setUserUTC(requestUTC.utc_offset);
@@ -138,10 +140,10 @@ const GameConstructor: React.FC = () => {
 
   useEffect(() => {
     if (questionArray.length === 9 && gameTitle !== '') {
-      console.log('Блок вопросов готов');
+      // console.log('Блок вопросов готов');
       setIsFull(true);
     }
-    console.log('Массив вопросов обновлен!', questionArray);
+    // console.log('Массив вопросов обновлен!', questionArray);
   }, [questionArray, gameTitle]);
 
   useEffect(() => {
@@ -150,14 +152,14 @@ const GameConstructor: React.FC = () => {
     }
   }, [userCity, userCountry, userFlagLink, userContinent, userUTC]);
 
-  useEffect(() => {
-    console.log('Массив ИГР обновлен!', gamesArray);
-  }, [gamesArray]);
+  // useEffect(() => {
+  // console.log('Массив ИГР обновлен!', gamesArray);
+  // }, [gamesArray]);
 
   return (
     <section className="constructor">
       <GoogleMapProvider>
-        <p className="constructor_count">{`Count questions #${questionArray.length}`}</p>
+        <p className="constructor_count">{t('constructor.questions_count', { count: questionArray.length })}</p>
         <div className="constructor_wrapper">
           <MapBox
             className="constructor_wrapper__map"
@@ -173,7 +175,7 @@ const GameConstructor: React.FC = () => {
               width: mapSize,
             }}
             onRightClick={onClick}
-            LoadingComponent={<div>Loading</div>}
+            LoadingComponent={<div>{t('game.loading')}</div>}
             useGeometry
           />
           <StreetView
@@ -194,19 +196,19 @@ const GameConstructor: React.FC = () => {
 
         <div className="constructor_question">
           <div className="constructor_question__item">
-            {`Place: `}
+            {t('constructor.place')}
             <p>{userCity}</p>
           </div>
           <div className="constructor_question__item">
-            {`Country: `}
+            {t('constructor.country')}
             <p>{userCountry}</p>
           </div>
           <div className="constructor_question__item">
-            {`Continent: `}
+            {t('constructor.location')}
             <p>{userContinent}</p>
           </div>
           <div className="constructor_question__item">
-            {`UTC: `}
+            {t('constructor.UTC')}
             <p>{userUTC}</p>
           </div>
           <div
@@ -214,7 +216,7 @@ const GameConstructor: React.FC = () => {
             style={{ backgroundImage: `url('${userFlagLink.toLowerCase()}')` }}
           ></div>
           <MyButton className={'guess_btn'} onClickButton={handleAdd} isDisabled={!isCorrect}>
-            Add
+            {t('constructor.add_data')}
           </MyButton>
         </div>
         {isClicked ? (
@@ -240,10 +242,10 @@ const GameConstructor: React.FC = () => {
           onChange={handleSendGameTitle}
         ></input>
         <MyButton className={'guess_btn'} onClickButton={handleSend} isDisabled={!isFull}>
-          Send to server
+          {t('constructor.send_data')}
         </MyButton>
       </GoogleMapProvider>
-      {isLoading ? <div className="constructor_modal">Getting data...</div> : ''}
+      {isLoading ? <div className="constructor_modal spinner"></div> : ''}
     </section>
   );
 };

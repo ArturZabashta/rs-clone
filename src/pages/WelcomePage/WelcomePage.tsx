@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import BackgroundVideo from '../../components/BackgroundVideo/BackgroundVideo';
 import MyButton from '../../components/MyButton/MyButton';
 
 const WelcomePage: React.FC = () => {
+  const { t } = useTranslation();
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,12 +26,10 @@ const WelcomePage: React.FC = () => {
         <BackgroundVideo />
       )}
       <div className="container">
-        <h2 className="page-title">EXPLORE THE WORLD! </h2>
-        <p className="text-on-video h-mb70">
-          Find clues and guess where you are in the world. Join 50 million other players worldwide.
-        </p>
+        <h2 className="page-title">{t('welcome.welcome_title')}</h2>
+        <p className="text-on-video h-mb70">{t('welcome.welcome_text')}</p>
         <MyButton className="back_btn btn_blue h-m0auto" route="/signup">
-          PLAY FREE NOW
+          {t('welcome.welcome_play')}
         </MyButton>
       </div>
     </section>

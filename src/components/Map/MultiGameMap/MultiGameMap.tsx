@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { GoogleMapProvider, MapBox, Marker, Polyline, StreetView } from '@googlemap-react/core';
 import useSound from 'use-sound';
 
@@ -24,6 +25,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
   const { players, gamesArray, currentGameId, missedAnswer } = useAppSelector((state) => state.game);
 
   const { isSoundOn, effectsVolume } = useAppSelector((state) => state.game);
+  const { t } = useTranslation();
 
   const [userPoint, setUserPoint] = useState<LatLng>({ lat: 0, lng: 0 });
   const [answerPoint, setAnswerPoint] = useState<LatLng>(propsLatLng);
@@ -126,7 +128,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
           <div className="multigame_question__utc">{`UTS: ${gamesArray[currentGameId].gameSet[questionNum].utc}`}</div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleUTCBtn}>
-            Get UTS
+            {t('game.help_utc')}
           </MyButton>
         )}
         {showContinent ? (
@@ -135,7 +137,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
           </div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleContinentBtn}>
-            Get Location
+            {t('game.help_location')}
           </MyButton>
         )}
         {showFlag ? (
@@ -145,7 +147,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
           ></div>
         ) : (
           <MyButton className="game_help__button" onClickButton={handleFlagBtn}>
-            Get Flag
+            {t('game.help_flag')}
           </MyButton>
         )}
       </div>
@@ -161,7 +163,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
         }}
         apiKey={REACT_APP_API_KEY}
         onClick={onClick}
-        LoadingComponent={<div>Loading</div>}
+        LoadingComponent={<div>{t('game.loading')}</div>}
         LoadedComponent={null}
         useGeometry
         useDrawing
@@ -266,7 +268,7 @@ const MultiGameMap: React.FC<MultiGameMapProps> = ({ questionNum, propsLatLng, o
             }}
           />
           <MyButton className={'guess_btn btn_blue'} onClickButton={handleGuess}>
-            GUESS
+            {t('game.guess')}
           </MyButton>
         </>
       ) : (

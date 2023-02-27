@@ -10,7 +10,7 @@ const initialState: UiStoreType = {
   isSettingsOn: false,
   popUpMsg: '',
   userToken: '',
-  language: 'en',
+  language: '',
 };
 
 export const uiSlice = createSlice({
