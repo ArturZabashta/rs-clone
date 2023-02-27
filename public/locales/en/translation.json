@@ -22,7 +22,10 @@
     "username": "User name",
     "password": "Password",    
     "log_in": "Log in",
-    "sign_up": "Sign up"
+    "required_field": "The field is required",
+    "length_msg": "Minimum 5 characters",
+    "username_msg": "Input your Username. You can use latin characters and digitals",
+    "password_msg": "Input your Password. You can use latin, russian characters and digitals"
   },
 
   "game": {
