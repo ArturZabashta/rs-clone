@@ -1,4 +1,5 @@
 .constructor{
+  padding-top: 150px !important;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -23,6 +24,9 @@
     font-size: 2rem;
     font-weight: bold;
 
+    @media (max-width: 1150px) {        
+      top: 5.5rem;
+    }
   }
 
   &_wrapper{
