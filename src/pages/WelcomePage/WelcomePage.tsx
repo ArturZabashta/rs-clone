@@ -7,24 +7,9 @@ import MyButton from '../../components/MyButton/MyButton';
 const WelcomePage: React.FC = () => {
   const { t } = useTranslation();
 
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
-
   return (
     <section className="welcome-page">
-      {loading ? (
-        <div className="loader-container">
-          <div className="spinner"></div>
-        </div>
-      ) : (
-        <BackgroundVideo />
-      )}
+      <BackgroundVideo />
       <div className="container">
         <h2 className="page-title">{t('welcome.welcome_title')}</h2>
         <p className="text-on-video h-mb70">{t('welcome.welcome_text')}</p>
