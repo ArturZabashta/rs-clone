@@ -13,11 +13,15 @@ export const gameRules = [
   },
   {
     title: 'Multiplayer mode',
-    body: 'You will compete with 6 more players, game has 3 rounds with 3 locations to guess in each. After each round two players with the worst score leave the game ',
+    body: 'You will compete with 6 more players, game has 3 rounds with 3 locations to guess in each. After each round two players with the worst score leave the game. Before game starts choose the map set: either created by developers(default) or by our users.',
   },
   {
-    title: 'How does the point system work?',
+    title: 'How does the point system works?',
     body: 'You can get up to 3000 points for an exactly given location. For each kilometer of error in the answer, points will be deducted. If you make a mistake of more than 3000km, no points are awarded',
+  },
+  {
+    title: 'Create your own game with game constructor',
+    body: 'Pick up the point you want to add on the map using RIGHT mouse button and check info that appears below: if it is right press ADD, in case if no data is provided, or it is wrong, pick up another location. You have to use Pegman to see either the streetView is available at your location. Every user can vote for your map set. If it reaches 0 votes it will be deleted from supplied game sets',
   },
 ];
 
@@ -41,5 +45,9 @@ export const gameRulesRus = [
   {
     title: 'Как начисляются очки?',
     body: 'Вы можете получить до 3000 очков за точно отгаданное местоположение. За каждый километр погрешности в ответе будут снижаться баллы. Если вы допустите ошибку более чем на 3000км, очки не начислятся',
+  },
+  {
+    title: 'Create your own game with game constructor',
+    body: 'Pick up the point you want to add on the map using RIGHT mouse button and check info that appears below: if it is right press ADD, in case if no data is provided, or it is wrong, pick up another location. You have to use Pegman to see either the streetView is available at your location. Every user can vote for your map set. If it reaches 0 votes it will be deleted from supplied game sets',
   },
 ];
