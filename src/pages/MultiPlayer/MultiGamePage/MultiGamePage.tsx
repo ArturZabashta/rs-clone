@@ -97,7 +97,7 @@ const MultiGamePage: React.FC = () => {
   };
 
   const onComplete = () => {
-    console.log('missedAnswer!!!!');
+    // console.log('missedAnswer!!!!');
     dispatch(setMissedAnswer(true));
   };
 
