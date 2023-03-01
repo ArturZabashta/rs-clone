@@ -3,7 +3,13 @@
   font-family: "Montserrat", sans-serif;  
   margin: 0;  
   font-variant: small-caps;
-  font-style: italic; 
+  font-style: italic;
+
+  overflow-y: auto;
+
+  @media (max-width: 535px) {        
+    height: calc(100% - 95px) !important;
+  }
 
   &_title{
     position: absolute;
@@ -40,7 +46,7 @@
       justify-content: center;
       align-items: center;
       gap: 10px;      
-      height: min(20vh, 20vw);
+      height: min(10vh, 20vw);
       border: solid 1px grey;
       background-color: rgba(16, 16, 28, 0.8);
       border-radius: 1rem;

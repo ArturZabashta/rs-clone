@@ -87,7 +87,7 @@ const MultiPlayer: React.FC = () => {
         <MyButton className="menu_btn game_btn" onClickButton={setOpponents}>
           {t('multiplayer.find_opponents_btn')}
         </MyButton>
-        <div className="multiplayer_games">
+        <div className="multiplayer_games" style={{ height: '130px' }}>
           {gamesArray.map((item, ind) => (
             <CustomGame
               key={item._id}
