@@ -1,0 +1,49 @@
+.game_result{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  padding-top: 3rem;
+  background-color: rgba(0, 0, 0, 0.87);
+  z-index: 1999;
+
+  @media (max-width: 1150px) {        
+    padding-top: 6rem;
+  }
+
+  h2 {
+    margin-bottom: 20px;
+
+    font-size: 44px;
+  }
+
+  .winners_list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+
+    .winners_item{
+      display: flex;
+      flex-direction: column;
+
+    }
+  }
+
+  &__nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    .winners_btn {
+      min-width: 223px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
